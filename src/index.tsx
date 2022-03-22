@@ -5,6 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
+    // <BrowserRouter>
+    //     <Provider store={store}>
+    //         <App/>
+    //     </Provider>
+    // </BrowserRouter>,
+    // document.getElementById('root'),
+    // reportWebVitals());
   <React.StrictMode>
     <App />
   </React.StrictMode>,
