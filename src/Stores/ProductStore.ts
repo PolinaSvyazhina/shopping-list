@@ -6,11 +6,7 @@ class ProductStore {
   public products: Array<ProductModel> = [];
 
   constructor() {
-    ProductTransports.init();
     makeAutoObservable(this);
-  }
-
-  getProducts() {
     this.products = ProductTransports.getProducts();
   }
 

@@ -4,7 +4,6 @@ import { ProductCreatorModal } from '../components/ProductCreatorModal';
 import { ProductStoreImpl } from '../Stores/ProductStore';
 
 export const Main = observer(() => {
-  useEffect(() => ProductStoreImpl.getProducts, []);
   const [opened, setOpened] = useState(false);
   const [panel, setPanel] = useState(false);
 

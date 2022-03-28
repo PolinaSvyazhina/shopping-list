@@ -1,13 +1,14 @@
 import { ProductModel } from '../Models/ProductModel';
 
 export class ProductTransports {
-  static init() {
-    if (!localStorage.getItem('products')) localStorage.setItem('products', JSON.stringify([]));
-  }
-
-  static getProducts() {
+  static getProducts(): ProductModel[] {
     const e = localStorage.getItem('products');
-    return JSON.parse(e) as ProductModel[];
+
+    if (!e) {
+      return [];
+    }
+
+    return JSON.parse(e);
   }
 
   static addProduct(product: ProductModel) {
