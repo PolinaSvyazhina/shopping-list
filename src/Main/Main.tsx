@@ -18,9 +18,13 @@ const Main = observer(() => {
 
     return (
         <div>
-            {opened && <ProductCreatorModal  close={close} />}
+            {opened && <ProductCreatorModal close={close}/>}
             <h1>Список покупок</h1>
             {ProductStoreImpl.products.map(e => <div key={e.id}>{e.name}</div>)}
+            {ProductStoreImpl.products.map(e => <div key={e.id}>{e.count}{e.measurementUnits}</div>)}
+            {ProductStoreImpl.products.map(e => <div key={e.id}>{e.price}</div>)}
+            {ProductStoreImpl.products.map(e => <div key={e.id}>{e.buyWhere}</div>)}
+            {ProductStoreImpl.products.map(e => <div key={e.id}>{e.replacement}</div>)}
             <button onClick={open}>Добавить</button>
         </div>
     );

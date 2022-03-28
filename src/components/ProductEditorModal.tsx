@@ -5,7 +5,7 @@ import ProductStoreImpl from "../Stores/ProductStore";
 import {observer} from "mobx-react-lite";
 import {v4 as uuidv4} from 'uuid';
 
-interface IProductCreatorModalProps{
+interface IProductCreatorModalProps {
     close: () => void;
 }
 
@@ -16,7 +16,7 @@ const ProductCreatorModal = observer((props: IProductCreatorModalProps) => {
         name: '',
         count: 0,
         measurementUnits: MeasurementUnits.Pieces,
-        price: 0,
+        price: '0',
         buyWhere: '',
         replacement: '',
         createDate: '',
@@ -32,7 +32,7 @@ const ProductCreatorModal = observer((props: IProductCreatorModalProps) => {
     function onChangePrice(e: React.ChangeEvent<HTMLInputElement>) {
         setStateProduct({
             ...stateProduct,
-            ...{price: Number(e.target.value)}
+            ...{price: e.target.value}
         });
 
     }
@@ -59,11 +59,13 @@ const ProductCreatorModal = observer((props: IProductCreatorModalProps) => {
     }
 
     function onChangeCount(e: React.ChangeEvent<HTMLInputElement>) {
+        debugger
         setStateProduct({
             ...stateProduct,
             ...{count: Number(e.target.value)}
         });
     }
+
 
     function removeProduct() {
         ProductStoreImpl.addProduct(stateProduct);
@@ -79,30 +81,48 @@ const ProductCreatorModal = observer((props: IProductCreatorModalProps) => {
             <Modal.Body>
                 <form>
                     <label>Название</label>
-                    <input placeholder="Название" value={stateProduct.name} onChange={onChangeName} required={true}/>
+                    <input placeholder="Название"
+                           value={stateProduct.name}
+                           onChange={onChangeName}
+                           required={true}
+                    />
                     <br/>
                     <label>Количество</label>
-                    <input value={stateProduct.count} onChange={onChangeCount} required={true}/>
+                    <input
+                        type="number"
+                        value={stateProduct.count}
+                        onChange={onChangeCount}
+                        required={true}/>
                     <br/>
-                    <label>Единица измерения</label>
+                    <label> Единица измерения</label>
                     <select value={stateProduct.measurementUnits} onChange={onChangeMeasurementUnits}>
-                        <option value={stateProduct.measurementUnits}>Штук</option>
-                        <option value={stateProduct.measurementUnits}>Грамм</option>
-                        <option value={stateProduct.measurementUnits}>Мл</option>
+                        <option>{MeasurementUnits.Grams}</option>
+                        <option>{MeasurementUnits.Pieces}</option>
+                        <option>{MeasurementUnits.Milliliters}</option>
                     </select>
                     <br/>
                     <label>Примерная цена</label>
                     <input/>
                     <br/>
                     <label>Цена за {stateProduct.measurementUnits}</label>
-                    <input value={stateProduct.price} onChange={onChangePrice} required={true}/>
+                    <input
+                        type="number"
+                        value={stateProduct.price}
+                        onChange={onChangePrice}
+                        required={true}/>
                     <br/>
                     <label>Где купить</label>
-                    <input placeholder="место" value={stateProduct.buyWhere} onChange={onChangeBuyWhere}/>
+                    <input
+                        placeholder="место"
+                        value={stateProduct.buyWhere}
+                        onChange={onChangeBuyWhere}/>
                     <br/>
                     <label>Добавить замену, на случай отсутсвие</label>
-                    <input placeholder="Что-то другое" value={stateProduct.replacement} onChange={onChangeReplacement}
-                           required={true}/>
+                    <input
+                        placeholder="Что-то другое"
+                        value={stateProduct.replacement}
+                        onChange={onChangeReplacement}
+                        required={true}/>
                 </form>
             </Modal.Body>
             <Modal.Footer panel={panel}>
@@ -110,7 +130,8 @@ const ProductCreatorModal = observer((props: IProductCreatorModalProps) => {
                 <Button onClick={updateProduct}>Добавить</Button>
             </Modal.Footer>
         </Modal>
-    );
+    )
+        ;
 });
 
 export default ProductCreatorModal;

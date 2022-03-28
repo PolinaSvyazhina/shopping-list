@@ -3,7 +3,7 @@ export interface ProductModel{
     name: string,
     count:number,
     measurementUnits: MeasurementUnits,
-    price: number,
+    price: string,
     buyWhere: string,
     replacement: string,
     createDate: string,
@@ -12,5 +12,5 @@ export interface ProductModel{
 export enum MeasurementUnits {
     Grams = 'Грамм',
     Pieces = "Штук",
-    Milliliters = "Миллитр"
+    Milliliters = "Миллилитр"
 }
