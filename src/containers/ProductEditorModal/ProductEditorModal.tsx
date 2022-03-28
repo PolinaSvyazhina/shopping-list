@@ -1,26 +1,33 @@
 import React, { useState } from 'react';
-import { Button, Toggle, Modal } from '@skbkontur/react-ui';
-import { MeasurementUnits, ProductModel } from '../Models/ProductModel';
-import { ProductStoreImpl } from '../Stores/ProductStore';
+import { Button, Modal, Input } from '@skbkontur/react-ui';
+import { MeasurementUnits, MeasurementUnitsType, ProductModel } from '../../models/ProductStore.types';
+import { ProductStoreImpl } from '../../models/ProductStore';
 import { observer } from 'mobx-react-lite';
 import { v4 as uuidv4 } from 'uuid';
 
-interface IProductCreatorModalProps {
-  close: () => void;
+interface ProductCreatorModalProps {
+  onClose: () => void;
+  initValues?: ProductModel;
+  onCancel?: () => void;
+  onSubmit?: () => void;
 }
 
-export const ProductCreatorModal = observer((props: IProductCreatorModalProps) => {
+export const ProductEditorModal = observer(({ initValues, onClose }: ProductCreatorModalProps) => {
   const [panel, setPanel] = useState(false);
-  const [stateProduct, setStateProduct] = useState({
-    id: uuidv4(),
-    name: '',
-    count: '',
-    measurementUnits: MeasurementUnits.Pieces,
-    price: '',
-    buyWhere: '',
-    replacement: '',
-    createDate: '',
-  });
+  const [stateProduct, setStateProduct] = useState<ProductModel>(
+    initValues || {
+      id: uuidv4(),
+      name: '',
+      count: '',
+      measurementUnits: 'Grams',
+      price: '',
+      buyWhere: '',
+      replacement: '',
+      createDate: '',
+    }
+  );
+
+  const isEdit = !!initValues;
 
   function onChangeName(e: React.ChangeEvent<HTMLInputElement>) {
     setStateProduct({
@@ -39,7 +46,7 @@ export const ProductCreatorModal = observer((props: IProductCreatorModalProps) =
   function onChangeMeasurementUnits(e: React.ChangeEvent<HTMLSelectElement>) {
     setStateProduct({
       ...stateProduct,
-      ...{ measurementUnits: e.target.value as unknown as MeasurementUnits },
+      ...{ measurementUnits: e.target.value as MeasurementUnitsType },
     });
   }
 
@@ -59,7 +66,7 @@ export const ProductCreatorModal = observer((props: IProductCreatorModalProps) =
 
   function addProduct() {
     ProductStoreImpl.addProduct(stateProduct);
-    props.close();
+    onClose();
   }
 
   function onChangeCount(e: React.ChangeEvent<HTMLInputElement>) {
@@ -72,12 +79,12 @@ export const ProductCreatorModal = observer((props: IProductCreatorModalProps) =
   }
 
   return (
-    <Modal onClose={props.close}>
-      <Modal.Header>Добавить продукт</Modal.Header>
+    <Modal onClose={onClose}>
+      <Modal.Header>{isEdit ? 'Редактировать' : 'Добавить'} продукт</Modal.Header>
       <Modal.Body>
         <form>
           <label>Название</label>
-          <input placeholder="Название" value={stateProduct.name} onChange={onChangeName} required />
+          <Input placeholder="Название" value={stateProduct.name} onChange={onChangeName} required />
           <br />
           <label>Количество</label>
           <input type="number" value={stateProduct.count} onChange={onChangeCount} required />

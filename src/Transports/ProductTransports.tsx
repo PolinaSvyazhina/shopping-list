@@ -1,4 +1,4 @@
-import { ProductModel } from '../Models/ProductModel';
+import { ProductModel } from '../models/ProductStore.types';
 
 export class ProductTransports {
   static getProducts(): ProductModel[] {

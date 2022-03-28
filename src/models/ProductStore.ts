@@ -1,4 +1,4 @@
-import { ProductModel } from '../Models/ProductModel';
+import { ProductModel } from './ProductStore.types';
 import { makeAutoObservable } from 'mobx';
 import { ProductTransports } from '../Transports/ProductTransports';
 
