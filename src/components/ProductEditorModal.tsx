@@ -9,14 +9,14 @@ interface IProductCreatorModalProps {
     close: () => void;
 }
 
-const ProductCreatorModal = observer((props: IProductCreatorModalProps) => {
+const ProductEditorModal = observer((props: IProductCreatorModalProps) => {
     const [panel, setPanel] = useState(false);
     const [stateProduct, setStateProduct] = useState({
         id: uuidv4(),
         name: '',
-        count: 0,
+        count: '',
         measurementUnits: MeasurementUnits.Pieces,
-        price: '0',
+        price: '',
         buyWhere: '',
         replacement: '',
         createDate: '',
@@ -62,13 +62,12 @@ const ProductCreatorModal = observer((props: IProductCreatorModalProps) => {
         debugger
         setStateProduct({
             ...stateProduct,
-            ...{count: Number(e.target.value)}
+            ...{count: (e.target.value)}
         });
     }
 
-
     function removeProduct() {
-        ProductStoreImpl.addProduct(stateProduct);
+        ProductStoreImpl.removeProduct(stateProduct.id);
     }
 
     function updateProduct() {
@@ -130,15 +129,8 @@ const ProductCreatorModal = observer((props: IProductCreatorModalProps) => {
                 <Button onClick={updateProduct}>Добавить</Button>
             </Modal.Footer>
         </Modal>
-    )
-        ;
+    );
 });
 
-export default ProductCreatorModal;
+export default ProductEditorModal;
 
-
-//
-// <div>
-//     {opened && renderModal()}
-//     <Button onClick={open}>Open</Button>
-// </div>;

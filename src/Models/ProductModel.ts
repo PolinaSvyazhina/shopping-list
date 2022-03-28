@@ -1,7 +1,7 @@
 export interface ProductModel{
     id: string,
     name: string,
-    count:number,
+    count:string,
     measurementUnits: MeasurementUnits,
     price: string,
     buyWhere: string,
