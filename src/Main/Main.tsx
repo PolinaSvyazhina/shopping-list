@@ -14,30 +14,38 @@ export const Main = observer(() => {
   function close() {
     setOpened(false);
   }
-
+  function remove() {
+    for (const i in markedList) {
+      ProductStoreImpl.removeProduct(i);
+    }
+  }
+  function removeAll() {
+    const product = ProductStoreImpl.products.map((e) => e.id);
+    for (const i in product) {
+      ProductStoreImpl.removeProduct(i);
+    }
+  }
+  const markedList: any = [];
   return (
     <div>
       {opened && <ProductCreatorModal close={close} />}
       <h1>Список покупок</h1>
-      {ProductStoreImpl.products.map((e) => (
-        <div key={e.id}>{e.name}</div>
-      ))}
+      <button onClick={open}>Добавить</button>
+
       {ProductStoreImpl.products.map((e) => (
         <div key={e.id}>
-          {e.count}
-          {e.measurementUnits}
+          <div>{e.name}</div>
+          <div>
+            {e.count}
+            {e.measurementUnits}
+          </div>
+          <div>{e.price}</div>
+          <div> {e.buyWhere}</div>
+          <div>{e.replacement}</div>
+          <button onClick={() => markedList.push(e.id)}>Галочка</button>
         </div>
       ))}
-      {ProductStoreImpl.products.map((e) => (
-        <div key={e.id}>{e.price}</div>
-      ))}
-      {ProductStoreImpl.products.map((e) => (
-        <div key={e.id}>{e.buyWhere}</div>
-      ))}
-      {ProductStoreImpl.products.map((e) => (
-        <div key={e.id}>{e.replacement}</div>
-      ))}
-      <button onClick={open}>Добавить</button>
+      <button onClick={removeAll}>Удалить</button>
     </div>
   );
 });
