@@ -1,32 +1,31 @@
-import {ProductModel} from "../Models/ProductModel";
-import {json} from "stream/consumers";
+import { ProductModel } from '../models/ProductStore.types';
 
-export class ProductTransports{
-    static init(){
-        if (!localStorage.getItem('products'))
-            localStorage.setItem('products', JSON.stringify([]))
+export class ProductTransports {
+  static getProducts(): ProductModel[] {
+    const e = localStorage.getItem('products');
+
+    if (!e) {
+      return [];
     }
 
-    static getProducts(){
-        const e:any = localStorage.getItem('products');
-        return JSON.parse(e) as ProductModel[];
-    }
+    return JSON.parse(e);
+  }
 
-    static addProduct(product: ProductModel){
-        const e = this.getProducts();
-        e.push(product);
-        localStorage.setItem('products', JSON.stringify(e));
-    }
+  static addProduct(product: ProductModel) {
+    const e = this.getProducts();
+    e.push(product);
+    localStorage.setItem('products', JSON.stringify(e));
+  }
 
-    static removeProduct(id: string){
-        let e = this.getProducts();
-        e = e.filter(e=> e.id !== id);
-        localStorage.setItem('products', JSON.stringify(e))
-    }
+  static removeProduct(id: string) {
+    let e = this.getProducts();
+    e = e.filter((e) => e.id !== id);
+    localStorage.setItem('products', JSON.stringify(e));
+  }
 
-    static updateProduct(product:ProductModel){
-        let e =  this.getProducts();
-        e.filter(e=>e.id === product.id)[0] = product;
-        localStorage.setItem('products', JSON.stringify(e))
-    }
+  static updateProduct(product: ProductModel) {
+    const e = this.getProducts();
+    e.filter((e) => e.id === product.id)[0] = product;
+    localStorage.setItem('products', JSON.stringify(e));
+  }
 }

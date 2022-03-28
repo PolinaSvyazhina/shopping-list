@@ -1,33 +1,55 @@
-import {observer} from 'mobx-react-lite';
-import {useEffect, useState} from "react";
-import ProductCreatorModal from "../components/ProductCreatorModal";
-import ProductStoreImpl from "../Stores/ProductStore";
+import React, { useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import { ProductEditorModal } from '../containers/ProductEditorModal';
+import { ProductStoreImpl } from '../models/ProductStore';
 
-const Main = observer(() => {
-    useEffect(() => ProductStoreImpl.getProducts, []);
-    const [opened, setOpened] = useState(false);
-    const [panel, setPanel] = useState(false);
+export const Main = observer(() => {
+  const [markedList, setMarkedList] = useState<string[]>();
+  const [opened, setOpened] = useState(false);
+  const [panel, setPanel] = useState(false);
 
-    function open() {
-        setOpened(true);
+  function open() {
+    setOpened(true);
+  }
+
+  function close() {
+    setOpened(false);
+  }
+
+  function remove() {
+    for (const i in markedList) {
+      ProductStoreImpl.removeProduct(i);
     }
+  }
 
-    function close() {
-        setOpened(false);
+  function removeAll() {
+    const product = ProductStoreImpl.products.map((e) => e.id);
+    for (const i in product) {
+      ProductStoreImpl.removeProduct(i);
     }
+  }
 
-    return (
-        <div>
-            {opened && <ProductCreatorModal close={close}/>}
-            <h1>Список покупок</h1>
-            {ProductStoreImpl.products.map(e => <div key={e.id}>{e.name}</div>)}
-            {ProductStoreImpl.products.map(e => <div key={e.id}>{e.count}{e.measurementUnits}</div>)}
-            {ProductStoreImpl.products.map(e => <div key={e.id}>{e.price}</div>)}
-            {ProductStoreImpl.products.map(e => <div key={e.id}>{e.buyWhere}</div>)}
-            {ProductStoreImpl.products.map(e => <div key={e.id}>{e.replacement}</div>)}
-            <button onClick={open}>Добавить</button>
+  return (
+    <div>
+      {opened && <ProductEditorModal onClose={close} />}
+      <h1>Список покупок</h1>
+      <button onClick={open}>Добавить</button>
+
+      {ProductStoreImpl.products.map((e) => (
+        <div key={e.id}>
+          {markedList.includes(e.id) && <span>Выбрали МЕНЯ!!!!</span>}
+          <div>{e.name}</div>
+          <div>
+            {e.count}
+            {e.measurementUnits}
+          </div>
+          <div>{e.price}</div>
+          <div> {e.buyWhere}</div>
+          <div>{e.replacement}</div>
+          <button onClick={() => setMarkedList([...markedList, e.id])}>Галочка</button>
         </div>
-    );
+      ))}
+      <button onClick={removeAll}>Удалить</button>
+    </div>
+  );
 });
-
-export default Main

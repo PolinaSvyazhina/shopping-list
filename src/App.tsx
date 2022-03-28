@@ -1,15 +1,14 @@
 import React from 'react';
-import './App.css';
-import Main from "./Main/Main";
+import { Main } from './Main/Main';
 
-function App() {
+import classes from './App.module.css';
+
+export function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-          <Main/>
+    <div className={classes.app}>
+      <header className={classes.appHeader}>
+        <Main />
       </header>
     </div>
   );
 }
-
-export default App;
