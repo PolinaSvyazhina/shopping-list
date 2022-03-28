@@ -14,9 +14,9 @@ export const ProductCreatorModal = observer((props: IProductCreatorModalProps) =
   const [stateProduct, setStateProduct] = useState({
     id: uuidv4(),
     name: '',
-    count: 0,
+    count: '',
     measurementUnits: MeasurementUnits.Pieces,
-    price: '0',
+    price: '',
     buyWhere: '',
     replacement: '',
     createDate: '',
@@ -66,7 +66,7 @@ export const ProductCreatorModal = observer((props: IProductCreatorModalProps) =
     setStateProduct({
       ...stateProduct,
       ...{
-        count: Number(e.target.value),
+        count: e.target.value,
       },
     });
   }
@@ -109,9 +109,3 @@ export const ProductCreatorModal = observer((props: IProductCreatorModalProps) =
     </Modal>
   );
 });
-
-//
-// <div>
-//     {opened && renderModal()}
-//     <Button onClick={open}>Open</Button>
-// </div>;
