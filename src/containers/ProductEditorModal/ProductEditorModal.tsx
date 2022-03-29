@@ -33,9 +33,18 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
   };
   const [stateProduct, dispatch] = useReducer(productReducer, state);
   const isEdit = !!initValues;
+
   function addProduct() {
     ProductStoreImpl.addProduct(stateProduct as ProductModel);
     onClose();
+  }
+
+  function updateProduct() {
+    ProductStoreImpl.updateProduct(stateProduct as ProductModel);
+  }
+
+  function removeProduct() {
+    ProductStoreImpl.removeProduct(stateProduct.id);
   }
 
   return (
@@ -75,7 +84,14 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
         </form>
       </Modal.Body>
       <Modal.Footer panel={panel}>
-        <Button onClick={addProduct}>Добавить</Button>
+        {isEdit ? (
+          <>
+            <Button onClick={updateProduct}> Изменить</Button>
+            <Button onClick={removeProduct}>Удалить</Button>
+          </>
+        ) : (
+          <Button onClick={addProduct}>Добавить</Button>
+        )}
       </Modal.Footer>
     </Modal>
   );
