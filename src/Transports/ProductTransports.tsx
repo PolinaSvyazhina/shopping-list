@@ -7,7 +7,6 @@ export class ProductTransports {
     if (!e) {
       return [];
     }
-
     return JSON.parse(e);
   }
 
@@ -18,8 +17,7 @@ export class ProductTransports {
   }
 
   static removeProduct(id: string) {
-    let e = this.getProducts();
-    e = e.filter((e) => e.id !== id);
+    const e = this.getProducts().filter((e) => e.id !== id);
     localStorage.setItem('products', JSON.stringify(e));
   }
 

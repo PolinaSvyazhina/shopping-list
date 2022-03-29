@@ -6,7 +6,6 @@ import { ProductStoreImpl } from '../models/ProductStore';
 export const Main = observer(() => {
   const [markedList, setMarkedList] = useState<string[]>();
   const [opened, setOpened] = useState(false);
-  const [panel, setPanel] = useState(false);
 
   function open() {
     setOpened(true);
@@ -16,11 +15,11 @@ export const Main = observer(() => {
     setOpened(false);
   }
 
-  function remove() {
-    for (const i in markedList) {
-      ProductStoreImpl.removeProduct(i);
-    }
-  }
+  // function remove() {
+  //   for (const i in markedList) {
+  //     ProductStoreImpl.removeProduct(i);
+  //   }
+  // }
 
   function removeAll() {
     const product = ProductStoreImpl.products.map((e) => e.id);
@@ -37,7 +36,6 @@ export const Main = observer(() => {
 
       {ProductStoreImpl.products.map((e) => (
         <div key={e.id}>
-          {markedList.includes(e.id) && <span>Выбрали МЕНЯ!!!!</span>}
           <div>{e.name}</div>
           <div>
             {e.count}
