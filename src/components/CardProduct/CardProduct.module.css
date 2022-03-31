@@ -1,0 +1,24 @@
+.card {
+  width: 290px;
+  height: 116px;
+  padding: 20px 14px 16px;
+  position: relative;
+  background-color: #e9edf1;
+  border: 1px solid #5d9dff;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: #d2e0f3;
+}
+
+h2 {
+  margin-bottom: 16px;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+h3 {
+  margin-bottom: 4px;
+}

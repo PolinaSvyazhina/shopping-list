@@ -53,11 +53,13 @@
     "@skbkontur/react-icons": "^5.2.1",
     "@skbkontur/react-ui": "^3.11.0-latest",
     "@skbkontur/react-ui-validations": "^1.7.0",
+    "clamp-js": "^0.7.0",
     "clsx": "^1.1.1",
     "mobx": "^6.5.0",
     "mobx-react-lite": "^3.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-multi-clamp": "^2.0.4",
     "react-router-dom": "^6.2.1",
     "uuid": "^8.3.2"
   },

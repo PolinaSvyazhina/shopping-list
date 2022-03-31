@@ -3,6 +3,12 @@ import { observer } from 'mobx-react-lite';
 import { ProductEditorModal } from '../containers/ProductEditorModal';
 import { ProductStoreImpl } from '../models/ProductStore';
 
+import { Button } from '../components/Button';
+import { CardProduct } from '../components/CardProduct';
+import { Delete } from '../components/Delete';
+
+import classes from './Main.module.css';
+
 export const Main = observer(() => {
   const [markedList, setMarkedList] = useState<string[]>();
   const [opened, setOpened] = useState(false);
@@ -15,6 +21,10 @@ export const Main = observer(() => {
   function close() {
     setOpened(false);
   }
+
+  // function getTotal(){
+  //   ProductStoreImpl.products.
+  // }
 
   function remove() {
     for (const i in markedList) {
@@ -30,26 +40,64 @@ export const Main = observer(() => {
   }
 
   return (
-    <div>
+    <div className={classes.background}>
+      <div className={classes.backtacks}>
+        <div className={classes.backtack} />
+        <div className={classes.backtack} />
+      </div>
       {opened && <ProductEditorModal onClose={close} />}
-      <h1>Список покупок</h1>
-      <button onClick={open}>Добавить</button>
-
-      {ProductStoreImpl.products.map((e) => (
-        <div key={e.id}>
-          {markedList.includes(e.id) && <span>Выбрали МЕНЯ!!!!</span>}
-          <div>{e.name}</div>
+      <div className={classes.workspace}>
+        <h1>Список покупок</h1>
+        <div className={classes.menu}>
           <div>
-            {e.count}
-            {e.measurementUnits}
+            {/* Сортировка и две фильтрации */}
+            <div />
+            <div />
+            <div />
           </div>
-          <div>{e.price}</div>
-          <div> {e.buyWhere}</div>
-          <div>{e.replacement}</div>
-          <button onClick={() => setMarkedList([...markedList, e.id])}>Галочка</button>
+          <Button onClick={open}>Добавить</Button>
         </div>
-      ))}
-      <button onClick={removeAll}>Удалить</button>
+        <div className={classes.cards}>
+          {ProductStoreImpl.products.map((e) => (
+            <CardProduct
+              key={e.id}
+              id={e.id}
+              name={e.name}
+              count={e.count}
+              measurementUnits={e.measurementUnits}
+              price={e.price}
+              buyWhere={e.buyWhere}
+              replacement={e.replacement}
+              isChecked={false}
+            />
+            // <div key={e.id}>
+            //   <div>{e.name}</div>
+            //   <div>
+            //     {e.count}
+            //     {e.measurementUnits}
+            //   </div>
+            //   <div>{e.price}</div>
+            //   <div> {e.buyWhere}</div>
+            //   <div>{e.replacement}</div>
+            //   <button onClick={() => setMarkedList([...markedList, e.id])}>Галочка</button>
+            // </div>
+          ))}
+        </div>
+        <div className={classes.bottomMenu}>
+          <div style={{ display: `flex` }}>
+            <div style={{ marginRight: 8 }}>
+              <div className={classes.line} />
+              <h2>Итого</h2>
+              <h1 className={classes.total}>123456789 р.</h1>
+            </div>
+            <Button unloading style={{ marginRight: 59, alignSelf: `flex-end` }}>
+              Выгрузить список
+            </Button>
+            <div />
+          </div>
+          <Delete style={{ alignSelf: `flex-end` }} />
+        </div>
+      </div>
     </div>
   );
 });
