@@ -6,7 +6,7 @@ export interface ProductModel {
   count: string;
   price: string;
   buyWhere: string;
-  createDate: string;
+  date: string;
   replacement: string;
   measurementUnits: MeasurementUnitsType;
 }

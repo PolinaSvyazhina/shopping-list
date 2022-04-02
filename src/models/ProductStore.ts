@@ -21,8 +21,14 @@ class ProductStore {
   }
 
   updateProduct(product: ProductModel) {
-    this.products.filter((e) => e.id === product.id)[0] = product;
+    const index = this.products.findIndex((e) => e.id === product.id);
+    this.products[index] = product;
     ProductTransports.updateProduct(product);
+  }
+
+  removeAllProducts() {
+    this.products = [];
+    ProductTransports.clearLocalStorage();
   }
 }
 

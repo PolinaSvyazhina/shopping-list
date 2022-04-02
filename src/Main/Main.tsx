@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ProductEditorModal } from '../containers/ProductEditorModal';
 import { ProductStoreImpl } from '../models/ProductStore';
+import { ProductModel } from '../models/ProductStore.types';
 
 export const Main = observer(() => {
   const [markedList, setMarkedList] = useState<string[]>();
   const [opened, setOpened] = useState(false);
+  const [initValues, setInitValue] = useState(null);
 
   function open() {
     setOpened(true);
@@ -22,17 +24,21 @@ export const Main = observer(() => {
   // }
 
   function removeAll() {
-    const product = ProductStoreImpl.products.map((e) => e.id);
-    for (const i in product) {
-      ProductStoreImpl.removeProduct(i);
-    }
+    ProductStoreImpl.removeAllProducts();
   }
 
   return (
     <div>
-      {opened && <ProductEditorModal onClose={close} />}
+      {opened && <ProductEditorModal onClose={close} initValues={initValues} />}
       <h1>Список покупок</h1>
-      <button onClick={open}>Добавить</button>
+      <button
+        onClick={() => {
+          setInitValue(null);
+          open();
+        }}
+      >
+        Добавить
+      </button>
 
       {ProductStoreImpl.products.map((e) => (
         <div key={e.id}>
@@ -41,10 +47,19 @@ export const Main = observer(() => {
             {e.count}
             {e.measurementUnits}
           </div>
-          <div>{e.price}</div>
+          <div>{Number(e.count) * Number(e.price)}</div>
+          <div>{e.date}</div>
           <div> {e.buyWhere}</div>
           <div>{e.replacement}</div>
           <button onClick={() => setMarkedList([...markedList, e.id])}>Галочка</button>
+          <button
+            onClick={() => {
+              setInitValue(e);
+              setOpened(true);
+            }}
+          >
+            Редактировать
+          </button>
         </div>
       ))}
       <button onClick={removeAll}>Удалить</button>

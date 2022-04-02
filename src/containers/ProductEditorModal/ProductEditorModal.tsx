@@ -11,6 +11,7 @@ import { InputCount } from '../../components/InputCount';
 import { InputName } from '../../components/InputName';
 import { SelectMeasurementUnits } from '../../components/SelectMeasurementUnits';
 import { productReducer } from '../../Reducers/ProductReducer';
+import { InputData } from '../../components/InputData';
 
 interface ProductCreatorModalProps {
   onClose: () => void;
@@ -21,7 +22,7 @@ interface ProductCreatorModalProps {
 
 export const ProductEditorModal = observer(({ initValues, onClose }: ProductCreatorModalProps) => {
   const [panel] = useState(false);
-  const state: ProductModel = {
+  const state: ProductModel = initValues ?? {
     id: uuidv4(),
     name: '',
     count: '',
@@ -29,7 +30,7 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
     price: '',
     buyWhere: '',
     replacement: '',
-    createDate: Date.now().toString(),
+    date: '',
   };
   const [stateProduct, dispatch] = useReducer(productReducer, state);
   const isEdit = !!initValues;
@@ -41,10 +42,12 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
 
   function updateProduct() {
     ProductStoreImpl.updateProduct(stateProduct as ProductModel);
+    onClose();
   }
 
   function removeProduct() {
     ProductStoreImpl.removeProduct(stateProduct.id);
+    onClose();
   }
 
   return (
@@ -56,7 +59,7 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
           <InputName value={stateProduct.name} onValueChange={(value) => dispatch({ type: 'name', name: value })} />
           <br />
           <label>Количество</label>
-          <InputCount />
+          <InputCount value={stateProduct.count} onValueChange={(value) => dispatch({ type: 'count', count: value })} />
           <br />
           <label>Единица измерения</label>
           <SelectMeasurementUnits
@@ -64,11 +67,14 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
             onValueChange={(value) => dispatch({ type: 'measurementUnits', measurementUnits: value })}
           />
           <br />
-          <label>Примерная цена</label>
-          <input />
-          <br />
           <label>Цена за {stateProduct.measurementUnits}</label>
           <InputPrice value={stateProduct.price} onValueChange={(value) => dispatch({ type: 'price', price: value })} />
+          <br />
+          <label>Примерная цена</label>
+          <input readOnly value={Number(stateProduct.count) * Number(stateProduct.price)} />
+          <br />
+          <label>К какому числу</label>
+          <InputData value={stateProduct.date} onValueChange={(value) => dispatch({ type: 'data', data: value })} />
           <br />
           <label>Где купить</label>
           <InputBuyWhere

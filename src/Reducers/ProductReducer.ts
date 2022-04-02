@@ -6,6 +6,7 @@ type ProductAction =
   | { type: 'measurementUnits'; measurementUnits: string }
   | { type: 'buyWhere'; buyWhere: string }
   | { type: 'price'; price: string }
+  | { type: 'data'; data: string }
   | { type: 'replacement'; replacement: string };
 
 export function productReducer(state: ProductModel, action: ProductAction) {
@@ -13,7 +14,7 @@ export function productReducer(state: ProductModel, action: ProductAction) {
     case 'name':
       return { ...state, name: action.name };
     case 'count':
-      return { ...state, name: action.count };
+      return { ...state, count: action.count };
     case 'measurementUnits':
       return { ...state, measurementUnits: action.measurementUnits };
     case 'buyWhere':
@@ -22,5 +23,10 @@ export function productReducer(state: ProductModel, action: ProductAction) {
       return { ...state, price: action.price };
     case 'replacement':
       return { ...state, replacement: action.replacement };
+    case 'data':
+      return { ...state, date: action.data };
+
+    default:
+      return state;
   }
 }

@@ -26,4 +26,8 @@ export class ProductTransports {
     e.filter((e) => e.id === product.id)[0] = product;
     localStorage.setItem('products', JSON.stringify(e));
   }
+
+  static clearLocalStorage() {
+    localStorage.clear();
+  }
 }

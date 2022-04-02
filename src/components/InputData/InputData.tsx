@@ -1,14 +1,14 @@
 import React from 'react';
 
-interface InputCountProps {
+interface InputDataProps {
   value?: string;
   onValueChange?: (value?: string) => void;
 }
 
-export const InputCount: React.FC<InputCountProps> = ({ value, onValueChange }) => {
+export const InputData: React.FC<InputDataProps> = ({ value, onValueChange }) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     onValueChange(e.currentTarget.value);
   };
 
-  return <input type="number" placeholder="количество" value={value} onChange={handleChange} />;
+  return <input type={'date'} value={value} onChange={handleChange} />;
 };
