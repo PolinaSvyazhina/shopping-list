@@ -19,8 +19,8 @@ export const Background = () => {
       <div
         style={{
           width: '100vw',
-          height: '100vh',
-          position: 'absolute',
+          height: 'auto',
+          position: 'fixed',
           background: `linear-gradient(#E9EEF1, #DCE0E3)`,
           display: 'flex',
           justifyContent: 'space-evenly',

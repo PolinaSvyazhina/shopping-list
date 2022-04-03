@@ -1,7 +1,7 @@
 .background {
   width: 1400px;
   margin: 4vh auto;
-  height: 92vh;
+  height: auto;
   border-radius: 25px;
   background-color: #eff4fa;
   box-shadow: 10px 10px 20px 0 #b2c2d2;
