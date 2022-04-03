@@ -24,6 +24,12 @@ class ProductStore {
     this.products.filter((e) => e.id === product.id)[0] = product;
     ProductTransports.updateProduct(product);
   }
+
+  getTotal() {
+    let total = 0;
+    this.products.map((e) => (total += Number(e.count)));
+    return total;
+  }
 }
 
 export const ProductStoreImpl = new ProductStore();
