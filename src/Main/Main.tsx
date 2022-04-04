@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ProductEditorModal } from '../containers/ProductEditorModal';
 import { ProductStoreImpl } from '../models/ProductStore';
-import { ProductModel } from '../models/ProductStore.types';
 
 export const Main = observer(() => {
   const [markedList, setMarkedList] = useState<string[]>();
