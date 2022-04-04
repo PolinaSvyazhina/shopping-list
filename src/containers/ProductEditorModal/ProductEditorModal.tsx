@@ -12,6 +12,7 @@ import { InputName } from '../../components/InputName';
 import { SelectMeasurementUnits } from '../../components/SelectMeasurementUnits';
 import { productReducer } from '../../Reducers/ProductReducer';
 import { InputData } from '../../components/InputData';
+import classes from './productModal.module.css';
 
 interface ProductCreatorModalProps {
   onClose: () => void;
@@ -25,9 +26,9 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
   const state: ProductModel = initValues ?? {
     id: uuidv4(),
     name: '',
-    count: '',
+    count: null,
     measurementUnits: MeasurementUnits.Grams as MeasurementUnitsType,
-    price: '',
+    price: null,
     buyWhere: '',
     replacement: '',
     date: '',
@@ -54,28 +55,51 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
     <Modal onClose={onClose}>
       <Modal.Header>{isEdit ? 'Редактировать' : 'Добавить'} продукт</Modal.Header>
       <Modal.Body>
-        <form>
+        <form className={classes.container}>
           <label>Название</label>
           <InputName value={stateProduct.name} onValueChange={(value) => dispatch({ type: 'name', name: value })} />
           <br />
-          <label>Количество</label>
-          <InputCount value={stateProduct.count} onValueChange={(value) => dispatch({ type: 'count', count: value })} />
-          <br />
-          <label>Единица измерения</label>
-          <SelectMeasurementUnits
-            value={stateProduct.measurementUnits}
-            onValueChange={(value) => dispatch({ type: 'measurementUnits', measurementUnits: value })}
-          />
-          <br />
-          <label>Цена за {stateProduct.measurementUnits}</label>
-          <InputPrice value={stateProduct.price} onValueChange={(value) => dispatch({ type: 'price', price: value })} />
-          <br />
-          <label>Примерная цена</label>
-          <input readOnly value={Number(stateProduct.count) * Number(stateProduct.price)} />
-          <br />
-          <label>К какому числу</label>
-          <InputData value={stateProduct.date} onValueChange={(value) => dispatch({ type: 'data', data: value })} />
-          <br />
+          <div className={classes.form}>
+            <div>
+              <label>Количество</label>
+              <InputCount
+                value={stateProduct.count}
+                onValueChange={(value) => dispatch({ type: 'count', count: value })}
+              />
+              <br />
+            </div>
+            <div>
+              <label>Единица измерения</label>
+              <SelectMeasurementUnits
+                value={stateProduct.measurementUnits}
+                onValueChange={(value) =>
+                  dispatch({
+                    type: 'measurementUnits',
+                    measurementUnits: value,
+                  })
+                }
+              />
+              <br />
+            </div>
+            <div>
+              <label>Цена за {stateProduct.measurementUnits}</label>
+              <InputPrice
+                value={stateProduct.price}
+                onValueChange={(value) => dispatch({ type: 'price', price: value })}
+              />
+              <br />
+            </div>
+            <div>
+              <label>Примерная цена</label>
+              <input readOnly value={Number(stateProduct.count) * Number(stateProduct.price)} />
+              <br />
+            </div>
+            <div>
+              <label>К какому числу</label>
+              <InputData value={stateProduct.date} onValueChange={(value) => dispatch({ type: 'data', data: value })} />
+              <br />
+            </div>
+          </div>
           <label>Где купить</label>
           <InputBuyWhere
             value={stateProduct.buyWhere}

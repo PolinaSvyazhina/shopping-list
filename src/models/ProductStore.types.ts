@@ -3,8 +3,8 @@ export type MeasurementUnitsType = 'Grams' | 'Pieces' | 'Milliliters';
 export interface ProductModel {
   id: string;
   name: string;
-  count: string;
-  price: string;
+  count: number;
+  price: number;
   buyWhere: string;
   date: string;
   replacement: string;
