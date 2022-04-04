@@ -1,0 +1,19 @@
+.container {
+  display: grid;
+  width: 430px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 5%;
+}
+
+label,
+input {
+  display: block;
+}
+
+label {
+  margin-bottom: 12px;
+}
