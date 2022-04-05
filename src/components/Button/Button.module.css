@@ -23,16 +23,3 @@
   background-color: #f46770;
   cursor: pointer;
 }
-
-.buttonUnloading {
-  width: 177px;
-  height: 40px;
-  border-radius: 10px;
-  border: 0;
-  font-size: 16px;
-  font-weight: 400;
-  font-family: 'Lab Grotesque', sans-serif;
-  color: white;
-  background-color: #5d9dff;
-  cursor: pointer;
-}

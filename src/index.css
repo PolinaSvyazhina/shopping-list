@@ -1,9 +1,12 @@
+html {
+  margin: 0;
+  font-size: 16px;
+  font-family: 'Lab Grotesque', sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: 'Lab Grotesque', sans-serif;
   color: #5a6b7f;
-  font-size: 16px;
-  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
