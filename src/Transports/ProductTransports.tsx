@@ -3,7 +3,6 @@ import { ProductModel } from '../models/ProductStore.types';
 export class ProductTransports {
   static getProducts(): ProductModel[] {
     const e = localStorage.getItem('products');
-
     if (!e) {
       return [];
     }

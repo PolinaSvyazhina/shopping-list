@@ -26,8 +26,13 @@ export const Main = observer(() => {
     ProductStoreImpl.removeAllProducts();
   }
 
+  function sortData() {
+    ProductStoreImpl.sortDataProducts();
+  }
+
   return (
     <div>
+      <button onClick={sortData}> По дате добавления</button>
       {opened && <ProductEditorModal onClose={close} initValues={initValues} />}
       <h1>Список покупок</h1>
       <button
