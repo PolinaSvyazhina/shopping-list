@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Button } from '../Button';
+import React from 'react';
+import { ButtonSelect } from '../ButtonSelect';
 import classes from './CardProduct.module.css';
 import MultiClamp from 'react-multi-clamp';
-import CheckIcon from '../../Main/icons/Check.svg';
 
 export interface CardProductProps {
   id: string;
@@ -18,7 +17,6 @@ export interface CardProductProps {
 
 export const CardProduct: React.FC<CardProductProps> = (props) => {
   const { id, name, count, measurementUnits, price, isChecked } = props;
-  const [check, setCheck] = useState(false);
   return (
     <div key={id} className={classes.card}>
       <h2>
@@ -37,9 +35,8 @@ export const CardProduct: React.FC<CardProductProps> = (props) => {
           <div>{price} р.</div>
         </div>
       </div>
-      <Button onClick={() => setCheck(!check)} className={classes.checkButton}>
-        <CheckIcon className={check && classes.checkIcon} />
-      </Button>
+      <ButtonSelect isChecked={isChecked} />
+      {/* <button onClick={() => setMarkedList([...markedList, e.id])}>Галочка</button> */}
     </div>
   );
 };

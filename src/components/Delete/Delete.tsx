@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DeleteIcon from '../../Main/icons/Delete.svg';
+import { DeleteSvg } from '../../images/DeleteSvg';
 import classes from './Delete.module.css';
 
 interface ButtonProps
@@ -20,7 +20,7 @@ export const Delete: React.FC<ButtonProps> = (props) => {
         className={classes.button}
         {...rest}
       >
-        <DeleteIcon color={show ? redColor : whiteColor} />
+        <DeleteSvg color={show ? redColor : whiteColor} />
       </button>
       {show && (
         <div className={classes.buttons}>

@@ -7,7 +7,6 @@ import { Empty } from '../components/Empty';
 import { Button } from '../components/Button';
 import { CardProduct } from '../components/CardProduct';
 import { Delete } from '../components/Delete';
-import DownloadIcon from './icons/Download.svg';
 
 import classes from './Main.module.css';
 
@@ -23,6 +22,10 @@ export const Main = observer(() => {
   function close() {
     setOpened(false);
   }
+
+  // function getTotal(){
+  //   ProductStoreImpl.products.
+  // }
 
   function remove() {
     for (const i in markedList) {
@@ -81,8 +84,7 @@ export const Main = observer(() => {
               <h2>Итого</h2>
               <h1 className={classes.total}>{ProductStoreImpl.getTotal()}р.</h1>
             </div>
-            <Button className={classes.downloadButton}>
-              <DownloadIcon />
+            <Button unloading style={{ marginRight: 59, alignSelf: `flex-end` }}>
               Выгрузить список
             </Button>
             <div />
