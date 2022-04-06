@@ -58,17 +58,14 @@
 }
 
 .downloadButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   margin-right: 59px;
   align-self: flex-end;
   width: 177px;
-  height: 40px;
   border-radius: 10px;
-  border: 0;
   font-size: 16px;
-  font-weight: 400;
-  color: white;
-  background-color: #5d9dff;
-  cursor: pointer;
 }
 
 @media (max-width: 1280px) {

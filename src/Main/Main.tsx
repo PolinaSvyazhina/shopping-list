@@ -24,10 +24,6 @@ export const Main = observer(() => {
     setOpened(false);
   }
 
-  // function getTotal(){
-  //   ProductStoreImpl.products.
-  // }
-
   function remove() {
     for (const i in markedList) {
       ProductStoreImpl.removeProduct(i);
@@ -87,7 +83,7 @@ export const Main = observer(() => {
             </div>
             <Button className={classes.downloadButton}>
               <DownloadIcon />
-              &nbsp;Выгрузить список
+              Выгрузить список
             </Button>
             <div />
           </div>
