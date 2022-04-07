@@ -44,7 +44,7 @@ export const Main = observer(() => {
         Добавить
       </button>
 
-      {ProductStoreImpl.products.map((e) => (
+      {ProductStoreImpl.getProducts.map((e) => (
         <div key={e.id}>
           <div>{e.name}</div>
           <div>
@@ -52,7 +52,7 @@ export const Main = observer(() => {
             {e.measurementUnits}
           </div>
           <div>{Number(e.count) * Number(e.price)}</div>
-          <div>{e.date}</div>
+          <div>{e.date.getDate}</div>
           <div> {e.buyWhere}</div>
           <div>{e.replacement}</div>
           <button onClick={() => setMarkedList([...markedList, e.id])}>Галочка</button>

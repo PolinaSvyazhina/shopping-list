@@ -1,12 +1,12 @@
 import { ProductModel } from '../models/ProductStore.types';
 
-type ProductAction =
+export type ProductAction =
   | { type: 'name'; name: string }
   | { type: 'count'; count: number }
   | { type: 'measurementUnits'; measurementUnits: string }
   | { type: 'buyWhere'; buyWhere: string }
   | { type: 'price'; price: number }
-  | { type: 'data'; data: string }
+  | { type: 'data'; data: Date }
   | { type: 'replacement'; replacement: string };
 
 export function productReducer(state: ProductModel, action: ProductAction) {
