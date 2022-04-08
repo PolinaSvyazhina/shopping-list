@@ -24,10 +24,6 @@ export const Main = observer(() => {
     setOpened(false);
   }
 
-  // function getTotal(){
-  //   ProductStoreImpl.products.
-  // }
-
   function remove() {
     for (const i in markedList) {
       ProductStoreImpl.removeProduct(i);
@@ -82,12 +78,12 @@ export const Main = observer(() => {
           <div style={{ display: `flex` }}>
             <div style={{ marginRight: 8 }}>
               <div className={classes.line} />
-              <h2>Итого</h2>
+              <p className="titleMedium">Итого</p>
               <h1 className={classes.total}>{ProductStoreImpl.getTotal()}р.</h1>
             </div>
             <Button className={classes.downloadButton}>
               <DownloadIcon />
-              &nbsp;Выгрузить список
+              Выгрузить список
             </Button>
             <div />
           </div>

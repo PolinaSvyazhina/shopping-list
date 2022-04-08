@@ -1,0 +1,18 @@
+.column {
+  width: 15px;
+  height: 100vh;
+  background: linear-gradient(#e9eef1, #dce0e3);
+  box-shadow: -5px -12px 20px -4px #b2c2d2 inset, 5px 15px 20px 10px #e9f2fb inset;
+}
+
+.background {
+  width: 100vw;
+  height: auto;
+  position: fixed;
+  background: linear-gradient(#e9eef1, #dce0e3);
+  display: flex;
+  justify-content: space-evenly;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
