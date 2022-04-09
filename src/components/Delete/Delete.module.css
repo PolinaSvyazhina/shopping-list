@@ -1,0 +1,56 @@
+.position {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+}
+
+.button {
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 30px;
+  background-color: #e9edf1;
+  cursor: pointer;
+  box-shadow: 5px 5px 15px 0 #b2c2d2, -5px -5px 15px 0 #f2f9ff;
+  z-index: 1;
+}
+
+.button:hover {
+  box-shadow: inset -5px -5px 15px #f2f9ff, inset 5px 5px 15px #b2c2d2;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 27px;
+  z-index: 0;
+}
+
+.buttonDelete {
+  height: 40px;
+  width: 196px;
+  color: #f46770;
+  background: #eff4fa;
+  border: 1px solid #f46770;
+  box-sizing: border-box;
+  border-radius: 5px 5px 0 0;
+  position: relative;
+  top: 1px;
+  font-size: 16px;
+  padding-right: 24px;
+}
+
+.buttonDelete:nth-child(2) {
+  border-radius: 0 0 5px 5px;
+  top: 0;
+}
+
+.buttonDelete:hover {
+  background: #f46770;
+  color: #eff4fa;
+}
+
+.deleteIcon {
+  color: #f46770;
+}

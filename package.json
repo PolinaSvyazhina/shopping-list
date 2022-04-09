@@ -58,6 +58,7 @@
     "mobx-react-lite": "^3.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-multi-clamp": "^2.0.4",
     "react-router-dom": "^6.2.1",
     "uuid": "^8.3.2"
   },

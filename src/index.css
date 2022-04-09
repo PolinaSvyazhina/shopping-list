@@ -1,7 +1,31 @@
+html {
+  margin: 0;
+  font-size: 16px;
+  font-family: 'Lab Grotesque', sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
+  color: #5a6b7f;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+}
+
+.titleMedium {
+  font-size: 24px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.titleSmall {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
 }

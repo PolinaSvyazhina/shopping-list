@@ -1,14 +1,12 @@
 import React from 'react';
 import { Main } from './Main/Main';
-
-import classes from './App.module.css';
+import { Background } from './components/Background/Background';
 
 export function App() {
   return (
-    <div className={classes.app}>
-      <header className={classes.appHeader}>
-        <Main />
-      </header>
+    <div>
+      <Background />
+      <Main />
     </div>
   );
 }
