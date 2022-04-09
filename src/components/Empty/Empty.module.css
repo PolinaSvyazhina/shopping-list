@@ -1,0 +1,16 @@
+.position {
+  margin: 28px auto 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 400px;
+  background: #e9edf1;
+  border-radius: 25px;
+  box-shadow: inset -5px -5px 15px #f2f9ff, inset 5px 5px 15px #b2c2d2;
+}
+
+img {
+  margin-left: 24px;
+  height: 320px;
+}

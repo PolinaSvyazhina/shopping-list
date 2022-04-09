@@ -1,0 +1,76 @@
+.background {
+  width: 1400px;
+  margin: 4vh auto;
+  height: auto;
+  border-radius: 25px;
+  background-color: #eff4fa;
+  box-shadow: 10px 10px 20px 0 #b2c2d2;
+}
+
+.backtacks {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 16px;
+}
+
+.backtack {
+  margin-top: 8px;
+  width: 45px;
+  height: 45px;
+  background: #eff4fa;
+  border-radius: 25px;
+  box-shadow: 1px 2px 5px #b2c2d2, inset -2px -3px 14px #b2c2d2;
+}
+
+.workspace {
+  position: relative;
+  bottom: 29px;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 36px 0;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 24px 16px;
+  margin: 28px 36px 36px;
+}
+
+.bottomMenu {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 36px;
+}
+
+.line {
+  width: 320px;
+  border: 1px solid #5a6b7f;
+}
+
+.total {
+  color: #5d9dff;
+  text-align: start;
+}
+
+.downloadButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-right: 59px;
+  align-self: flex-end;
+  width: 177px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+@media (max-width: 1280px) {
+  .background {
+    margin: 4vh 130px;
+    width: 1000px;
+  }
+}

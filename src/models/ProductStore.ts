@@ -27,6 +27,12 @@ class ProductStore {
     ProductTransports.updateProduct(product);
   }
 
+  getTotal() {
+    let total = 0;
+    this.products.map((e) => (total += Number(e.price)));
+    return total;
+  }
+
   removeAllProducts() {
     this.products.clear();
     ProductTransports.clearLocalStorage();
