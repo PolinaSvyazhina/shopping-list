@@ -1,4 +1,4 @@
-import classes from './FormModal.module.css';
+import classes from './ProductEditor.module.css';
 import { InputName } from '../InputName';
 import { InputCount } from '../InputCount';
 import { SelectMeasurementUnits } from '../SelectMeasurementUnits';
@@ -8,14 +8,14 @@ import { InputBuyWhere } from '../InputBuyWhere';
 import { InputReplacement } from '../InputReplacement';
 import React from 'react';
 import { ProductModel } from '../../models/ProductStore.types';
-import { ProductAction } from '../../Reducers/ProductReducer';
+import { ProductAction } from './ProductReducer';
 
-interface formModalProps {
+interface ProductEditorProps {
   stateProduct: ProductModel;
   dispatch: (action: ProductAction) => void;
 }
 
-export const FormModal: React.FC<formModalProps> = ({ stateProduct, dispatch }) => {
+export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, dispatch }) => {
   return (
     <form className={classes.container}>
       <p>Название</p>

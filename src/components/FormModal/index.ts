@@ -1,1 +1,1 @@
-export { FormModal } from './FormModal';
+export { ProductEditor } from './ProductEditor';

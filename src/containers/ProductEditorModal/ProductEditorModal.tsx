@@ -4,8 +4,8 @@ import { MeasurementUnits, MeasurementUnitsType, ProductModel } from '../../mode
 import { ProductStoreImpl } from '../../models/ProductStore';
 import { observer } from 'mobx-react-lite';
 import { v4 as uuidv4 } from 'uuid';
-import { productReducer } from '../../Reducers/ProductReducer';
-import { FormModal } from '../../components/FormModal';
+import { productReducer } from '../../components/FormModal/ProductReducer';
+import { ProductEditor } from '../../components/FormModal';
 
 interface ProductCreatorModalProps {
   onClose: () => void;
@@ -19,9 +19,9 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
   const state: ProductModel = initValues ?? {
     id: uuidv4(),
     name: '',
-    count: 0,
+    count: null,
     measurementUnits: MeasurementUnits.Grams as MeasurementUnitsType,
-    price: 0,
+    price: null,
     buyWhere: '',
     replacement: '',
     date: new Date(Date.now()),
@@ -48,7 +48,7 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
     <Modal onClose={onClose}>
       <Modal.Header>{isEdit ? 'Редактировать' : 'Добавить'} продукт</Modal.Header>
       <Modal.Body>
-        <FormModal stateProduct={stateProduct as ProductModel} dispatch={dispatch} />
+        <ProductEditor stateProduct={stateProduct as ProductModel} dispatch={dispatch} />
       </Modal.Body>
       <Modal.Footer panel={panel.current}>
         {isEdit ? (

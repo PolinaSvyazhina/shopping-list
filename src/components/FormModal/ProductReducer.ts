@@ -1,4 +1,4 @@
-import { ProductModel } from '../models/ProductStore.types';
+import { ProductModel } from '../../models/ProductStore.types';
 
 export type ProductAction =
   | { type: 'name'; name: string }
