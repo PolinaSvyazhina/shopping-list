@@ -1,0 +1,1 @@
+export { InputPrice } from './InputPrice';

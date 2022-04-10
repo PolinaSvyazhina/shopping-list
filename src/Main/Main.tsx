@@ -12,9 +12,9 @@ import DownloadIcon from './icons/Download.svg';
 import classes from './Main.module.css';
 
 export const Main = observer(() => {
-  const [markedList, setMarkedList] = useState<string[]>();
+  const [markedList, setMarkedList] = useState<string[]>([]);
   const [opened, setOpened] = useState(false);
-  const [panel, setPanel] = useState(false);
+  //const [initValues, setInitValue] = useState(null);
 
   function open() {
     setOpened(true);
@@ -25,16 +25,17 @@ export const Main = observer(() => {
   }
 
   function remove() {
-    for (const i in markedList) {
+    for (const i of markedList) {
       ProductStoreImpl.removeProduct(i);
     }
   }
 
   function removeAll() {
-    const product = ProductStoreImpl.products.map((e) => e.id);
-    for (const i in product) {
-      ProductStoreImpl.removeProduct(i);
-    }
+    ProductStoreImpl.removeAllProducts();
+  }
+
+  function sortData() {
+    ProductStoreImpl.sortDataProducts();
   }
 
   return (
@@ -48,6 +49,7 @@ export const Main = observer(() => {
         <h1>Список покупок</h1>
         <div className={classes.menu}>
           <div>
+            <Button onClick={sortData}> По времени</Button>
             {/* Сортировка и две фильтрации */}
             <div />
             <div />
@@ -55,11 +57,11 @@ export const Main = observer(() => {
           </div>
           <Button onClick={open}>Добавить</Button>
         </div>
-        {ProductStoreImpl.products.length === 0 ? (
+        {ProductStoreImpl.getProducts.length === 0 ? (
           <Empty />
         ) : (
           <div className={classes.cards}>
-            {ProductStoreImpl.products.map((e) => (
+            {ProductStoreImpl.getProducts.map((e) => (
               <CardProduct
                 key={e.id}
                 id={e.id}
@@ -70,6 +72,7 @@ export const Main = observer(() => {
                 buyWhere={e.buyWhere}
                 replacement={e.replacement}
                 isChecked={false}
+                setMarkedList={() => setMarkedList((state) => [...state, e.id])}
               />
             ))}
           </div>
@@ -87,7 +90,7 @@ export const Main = observer(() => {
             </Button>
             <div />
           </div>
-          <Delete style={{ alignSelf: `flex-end` }} />
+          <Delete remove={remove} removeAll={removeAll} style={{ alignSelf: `flex-end` }} />
         </div>
       </div>
     </div>
