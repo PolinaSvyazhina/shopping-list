@@ -7,17 +7,18 @@ import CheckIcon from '../../Main/icons/Check.svg';
 export interface CardProductProps {
   id: string;
   name: string;
-  count: string;
+  count: number;
   measurementUnits: string;
-  price?: string;
+  price?: number;
   buyWhere?: string;
   replacement?: string;
   onClick?: void;
   isChecked: boolean;
+  setMarkedList: () => void;
 }
 
 export const CardProduct: React.FC<CardProductProps> = (props) => {
-  const { id, name, count, measurementUnits, price, isChecked } = props;
+  const { id, name, count, measurementUnits, price } = props;
   const [check, setCheck] = useState(false);
   return (
     <div key={id} className={classes.card}>
@@ -37,7 +38,13 @@ export const CardProduct: React.FC<CardProductProps> = (props) => {
           <div>{price} р.</div>
         </div>
       </div>
-      <Button onClick={() => setCheck(!check)} className={classes.checkButton}>
+      <Button
+        onClick={() => {
+          setCheck(!check);
+          props.setMarkedList();
+        }}
+        className={classes.checkButton}
+      >
         <CheckIcon className={check && classes.checkIcon} />
       </Button>
     </div>

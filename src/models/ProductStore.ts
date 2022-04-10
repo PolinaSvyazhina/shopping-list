@@ -29,7 +29,7 @@ class ProductStore {
 
   getTotal() {
     let total = 0;
-    this.products.map((e) => (total += Number(e.price)));
+    [...this.products.values()].map((e) => (total += Number(e.price)));
     return total;
   }
 
