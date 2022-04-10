@@ -1,0 +1,35 @@
+.container {
+  display: grid;
+  width: 430px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 5%;
+  row-gap: 20px;
+}
+
+.title {
+  margin-bottom: 16px;
+}
+
+.secondElement {
+  grid-row: 2;
+}
+
+.thirdElement {
+  grid-row: 2;
+}
+
+.fourthElement {
+  grid-row: 3;
+}
+
+.fifthElement {
+  grid-row: 4;
+}
+
+.lastElement {
+  grid-row: 5;
+}

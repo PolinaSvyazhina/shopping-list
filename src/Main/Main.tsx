@@ -10,13 +10,15 @@ import { Delete } from '../components/Delete';
 import DownloadIcon from './icons/Download.svg';
 
 import classes from './Main.module.css';
+import { ProductModel } from 'src/models/ProductStore.types';
 
 export const Main = observer(() => {
   const [markedList, setMarkedList] = useState<string[]>([]);
   const [opened, setOpened] = useState(false);
-  //const [initValues, setInitValue] = useState(null);
+  const [initValues, setInitValue] = useState(null);
 
-  function open() {
+  function open(elem: ProductModel) {
+    setInitValue(elem);
     setOpened(true);
   }
 
@@ -44,7 +46,7 @@ export const Main = observer(() => {
         <div className={classes.backtack} />
         <div className={classes.backtack} />
       </div>
-      {opened && <ProductEditorModal onClose={close} />}
+      {opened && <ProductEditorModal onClose={close} initValues={initValues} />}
       <div className={classes.workspace}>
         <h1>Список покупок</h1>
         <div className={classes.menu}>
@@ -55,7 +57,7 @@ export const Main = observer(() => {
             <div />
             <div />
           </div>
-          <Button onClick={open}>Добавить</Button>
+          <Button onClick={() => open(null)}>Добавить</Button>
         </div>
         {ProductStoreImpl.getProducts.length === 0 ? (
           <Empty />
@@ -63,6 +65,7 @@ export const Main = observer(() => {
           <div className={classes.cards}>
             {ProductStoreImpl.getProducts.map((e) => (
               <CardProduct
+                onClick={() => open(e)}
                 key={e.id}
                 id={e.id}
                 name={e.name}

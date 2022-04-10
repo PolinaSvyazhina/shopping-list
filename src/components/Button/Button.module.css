@@ -10,16 +10,3 @@
   background-color: #5d9dff;
   cursor: pointer;
 }
-
-.redButton {
-  width: 154px;
-  height: 40px;
-  border-radius: 20px;
-  border: 0;
-  font-size: 18px;
-  font-weight: 400;
-  font-family: 'Lab Grotesque', sans-serif;
-  color: white;
-  background-color: #f46770;
-  cursor: pointer;
-}

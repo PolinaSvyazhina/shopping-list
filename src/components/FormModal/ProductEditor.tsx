@@ -18,15 +18,15 @@ interface ProductEditorProps {
 export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, dispatch }) => {
   return (
     <form className={classes.container}>
-      <p>Название</p>
+      <p className={`titleSmall`}>Название</p>
       <InputName value={stateProduct.name} onValueChange={(value) => dispatch({ type: 'name', name: value })} />
       <div className={classes.form}>
         <div>
-          <p>Количество</p>
+          <p className={`titleSmall`}>Количество</p>
           <InputCount value={stateProduct.count} onValueChange={(value) => dispatch({ type: 'count', count: value })} />
         </div>
         <div>
-          <p>Единица измерения</p>
+          <p className={`titleSmall`}>Единица измерения</p>
           <SelectMeasurementUnits
             value={stateProduct.measurementUnits}
             onValueChange={(value) =>
@@ -38,24 +38,24 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
           />
         </div>
         <div>
-          <p>Цена за {stateProduct.measurementUnits}</p>
+          <p className={`titleSmall`}>Цена за {stateProduct.measurementUnits}</p>
           <InputPrice value={stateProduct.price} onValueChange={(value) => dispatch({ type: 'price', price: value })} />
         </div>
         <div>
-          <p>Примерная цена</p>
+          <p className={`titleSmall`}>Примерная цена</p>
           <input readOnly value={Number(stateProduct.count) * Number(stateProduct.price)} />
         </div>
         <div>
-          <p>К какому числу</p>
+          <p className={`titleSmall`}>К какому числу</p>
           <InputData value={stateProduct.date} onValueChange={(value) => dispatch({ type: 'data', data: value })} />
         </div>
       </div>
-      <p>Где купить</p>
+      <p className={`titleSmall`}>Где купить</p>
       <InputBuyWhere
         value={stateProduct.buyWhere}
         onValueChange={(value) => dispatch({ type: 'buyWhere', buyWhere: value })}
       />
-      <p>Добавить замену, на случай отсутсвие</p>
+      <p className={`titleSmall`}>Добавить замену, на случай отсутсвия</p>
       <InputReplacement
         value={stateProduct.replacement}
         onValueChange={(value) => dispatch({ type: 'replacement', replacement: value })}
