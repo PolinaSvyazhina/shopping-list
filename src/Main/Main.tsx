@@ -7,6 +7,7 @@ import { Empty } from '../components/Empty';
 import { Button } from '../components/Button';
 import { CardProduct } from '../components/CardProduct';
 import { Delete } from '../components/Delete';
+import { FilterByPlace } from '../components/FilterByPlace';
 import DownloadIcon from './icons/Download.svg';
 
 import classes from './Main.module.css';
@@ -15,6 +16,14 @@ export const Main = observer(() => {
   const [markedList, setMarkedList] = useState<string[]>([]);
   const [opened, setOpened] = useState(false);
   //const [initValues, setInitValue] = useState(null);
+  const [filterValueByPlace, setFilterValueByPlace] = useState([]);
+
+  let Cards = [];
+  if (filterValueByPlace.length > 0) {
+    Cards = ProductStoreImpl.filterProductsByPlace(filterValueByPlace);
+  } else {
+    Cards = ProductStoreImpl.getProducts;
+  }
 
   function open() {
     setOpened(true);
@@ -48,12 +57,9 @@ export const Main = observer(() => {
       <div className={classes.workspace}>
         <h1>Список покупок</h1>
         <div className={classes.menu}>
-          <div>
+          <div style={{ display: 'flex' }}>
             <Button onClick={sortData}> По времени</Button>
-            {/* Сортировка и две фильтрации */}
-            <div />
-            <div />
-            <div />
+            <FilterByPlace getPlaces={(value: Array<string>) => setFilterValueByPlace(value)} />
           </div>
           <Button onClick={open}>Добавить</Button>
         </div>
@@ -61,7 +67,7 @@ export const Main = observer(() => {
           <Empty />
         ) : (
           <div className={classes.cards}>
-            {ProductStoreImpl.getProducts.map((e) => (
+            {Cards.map((e) => (
               <CardProduct
                 key={e.id}
                 id={e.id}

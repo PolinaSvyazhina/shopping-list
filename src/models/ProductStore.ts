@@ -5,6 +5,7 @@ import { ProductTransports } from '../Transports/ProductTransports';
 class ProductStore {
   public products: Map<string, ProductModel> = new Map<string, ProductModel>();
   public direction = false;
+  public filterList: ProductModel[];
 
   constructor() {
     makeAutoObservable(this);
@@ -51,6 +52,13 @@ class ProductStore {
       })
     );
     this.direction = !this.direction;
+  }
+
+  filterProductsByPlace(places: Array<string>) {
+    const filterList = [...this.products.values()].filter((element) => {
+      return places.some((e) => e === element.buyWhere);
+    });
+    return filterList;
   }
 
   get getProducts() {
