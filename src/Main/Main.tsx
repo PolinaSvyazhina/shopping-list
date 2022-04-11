@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ProductEditorModal } from '../containers/ProductEditorModal';
 import { ProductStoreImpl } from '../models/ProductStore';
-
 import { Empty } from '../components/Empty';
 import { Button } from '../components/Button';
 import { CardProduct } from '../components/CardProduct';
 import { Delete } from '../components/Delete';
 import DownloadIcon from './icons/Download.svg';
-
 import classes from './Main.module.css';
 
 export const Main = observer(() => {
-  const [markedList, setMarkedList] = useState<string[]>([]);
   const [opened, setOpened] = useState(false);
-  //const [initValues, setInitValue] = useState(null);
 
   function open() {
     setOpened(true);
@@ -25,9 +21,12 @@ export const Main = observer(() => {
   }
 
   function remove() {
-    for (const i of markedList) {
-      ProductStoreImpl.removeProduct(i);
+    const oldFilter = ProductStoreImpl.isMarkedFilter;
+    ProductStoreImpl.setFilter(true);
+    for (const i of ProductStoreImpl.getProducts) {
+      ProductStoreImpl.removeProduct(i.id);
     }
+    ProductStoreImpl.setFilter(oldFilter);
   }
 
   function removeAll() {
@@ -36,6 +35,16 @@ export const Main = observer(() => {
 
   function sortData() {
     ProductStoreImpl.sortDataProducts();
+  }
+
+  function onChangeFilter(e: ChangeEvent<HTMLSelectElement>) {
+    if (e.currentTarget.value === '1') {
+      ProductStoreImpl.setFilter(null);
+    } else if (e.currentTarget.value === '2') {
+      ProductStoreImpl.setFilter(true);
+    } else {
+      ProductStoreImpl.setFilter(false);
+    }
   }
 
   return (
@@ -50,7 +59,12 @@ export const Main = observer(() => {
         <div className={classes.menu}>
           <div>
             <Button onClick={sortData}> По времени</Button>
-            {/* Сортировка и две фильтрации */}
+            <select onChange={onChangeFilter}>
+              <option value={'1'}>Показать всё</option>
+              <option value={'2'}>Купленные</option>
+              <option value={'3'}> Не купленные</option>
+            </select>
+
             <div />
             <div />
             <div />
@@ -72,7 +86,8 @@ export const Main = observer(() => {
                 buyWhere={e.buyWhere}
                 replacement={e.replacement}
                 isChecked={false}
-                setMarkedList={() => setMarkedList((state) => [...state, e.id])}
+                setMarkedList={() => ProductStoreImpl.markProduct(e.id)}
+                isMarked={() => ProductStoreImpl.isMarked(e.id)}
               />
             ))}
           </div>

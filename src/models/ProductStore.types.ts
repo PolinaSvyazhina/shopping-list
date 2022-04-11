@@ -11,15 +11,13 @@ export interface ProductModel {
   measurementUnits: MeasurementUnitsType;
 }
 
+export interface ProductInfo {
+  marked: boolean;
+  product: ProductModel;
+}
+
 export const MeasurementUnits: Record<MeasurementUnitsType, string> = {
   Grams: 'гр',
   Pieces: 'шт',
   Milliliters: 'мл',
 };
-export enum ShopType {
-  pyaterochka = 'Пятёрочка',
-  verno = 'Верный',
-  perekrestok = 'Перекрёсток',
-  magnit = 'Магнит',
-  lenta = 'Лента',
-}
