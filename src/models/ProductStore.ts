@@ -4,7 +4,7 @@ import { ProductTransports } from '../Transports/ProductTransports';
 
 class ProductStore {
   public products: Map<string, ProductInfo> = new Map<string, ProductInfo>();
-  public direction = false;
+  public direction = 1;
   public isMarkedFilter: boolean = null;
 
   constructor() {
@@ -47,16 +47,10 @@ class ProductStore {
   sortDataProducts() {
     this.products = new Map<string, ProductInfo>(
       [...this.products.entries()].sort((a, b) => {
-        if (a[1].product.date > b[1].product.date) {
-          return this.direction ? 1 : -1;
-        }
-        if (a[1].product.date < b[1].product.date) {
-          return this.direction ? -1 : 1;
-        }
-        return 0;
+        return (+new Date(a[1].product.date) - +new Date(b[1].product.date)) * +this.direction;
       })
     );
-    this.direction = !this.direction;
+    this.direction = -this.direction;
   }
 
   markProduct(id: string) {
@@ -75,7 +69,7 @@ class ProductStore {
 
   get getProducts() {
     return [...this.products.values()]
-      .filter((e) => this.isMarkedFilter == null || this.isMarkedFilter === e.marked)
+      .filter((e) => this.isMarkedFilter === null || this.isMarkedFilter === e.marked)
       .map((e) => e.product);
   }
 }

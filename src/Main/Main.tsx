@@ -38,9 +38,9 @@ export const Main = observer(() => {
   }
 
   function onChangeFilter(e: ChangeEvent<HTMLSelectElement>) {
-    if (e.currentTarget.value === '1') {
+    if (e.currentTarget.value === 'showAll') {
       ProductStoreImpl.setFilter(null);
-    } else if (e.currentTarget.value === '2') {
+    } else if (e.currentTarget.value === 'purchased') {
       ProductStoreImpl.setFilter(true);
     } else {
       ProductStoreImpl.setFilter(false);
@@ -60,9 +60,9 @@ export const Main = observer(() => {
           <div>
             <Button onClick={sortData}> По времени</Button>
             <select onChange={onChangeFilter}>
-              <option value={'1'}>Показать всё</option>
-              <option value={'2'}>Купленные</option>
-              <option value={'3'}> Не купленные</option>
+              <option value={'showAll'}>Показать всё</option>
+              <option value={'purchased'}>Купленные</option>
+              <option value={'unpurchased'}>Не купленные</option>
             </select>
 
             <div />
