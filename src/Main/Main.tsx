@@ -11,19 +11,21 @@ import { FilterByPlace } from '../components/FilterByPlace';
 import DownloadIcon from './icons/Download.svg';
 
 import classes from './Main.module.css';
+import { ProductModel } from 'src/models/ProductStore.types';
 
 export const Main = observer(() => {
   const [markedList, setMarkedList] = useState<string[]>([]);
   const [opened, setOpened] = useState(false);
-  //const [initValues, setInitValue] = useState(null);
+  const [initCardValues, setInitCardValue] = useState(null);
   const [filterValueByPlace, setFilterValueByPlace] = useState([]);
 
   let Cards = [];
   filterValueByPlace.length > 0
     ? (Cards = ProductStoreImpl.filterProductsByPlace(filterValueByPlace))
     : (Cards = ProductStoreImpl.getProducts);
-
-  function open() {
+  
+  function openProductEditorModal(elem: ProductModel) {
+    setInitCardValue(elem);
     setOpened(true);
   }
 
@@ -51,7 +53,7 @@ export const Main = observer(() => {
         <div className={classes.backtack} />
         <div className={classes.backtack} />
       </div>
-      {opened && <ProductEditorModal onClose={close} />}
+      {opened && <ProductEditorModal onClose={close} initValues={initCardValues} />}
       <div className={classes.workspace}>
         <h1>Список покупок</h1>
         <div className={classes.menu}>
@@ -59,7 +61,7 @@ export const Main = observer(() => {
             <Button onClick={sortData}> По времени</Button>
             <FilterByPlace getPlaces={(value: Array<string>) => setFilterValueByPlace(value)} />
           </div>
-          <Button onClick={open}>Добавить</Button>
+          <Button onClick={() => openProductEditorModal(null)}>Добавить</Button>
         </div>
         {ProductStoreImpl.getProducts.length === 0 ? (
           <Empty />
@@ -67,6 +69,7 @@ export const Main = observer(() => {
           <div className={classes.cards}>
             {Cards.map((e) => (
               <CardProduct
+                onClick={() => openProductEditorModal(e)}
                 key={e.id}
                 id={e.id}
                 name={e.name}

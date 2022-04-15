@@ -1,11 +1,15 @@
-import React, { useReducer, useRef } from 'react';
-import { Button, Modal } from '@skbkontur/react-ui';
+import React, { useReducer, useRef, useState } from 'react';
+import classes from './ProductEditorModal.module.css';
+import { Modal } from '@skbkontur/react-ui';
+import { Button } from '../../components/Button';
 import { MeasurementUnits, MeasurementUnitsType, ProductModel } from '../../models/ProductStore.types';
 import { ProductStoreImpl } from '../../models/ProductStore';
 import { observer } from 'mobx-react-lite';
 import { v4 as uuidv4 } from 'uuid';
 import { productReducer } from '../../components/FormModal/ProductReducer';
+
 import { ProductEditor } from '../../components/FormModal';
+import { ProductInfo } from '../../components/ProductInfo';
 
 interface ProductCreatorModalProps {
   onClose: () => void;
@@ -16,6 +20,7 @@ interface ProductCreatorModalProps {
 
 export const ProductEditorModal = observer(({ initValues, onClose }: ProductCreatorModalProps) => {
   const panel = useRef(false);
+
   const state: ProductModel = initValues ?? {
     id: uuidv4(),
     name: '',
@@ -26,8 +31,11 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
     replacement: '',
     date: new Date(Date.now()),
   };
+
   const [stateProduct, dispatch] = useReducer(productReducer, state);
-  const isEdit = !!initValues;
+  const [isEdit, SetIsEdit] = useState(false);
+
+  const isCard = !!initValues;
 
   function addProduct() {
     ProductStoreImpl.addProduct(stateProduct as ProductModel);
@@ -46,15 +54,36 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
 
   return (
     <Modal onClose={onClose}>
-      <Modal.Header>{isEdit ? 'Редактировать' : 'Добавить'} продукт</Modal.Header>
+      <Modal.Header>
+        <h1>{isEdit ? 'Редактирование' : isCard ? stateProduct.name : 'Добавить позицию'}</h1>
+      </Modal.Header>
       <Modal.Body>
-        <ProductEditor stateProduct={stateProduct as ProductModel} dispatch={dispatch} />
+        {isCard && !isEdit ? (
+          <ProductInfo stateProduct={stateProduct as ProductModel} />
+        ) : (
+          <ProductEditor stateProduct={stateProduct as ProductModel} dispatch={dispatch} />
+        )}
       </Modal.Body>
       <Modal.Footer panel={panel.current}>
         {isEdit ? (
           <>
-            <Button onClick={updateProduct}> Изменить</Button>
-            <Button onClick={removeProduct}>Удалить</Button>
+            <Button className={classes.redButton} onClick={() => SetIsEdit(false)}>
+              Отмена
+            </Button>
+            <Button onClick={updateProduct}>Сохранить</Button>
+          </>
+        ) : isCard ? (
+          <>
+            <Button className={classes.redButton} onClick={removeProduct}>
+              Удалить
+            </Button>
+            <Button
+              onClick={() => {
+                SetIsEdit(true);
+              }}
+            >
+              Изменить
+            </Button>
           </>
         ) : (
           <Button onClick={addProduct}>Добавить</Button>
