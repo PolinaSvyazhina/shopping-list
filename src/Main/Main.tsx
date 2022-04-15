@@ -19,11 +19,9 @@ export const Main = observer(() => {
   const [filterValueByPlace, setFilterValueByPlace] = useState([]);
 
   let Cards = [];
-  if (filterValueByPlace.length > 0) {
-    Cards = ProductStoreImpl.filterProductsByPlace(filterValueByPlace);
-  } else {
-    Cards = ProductStoreImpl.getProducts;
-  }
+  filterValueByPlace.length > 0
+    ? (Cards = ProductStoreImpl.filterProductsByPlace(filterValueByPlace))
+    : (Cards = ProductStoreImpl.getProducts);
 
   function open() {
     setOpened(true);
