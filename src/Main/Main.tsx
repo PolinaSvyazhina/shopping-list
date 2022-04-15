@@ -1,23 +1,20 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ProductEditorModal } from '../containers/ProductEditorModal';
 import { ProductStoreImpl } from '../models/ProductStore';
-
 import { Empty } from '../components/Empty';
 import { Button } from '../components/Button';
 import { CardProduct } from '../components/CardProduct';
 import { Delete } from '../components/Delete';
 import DownloadIcon from './icons/Download.svg';
-
 import classes from './Main.module.css';
 import { ProductModel } from 'src/models/ProductStore.types';
 
 export const Main = observer(() => {
-  const [markedList, setMarkedList] = useState<string[]>([]);
   const [opened, setOpened] = useState(false);
   const [initCardValues, setInitCardValue] = useState(null);
 
-  function openProductEditorModal(elem: ProductModel) {
+  function open(elem: ProductModel) {
     setInitCardValue(elem);
     setOpened(true);
   }
@@ -27,9 +24,12 @@ export const Main = observer(() => {
   }
 
   function remove() {
-    for (const i of markedList) {
-      ProductStoreImpl.removeProduct(i);
+    const oldFilter = ProductStoreImpl.isMarkedFilter;
+    ProductStoreImpl.setFilter(true);
+    for (const i of ProductStoreImpl.getProducts) {
+      ProductStoreImpl.removeProduct(i.id);
     }
+    ProductStoreImpl.setFilter(oldFilter);
   }
 
   function removeAll() {
@@ -38,6 +38,16 @@ export const Main = observer(() => {
 
   function sortData() {
     ProductStoreImpl.sortDataProducts();
+  }
+
+  function onChangeFilter(e: ChangeEvent<HTMLSelectElement>) {
+    if (e.currentTarget.value === 'showAll') {
+      ProductStoreImpl.setFilter(null);
+    } else if (e.currentTarget.value === 'purchased') {
+      ProductStoreImpl.setFilter(true);
+    } else {
+      ProductStoreImpl.setFilter(false);
+    }
   }
 
   return (
@@ -52,12 +62,17 @@ export const Main = observer(() => {
         <div className={classes.menu}>
           <div>
             <Button onClick={sortData}> По времени</Button>
-            {/* Сортировка и две фильтрации */}
+            <select onChange={onChangeFilter}>
+              <option value={'showAll'}>Показать всё</option>
+              <option value={'purchased'}>Купленные</option>
+              <option value={'unpurchased'}>Не купленные</option>
+            </select>
+
             <div />
             <div />
             <div />
           </div>
-          <Button onClick={() => openProductEditorModal(null)}>Добавить</Button>
+          <Button onClick={() => open(null)}>Добавить</Button>
         </div>
         {ProductStoreImpl.getProducts.length === 0 ? (
           <Empty />
@@ -65,7 +80,7 @@ export const Main = observer(() => {
           <div className={classes.cards}>
             {ProductStoreImpl.getProducts.map((e) => (
               <CardProduct
-                onClick={() => openProductEditorModal(e)}
+                onClick={() => open(e)}
                 key={e.id}
                 id={e.id}
                 name={e.name}
@@ -75,7 +90,8 @@ export const Main = observer(() => {
                 buyWhere={e.buyWhere}
                 replacement={e.replacement}
                 isChecked={false}
-                setMarkedList={() => setMarkedList((state) => [...state, e.id])}
+                setMarkedList={() => ProductStoreImpl.markProduct(e.id)}
+                isMarked={() => ProductStoreImpl.isMarked(e.id)}
               />
             ))}
           </div>

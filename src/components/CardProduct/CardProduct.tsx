@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '../Button';
 import classes from './CardProduct.module.css';
 import MultiClamp from 'react-multi-clamp';
 import CheckIcon from '../../Main/icons/Check.svg';
+import { observer } from 'mobx-react-lite';
 
 export interface CardProductProps {
   id: string;
@@ -15,11 +16,11 @@ export interface CardProductProps {
   onClick?: () => void;
   isChecked: boolean;
   setMarkedList: () => void;
+  isMarked: () => boolean;
 }
 
-export const CardProduct: React.FC<CardProductProps> = (props) => {
+export const CardProduct: React.FC<CardProductProps> = observer((props) => {
   const { id, name, count, measurementUnits, price } = props;
-  const [check, setCheck] = useState(false);
   return (
     <div key={id} className={classes.card}>
       <div onClick={props.onClick}>
@@ -46,13 +47,12 @@ export const CardProduct: React.FC<CardProductProps> = (props) => {
       </div>
       <Button
         onClick={() => {
-          setCheck(!check);
           props.setMarkedList();
         }}
         className={classes.checkButton}
       >
-        <CheckIcon className={check && classes.checkIcon} />
+        <CheckIcon className={props.isMarked() && classes.checkIcon} />
       </Button>
     </div>
   );
-};
+});
