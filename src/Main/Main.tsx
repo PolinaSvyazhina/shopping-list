@@ -6,6 +6,7 @@ import { Empty } from '../components/Empty';
 import { Button } from '../components/Button';
 import { CardProduct } from '../components/CardProduct';
 import { Delete } from '../components/Delete';
+import { FilterByPlace } from '../components/FilterByPlace';
 import DownloadIcon from './icons/Download.svg';
 import classes from './Main.module.css';
 import { ProductModel } from 'src/models/ProductStore.types';
@@ -13,8 +14,14 @@ import { ProductModel } from 'src/models/ProductStore.types';
 export const Main = observer(() => {
   const [opened, setOpened] = useState(false);
   const [initCardValues, setInitCardValue] = useState(null);
+  const [filterValueByPlace, setFilterValueByPlace] = useState([]);
 
-  function open(elem: ProductModel) {
+  let Cards = [];
+  filterValueByPlace.length > 0
+    ? (Cards = ProductStoreImpl.filterProductsByPlace(filterValueByPlace))
+    : (Cards = ProductStoreImpl.getProducts);
+
+  function openProductEditorModal(elem: ProductModel) {
     setInitCardValue(elem);
     setOpened(true);
   }
@@ -60,27 +67,24 @@ export const Main = observer(() => {
       <div className={classes.workspace}>
         <h1>Список покупок</h1>
         <div className={classes.menu}>
-          <div>
+          <div style={{ display: 'flex' }}>
             <Button onClick={sortData}> По времени</Button>
             <select onChange={onChangeFilter}>
               <option value={'showAll'}>Показать всё</option>
               <option value={'purchased'}>Купленные</option>
               <option value={'unpurchased'}>Не купленные</option>
             </select>
-
-            <div />
-            <div />
-            <div />
+            <FilterByPlace getPlaces={(value: Array<string>) => setFilterValueByPlace(value)} />
           </div>
-          <Button onClick={() => open(null)}>Добавить</Button>
+          <Button onClick={() => openProductEditorModal(null)}>Добавить</Button>
         </div>
         {ProductStoreImpl.getProducts.length === 0 ? (
           <Empty />
         ) : (
           <div className={classes.cards}>
-            {ProductStoreImpl.getProducts.map((e) => (
+            {Cards.map((e: ProductModel) => (
               <CardProduct
-                onClick={() => open(e)}
+                onClick={() => openProductEditorModal(e)}
                 key={e.id}
                 id={e.id}
                 name={e.name}

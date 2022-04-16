@@ -67,6 +67,15 @@ class ProductStore {
     return productInfo.marked;
   }
 
+  filterProductsByPlace(places: Array<string>) {
+    const filterList = [...this.products.values()]
+      .filter((element) => {
+        return places.some((e) => e === element.product.buyWhere);
+      })
+      .map((e) => e.product);
+    return filterList;
+  }
+
   get getProducts() {
     return [...this.products.values()]
       .filter((e) => this.isMarkedFilter === null || this.isMarkedFilter === e.marked)

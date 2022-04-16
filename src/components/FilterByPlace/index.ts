@@ -1,0 +1,1 @@
+export { FilterByPlace } from './FilterByPlace';
