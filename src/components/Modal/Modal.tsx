@@ -29,7 +29,7 @@ export const Modal = ({ visible = false, title = '', content = '', footer = '', 
     <div className={classes.modal} onClick={onClose}>
       <div className={classes.dialog} onClick={(e) => e.stopPropagation()}>
         <div className={classes.header}>
-          <h3 className={classes.title}>{title}</h3>
+          <h1 className={classes.title}>{title}</h1>
           <span className={classes.close} onClick={onClose}></span>
         </div>
         <div className={classes.body}>

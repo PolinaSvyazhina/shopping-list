@@ -40,12 +40,10 @@
 }
 
 .header {
-  border-bottom: 1px solid #dbdbdb;
   justify-content: space-between;
 }
 
 .footer {
-  border-top: 1px solid #dbdbdb;
   justify-content: flex-end;
 }
 
