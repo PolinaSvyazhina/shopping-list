@@ -1,24 +1,19 @@
-import { ProductInfo, ProductModel } from './ProductStore.types';
+import { ProductModel } from './ProductStore.types';
 import { makeAutoObservable } from 'mobx';
 import { ProductTransports } from '../Transports/ProductTransports';
 
 class ProductStore {
-  public products: Map<string, ProductInfo> = new Map<string, ProductInfo>();
+  public products: Map<string, ProductModel> = new Map<string, ProductModel>();
   public direction = 1;
   public isMarkedFilter: boolean = null;
 
   constructor() {
     makeAutoObservable(this);
-    ProductTransports.getProducts().forEach((product) =>
-      this.products.set(product.id, {
-        product,
-        marked: false,
-      })
-    );
+    ProductTransports.getProducts().forEach((product) => this.products.set(product.id, product));
   }
 
   addProduct(product: ProductModel) {
-    this.products.set(product.id, { product, marked: false });
+    this.products.set(product.id, product);
     ProductTransports.addProduct(product);
   }
 
@@ -29,13 +24,13 @@ class ProductStore {
 
   updateProduct(product: ProductModel) {
     const index = product.id;
-    this.products.set(index, { product, marked: false });
+    this.products.set(index, product);
     ProductTransports.updateProduct(product);
   }
 
   getTotal() {
     let total = 0;
-    [...this.products.values()].map((e) => (total += Number(e.product.price)));
+    [...this.products.values()].map((e) => (total += Number(e.price)));
     return total;
   }
 
@@ -45,9 +40,9 @@ class ProductStore {
   }
 
   sortDataProducts() {
-    this.products = new Map<string, ProductInfo>(
+    this.products = new Map<string, ProductModel>(
       [...this.products.entries()].sort((a, b) => {
-        return (+new Date(a[1].product.date) - +new Date(b[1].product.date)) * +this.direction;
+        return (+new Date(a[1].date) - +new Date(b[1].date)) * +this.direction;
       })
     );
     this.direction = -this.direction;
@@ -68,18 +63,13 @@ class ProductStore {
   }
 
   filterProductsByPlace(places: Array<string>) {
-    const filterList = [...this.products.values()]
-      .filter((element) => {
-        return places.some((e) => e === element.product.buyWhere);
-      })
-      .map((e) => e.product);
-    return filterList;
+    return [...this.products.values()].filter((element) => {
+      return places.some((e) => e === element.buyWhere);
+    });
   }
 
   get getProducts() {
-    return [...this.products.values()]
-      .filter((e) => this.isMarkedFilter === null || this.isMarkedFilter === e.marked)
-      .map((e) => e.product);
+    return [...this.products.values()].filter((e) => this.isMarkedFilter === null || this.isMarkedFilter === e.marked);
   }
 }
 

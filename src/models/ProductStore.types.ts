@@ -8,12 +8,8 @@ export interface ProductModel {
   buyWhere: string;
   date: Date;
   replacement: string;
-  measurementUnits: MeasurementUnitsType;
-}
-
-export interface ProductInfo {
-  marked: boolean;
-  product: ProductModel;
+  measurementUnits?: MeasurementUnitsType;
+  marked?: boolean;
 }
 
 export const MeasurementUnits: Record<MeasurementUnitsType, string> = {
