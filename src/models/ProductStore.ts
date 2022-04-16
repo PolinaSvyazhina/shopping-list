@@ -6,6 +6,7 @@ class ProductStore {
   public products: Map<string, ProductModel> = new Map<string, ProductModel>();
   public direction = 1;
   public isMarkedFilter: boolean = null;
+  public places: Array<string> = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -30,7 +31,7 @@ class ProductStore {
 
   getTotal() {
     let total = 0;
-    [...this.products.values()].map((e) => (total += Number(e.price)));
+    ProductStoreImpl.getProducts.map((e) => (total += Number(e.price)));
     return total;
   }
 
@@ -62,14 +63,21 @@ class ProductStore {
     return productInfo.marked;
   }
 
-  filterProductsByPlace(places: Array<string>) {
-    return [...this.products.values()].filter((element) => {
-      return places.some((e) => e === element.buyWhere);
-    });
+  setPlaces(places: Array<string>) {
+    this.places = places;
   }
 
   get getProducts() {
-    return [...this.products.values()].filter((e) => this.isMarkedFilter === null || this.isMarkedFilter === e.marked);
+    let result = [...this.products.values()];
+    if (this.places.length !== 0) {
+      result = result.filter((element) => {
+        return this.places.some((e) => e === element.buyWhere);
+      });
+    }
+    if (this.isMarkedFilter !== null) {
+      result = result.filter((e) => this.isMarkedFilter === e.marked);
+    }
+    return result;
   }
 }
 

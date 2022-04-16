@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ProductEditorModal } from '../containers/ProductEditorModal';
 import { ProductStoreImpl } from '../models/ProductStore';
@@ -15,11 +15,7 @@ export const Main = observer(() => {
   const [opened, setOpened] = useState(false);
   const [initCardValues, setInitCardValue] = useState(null);
   const [filterValueByPlace, setFilterValueByPlace] = useState([]);
-
-  let Cards = [];
-  filterValueByPlace.length > 0
-    ? (Cards = ProductStoreImpl.filterProductsByPlace(filterValueByPlace))
-    : (Cards = ProductStoreImpl.getProducts);
+  useEffect(() => ProductStoreImpl.setPlaces(filterValueByPlace), [filterValueByPlace]);
 
   function openProductEditorModal(elem: ProductModel) {
     setInitCardValue(elem);
@@ -82,7 +78,7 @@ export const Main = observer(() => {
           <Empty />
         ) : (
           <div className={classes.cards}>
-            {Cards.map((e: ProductModel) => (
+            {ProductStoreImpl.getProducts.map((e: ProductModel) => (
               <CardProduct
                 onClick={() => openProductEditorModal(e)}
                 key={e.id}
