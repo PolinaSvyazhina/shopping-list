@@ -1,27 +1,23 @@
-import React, { useReducer, useRef, useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import classes from './ProductEditorModal.module.css';
-import { Modal } from '@skbkontur/react-ui';
 import { Button } from '../../components/Button';
 import { MeasurementUnits, MeasurementUnitsType, ProductModel } from '../../models/ProductStore.types';
 import { ProductStoreImpl } from '../../models/ProductStore';
 import { observer } from 'mobx-react-lite';
 import { v4 as uuidv4 } from 'uuid';
 import { productReducer } from '../../components/FormModal/ProductReducer';
-
 import { ProductEditor } from '../../components/FormModal';
 import { ProductInfo } from '../../components/ProductInfo';
+import { Modal } from '../../components/Modal';
 
 interface ProductCreatorModalProps {
   onClose: () => void;
   initValues?: ProductModel;
-  onCancel?: () => void;
-  onSubmit?: () => void;
+  onShow?: boolean;
 }
 
-export const ProductEditorModal = observer(({ initValues, onClose }: ProductCreatorModalProps) => {
-  const panel = useRef(false);
-
-  const state: ProductModel = initValues ?? {
+export const ProductEditorModal = observer((props: ProductCreatorModalProps) => {
+  const state: ProductModel = props.initValues ?? {
     id: uuidv4(),
     name: '',
     count: null,
@@ -36,37 +32,37 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
   const [stateProduct, dispatch] = useReducer(productReducer, state);
   const [isEdit, SetIsEdit] = useState(false);
 
-  const isCard = !!initValues;
+  const isCard = !!props.initValues;
 
   function addProduct() {
     ProductStoreImpl.addProduct(stateProduct as ProductModel);
-    onClose();
+    props.onClose();
   }
 
   function updateProduct() {
     ProductStoreImpl.updateProduct(stateProduct as ProductModel);
-    onClose();
+    props.onClose();
   }
 
   function removeProduct() {
     ProductStoreImpl.removeProduct(stateProduct.id);
-    onClose();
+    props.onClose();
   }
 
   return (
-    <Modal onClose={onClose}>
-      <Modal.Header>
-        <h1>{isEdit ? 'Редактирование' : isCard ? stateProduct.name : 'Добавить позицию'}</h1>
-      </Modal.Header>
-      <Modal.Body>
-        {isCard && !isEdit ? (
+    <Modal
+      visible={props.onShow}
+      onClose={props.onClose}
+      title={isEdit ? 'Редактирование' : isCard ? stateProduct.name : 'Добавить позицию'}
+      content={
+        isCard && !isEdit ? (
           <ProductInfo stateProduct={stateProduct as ProductModel} />
         ) : (
           <ProductEditor stateProduct={stateProduct as ProductModel} dispatch={dispatch} />
-        )}
-      </Modal.Body>
-      <Modal.Footer panel={panel.current}>
-        {isEdit ? (
+        )
+      }
+      footer={
+        isEdit ? (
           <>
             <Button className={classes.redButton} onClick={() => SetIsEdit(false)}>
               Отмена
@@ -88,8 +84,8 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
           </>
         ) : (
           <Button onClick={addProduct}>Добавить</Button>
-        )}
-      </Modal.Footer>
-    </Modal>
+        )
+      }
+    />
   );
 });

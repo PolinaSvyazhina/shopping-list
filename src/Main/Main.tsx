@@ -59,7 +59,7 @@ export const Main = observer(() => {
         <div className={classes.backtack} />
         <div className={classes.backtack} />
       </div>
-      {opened && <ProductEditorModal onClose={close} initValues={initCardValues} />}
+      {<ProductEditorModal onClose={close} initValues={initCardValues} onShow={opened} />}
       <div className={classes.workspace}>
         <h1>Список покупок</h1>
         <div className={classes.menu}>

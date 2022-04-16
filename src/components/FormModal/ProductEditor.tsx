@@ -9,6 +9,7 @@ import { InputReplacement } from '../InputReplacement';
 import React from 'react';
 import { ProductModel } from '../../models/ProductStore.types';
 import { ProductAction } from './ProductReducer';
+import { InputTotalCount } from '../inputTotalCount';
 
 interface ProductEditorProps {
   stateProduct: ProductModel;
@@ -43,10 +44,9 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
         </div>
         <div>
           <p className="titleSmall">Примерная цена</p>
-          <input
-            className={classes.background}
-            readOnly
-            value={Number(stateProduct.count) * Number(stateProduct.price)}
+          <InputTotalCount
+            value={stateProduct.price * stateProduct.count}
+            onValueChange={(value) => dispatch({ type: 'totalCount', totalCount: value })}
           />
         </div>
         <div>
