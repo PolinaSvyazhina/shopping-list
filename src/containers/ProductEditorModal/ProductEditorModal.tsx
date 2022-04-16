@@ -30,6 +30,7 @@ export const ProductEditorModal = observer(({ initValues, onClose }: ProductCrea
     buyWhere: '',
     replacement: '',
     date: new Date(Date.now()),
+    marked: false,
   };
 
   const [stateProduct, dispatch] = useReducer(productReducer, state);

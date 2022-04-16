@@ -9,7 +9,7 @@ export interface ProductModel {
   date: Date;
   replacement: string;
   measurementUnits?: MeasurementUnitsType;
-  marked?: boolean;
+  marked: boolean;
 }
 
 export const MeasurementUnits: Record<MeasurementUnitsType, string> = {
