@@ -43,7 +43,11 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
         </div>
         <div>
           <p className="titleSmall">Примерная цена</p>
-          <input readOnly value={Number(stateProduct.count) * Number(stateProduct.price)} />
+          <input
+            className={classes.background}
+            readOnly
+            value={Number(stateProduct.count) * Number(stateProduct.price)}
+          />
         </div>
         <div>
           <p className="titleSmall">К какому числу</p>
