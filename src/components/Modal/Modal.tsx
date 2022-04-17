@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 import classes from './modal.module.css';
+import { observer } from 'mobx-react-lite';
 
 interface ModalProps {
   visible: boolean;
@@ -9,11 +10,11 @@ interface ModalProps {
   onClose: () => void;
 }
 
-export const Modal = ({ visible = false, title = '', content = '', footer = '', onClose }: ModalProps) => {
+export const Modal = observer((props: ModalProps) => {
   const onKeydown = ({ key }: KeyboardEvent) => {
     switch (key) {
       case 'Escape':
-        onClose();
+        props.onClose;
         break;
     }
   };
@@ -23,20 +24,23 @@ export const Modal = ({ visible = false, title = '', content = '', footer = '', 
     return () => document.removeEventListener('keydown', onKeydown);
   });
 
-  if (!visible) return null;
+  if (!props.visible) return null;
 
   return (
-    <div className={classes.modal} onClick={onClose}>
+    <div className={classes.modal} onClick={props.onClose}>
       <div className={classes.dialog} onClick={(e) => e.stopPropagation()}>
         <div className={classes.header}>
-          <h1 className={classes.title}>{title}</h1>
-          <span className={classes.close} onClick={onClose}></span>
+          <h1 className={classes.title}>{props.title}</h1>
+          <button className={classes.close} onClick={props.onClose}>
+            {' '}
+            крести{' '}
+          </button>
         </div>
         <div className={classes.body}>
-          <div className={classes.content}>{content}</div>
+          <div className={classes.content}>{props.content}</div>
         </div>
-        {footer && <div className={classes.footer}>{footer}</div>}
+        {props.footer && <div className={classes.footer}>{props.footer}</div>}
       </div>
     </div>
   );
-};
+});
