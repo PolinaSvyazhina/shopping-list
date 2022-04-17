@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ProductEditorModal } from '../containers/ProductEditorModal';
 import { ProductStoreImpl } from '../models/ProductStore';
@@ -10,6 +10,8 @@ import { FilterByPlace } from '../components/FilterByPlace';
 import DownloadIcon from './icons/Download.svg';
 import classes from './Main.module.css';
 import { ProductModel } from 'src/models/ProductStore.types';
+import { SelectFilterMark } from '../components/SelectFilterMark';
+import { SelectValue } from '../components/SelectFilterMark/SelectFilterMark';
 
 export const Main = observer(() => {
   const [opened, setOpened] = useState(false);
@@ -43,10 +45,10 @@ export const Main = observer(() => {
     ProductStoreImpl.sortDataProducts();
   }
 
-  function onChangeFilter(e: ChangeEvent<HTMLSelectElement>) {
-    if (e.currentTarget.value === 'showAll') {
+  function onChangeFilter(e: SelectValue) {
+    if (e.value === 'showAll') {
       ProductStoreImpl.setFilter(null);
-    } else if (e.currentTarget.value === 'purchased') {
+    } else if (e.value === 'purchased') {
       ProductStoreImpl.setFilter(true);
     } else {
       ProductStoreImpl.setFilter(false);
@@ -64,12 +66,8 @@ export const Main = observer(() => {
         <h1>Список покупок</h1>
         <div className={classes.menu}>
           <div style={{ display: 'flex' }}>
-            <Button onClick={sortData}> По времени</Button>
-            <select onChange={onChangeFilter}>
-              <option value={'showAll'}>Показать всё</option>
-              <option value={'purchased'}>Купленные</option>
-              <option value={'unpurchased'}>Не купленные</option>
-            </select>
+            <Button onClick={sortData}>По дате добавления</Button>
+            <SelectFilterMark onChange={onChangeFilter} />
             <FilterByPlace getPlaces={(value: Array<string>) => setFilterValueByPlace(value)} />
           </div>
           <Button onClick={() => openProductEditorModal(null)}>Добавить</Button>

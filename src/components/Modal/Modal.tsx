@@ -24,8 +24,6 @@ export const Modal = observer((props: ModalProps) => {
     return () => document.removeEventListener('keydown', onKeydown);
   });
 
-  if (!props.visible) return null;
-
   return (
     <div className={classes.modal} onClick={props.onClose}>
       <div className={classes.dialog} onClick={(e) => e.stopPropagation()}>
