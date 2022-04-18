@@ -15,7 +15,7 @@ export const InputCount: React.FC<InputCountProps> = ({ value, onValueChange }) 
     <input
       className={classes.background}
       type="number"
-      placeholder="количество"
+      placeholder="Количество"
       value={value}
       onChange={handleChange}
     />

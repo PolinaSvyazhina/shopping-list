@@ -15,7 +15,7 @@ export const InputPrice: React.FC<InputPriceProps> = ({ value, onValueChange }) 
     <input
       className={classes.background}
       type="number"
-      placeholder="цена"
+      placeholder="Цена"
       value={value}
       onChange={handleChange}
       required

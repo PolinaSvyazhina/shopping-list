@@ -11,5 +11,5 @@ export const InputBuyWhere: React.FC<InputBuyWhereProps> = ({ value, onValueChan
     onValueChange(e.currentTarget.value);
   };
 
-  return <input className={classes.background} placeholder="место" value={value} onChange={handleChange} />;
+  return <input className={classes.background} placeholder="Место" value={value} onChange={handleChange} />;
 };

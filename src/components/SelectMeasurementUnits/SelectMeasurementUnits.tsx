@@ -1,22 +1,30 @@
 import React from 'react';
 import { MeasurementUnits } from '../../models/ProductStore.types';
-import classes from './input.module.css';
+import Select, { ActionMeta } from 'react-select';
 
 interface SelectMeasurementUnitsProps {
-  value?: string;
-  onValueChange?: (value?: string) => void;
+  onValueChange?: (newSelections: SelectValue, actionMeta: ActionMeta<SelectValue>) => void;
 }
 
-export const SelectMeasurementUnits: React.FC<SelectMeasurementUnitsProps> = ({ value, onValueChange }) => {
-  const handleChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    onValueChange(e.currentTarget.value);
-  };
+export type SelectValue = {
+  value: string;
+  label: string;
+};
 
+const option: Array<SelectValue> = [
+  { value: MeasurementUnits.Grams, label: MeasurementUnits.Grams },
+  { value: MeasurementUnits.Pieces, label: MeasurementUnits.Pieces },
+  { value: MeasurementUnits.Milliliters, label: MeasurementUnits.Milliliters },
+];
+
+export const SelectMeasurementUnits: React.FC<SelectMeasurementUnitsProps> = ({ onValueChange }) => {
   return (
-    <select className={classes.background} value={value} onChange={handleChange}>
-      <option>{MeasurementUnits.Grams}</option>
-      <option>{MeasurementUnits.Pieces}</option>
-      <option>{MeasurementUnits.Milliliters}</option>
-    </select>
+    <Select
+      options={option}
+      onChange={onValueChange}
+      className="react-select-container"
+      classNamePrefix="react-select"
+      placeholder={'---'}
+    />
   );
 };

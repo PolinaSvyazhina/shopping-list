@@ -11,5 +11,5 @@ export const InputName: React.FC<InputNameProps> = ({ value, onValueChange }) =>
     onValueChange(e.currentTarget.value);
   };
 
-  return <input className={classes.background} placeholder="название" value={value} onChange={handleChange} required />;
+  return <input className={classes.background} placeholder="Название" value={value} onChange={handleChange} required />;
 };
