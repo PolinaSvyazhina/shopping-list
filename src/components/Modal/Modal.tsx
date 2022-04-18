@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect } from 'react';
 import classes from './modal.module.css';
 import { observer } from 'mobx-react-lite';
+import Cross from '../Modal/icons/Cross.svg';
 
 interface ModalProps {
   visible: boolean;
@@ -29,10 +30,9 @@ export const Modal = observer((props: ModalProps) => {
       <div className={classes.dialog} onClick={(e) => e.stopPropagation()}>
         <div className={classes.header}>
           <h1 className={classes.title}>{props.title}</h1>
-          <button className={classes.close} onClick={props.onClose}>
-            {' '}
-            крести{' '}
-          </button>
+          <p className={classes.close} onClick={props.onClose}>
+            <Cross />
+          </p>
         </div>
         <div className={classes.body}>
           <div className={classes.content}>{props.content}</div>

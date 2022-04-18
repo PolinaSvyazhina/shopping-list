@@ -1,4 +1,5 @@
 import React from 'react';
+import classes from './input.module.css';
 
 interface InputCountProps {
   value?: number;
@@ -10,5 +11,13 @@ export const InputCount: React.FC<InputCountProps> = ({ value, onValueChange }) 
     onValueChange(Number(e.currentTarget.value));
   };
 
-  return <input type="number" placeholder="количество" value={value} onChange={handleChange} />;
+  return (
+    <input
+      className={classes.background}
+      type="number"
+      placeholder="количество"
+      value={value}
+      onChange={handleChange}
+    />
+  );
 };

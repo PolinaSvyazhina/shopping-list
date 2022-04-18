@@ -1,6 +1,8 @@
 .container {
   display: grid;
   width: 430px;
+  grid-template-rows: 1fr;
+  margin-left: 47px;
 }
 
 .form {
@@ -18,4 +20,9 @@
   width: 234px;
   top: 35px;
   border: 0;
+}
+
+.form_name {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
 }

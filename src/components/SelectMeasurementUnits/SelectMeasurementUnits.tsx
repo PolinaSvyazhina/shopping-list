@@ -1,5 +1,6 @@
 import React from 'react';
 import { MeasurementUnits } from '../../models/ProductStore.types';
+import classes from './input.module.css';
 
 interface SelectMeasurementUnitsProps {
   value?: string;
@@ -12,7 +13,7 @@ export const SelectMeasurementUnits: React.FC<SelectMeasurementUnitsProps> = ({ 
   };
 
   return (
-    <select value={value} onChange={handleChange}>
+    <select className={classes.background} value={value} onChange={handleChange}>
       <option>{MeasurementUnits.Grams}</option>
       <option>{MeasurementUnits.Pieces}</option>
       <option>{MeasurementUnits.Milliliters}</option>
