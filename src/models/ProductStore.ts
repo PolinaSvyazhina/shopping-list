@@ -31,7 +31,7 @@ class ProductStore {
 
   getTotal() {
     let total = 0;
-    ProductStoreImpl.getProducts.map((e) => (total += Number(e.price)));
+    ProductStoreImpl.getProducts.map((e) => (total += Number(e.totalPrice)));
     return total;
   }
 

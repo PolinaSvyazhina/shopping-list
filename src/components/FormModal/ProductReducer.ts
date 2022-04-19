@@ -7,7 +7,8 @@ export type ProductAction =
   | { type: 'buyWhere'; buyWhere: string }
   | { type: 'price'; price: number }
   | { type: 'data'; data: Date }
-  | { type: 'replacement'; replacement: string };
+  | { type: 'replacement'; replacement: string }
+  | { type: 'totalPrice'; totalPrice: number };
 
 export function productReducer(state: ProductModel, action: ProductAction) {
   switch (action.type) {
@@ -25,7 +26,8 @@ export function productReducer(state: ProductModel, action: ProductAction) {
       return { ...state, replacement: action.replacement };
     case 'data':
       return { ...state, date: action.data };
-
+    case 'totalPrice':
+      return { ...state, totalCount: action.totalPrice };
     default:
       return state;
   }

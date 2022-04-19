@@ -9,6 +9,7 @@ import { InputReplacement } from '../InputReplacement';
 import React from 'react';
 import { ProductModel } from '../../models/ProductStore.types';
 import { ProductAction } from './ProductReducer';
+import { InputTotalPrice } from '../InputTotalPrice';
 
 interface ProductEditorProps {
   stateProduct: ProductModel;
@@ -43,7 +44,14 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
         </div>
         <div>
           <p className="titleSmall">Примерная цена</p>
-          <input readOnly value={Number(stateProduct.count) * Number(stateProduct.price)} />
+          <InputTotalPrice
+            // // value = {stateProduct.measurementUnits === 'гр' || stateProduct.measurementUnits === 'мл'?
+            // //   stateProduct.price* stateProduct.count / 1000:
+            //   stateProduct.price* stateProduct.count
+            // }
+            value={stateProduct.price}
+            onValueChange={(value) => dispatch({ type: 'totalPrice', totalPrice: value })}
+          />
         </div>
         <div>
           <p className="titleSmall">К какому числу</p>
