@@ -86,7 +86,7 @@ export const Main = observer(() => {
                 name={e.name}
                 count={e.count}
                 measurementUnits={e.measurementUnits}
-                price={e.price}
+                totalPrice={e.totalPrice}
                 buyWhere={e.buyWhere}
                 replacement={e.replacement}
                 isChecked={false}
@@ -101,7 +101,7 @@ export const Main = observer(() => {
             <div style={{ marginRight: 8 }}>
               <div className={classes.line} />
               <p className="titleMedium">Итого</p>
-              <h1 className={classes.total}>{ProductStoreImpl.getTotal()}р.</h1>
+              <h1 className={classes.total}>{ProductStoreImpl.getTotal}р.</h1>
             </div>
             <Button className={classes.downloadButton}>
               <DownloadIcon />

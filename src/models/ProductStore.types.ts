@@ -7,6 +7,7 @@ export interface ProductModel {
   price: number;
   buyWhere: string;
   date: Date;
+  totalPrice: number;
   replacement: string;
   measurementUnits?: MeasurementUnitsType;
   marked: boolean;

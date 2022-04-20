@@ -29,9 +29,9 @@ class ProductStore {
     ProductTransports.updateProduct(product);
   }
 
-  getTotal() {
+  get getTotal() {
     let total = 0;
-    ProductStoreImpl.getProducts.map((e) => (total += Number(e.totalPrice)));
+    ProductStoreImpl.getProducts.map((e) => (total += e.totalPrice));
     return total;
   }
 

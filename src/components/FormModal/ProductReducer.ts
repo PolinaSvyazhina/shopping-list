@@ -1,4 +1,4 @@
-import { ProductModel } from '../../models/ProductStore.types';
+import { MeasurementUnitsType, ProductModel } from '../../models/ProductStore.types';
 
 export type ProductAction =
   | { type: 'name'; name: string }
@@ -14,21 +14,35 @@ export function productReducer(state: ProductModel, action: ProductAction) {
   switch (action.type) {
     case 'name':
       return { ...state, name: action.name };
-    case 'count':
-      return { ...state, count: action.count };
-    case 'measurementUnits':
-      return { ...state, measurementUnits: action.measurementUnits };
+    case 'count': {
+      const result = { ...state, count: action.count };
+      result.totalPrice = getTotalPrice(result);
+      return result;
+    }
+    case 'measurementUnits': {
+      const result: ProductModel = { ...state, measurementUnits: action.measurementUnits as MeasurementUnitsType };
+      result.totalPrice = getTotalPrice(result);
+      return result;
+    }
     case 'buyWhere':
       return { ...state, buyWhere: action.buyWhere };
-    case 'price':
-      return { ...state, price: action.price };
+    case 'price': {
+      const result = { ...state, price: action.price };
+      result.totalPrice = getTotalPrice(result);
+      return result;
+    }
     case 'replacement':
       return { ...state, replacement: action.replacement };
     case 'data':
       return { ...state, date: action.data };
-    case 'totalPrice':
-      return { ...state, totalCount: action.totalPrice };
     default:
       return state;
   }
+}
+
+function getTotalPrice(stateProduct: ProductModel) {
+  if (stateProduct.price === null || stateProduct.measurementUnits === null || stateProduct.count === null) return 0;
+  return stateProduct.measurementUnits === 'Grams' || stateProduct.measurementUnits === 'Milliliters'
+    ? (stateProduct.price * stateProduct.count) / 1000
+    : stateProduct.price * stateProduct.count;
 }
