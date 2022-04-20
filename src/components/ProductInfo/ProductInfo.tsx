@@ -1,6 +1,7 @@
 import classes from './ProductInfo.module.css';
 import React from 'react';
-import { MeasurementUnits, ProductModel } from '../../models/ProductStore.types';
+import { ProductModel } from '../../models/ProductStore.types';
+import { priceConverter } from '../../priceConverter';
 
 interface ProductEditorProps {
   stateProduct: ProductModel;
@@ -11,6 +12,8 @@ export const ProductInfo: React.FC<ProductEditorProps> = ({ stateProduct }) => {
     const date: Date = new Date(thisData);
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   }
+  const convertedPriceResult = priceConverter(stateProduct);
+  const convertedPrice = convertedPriceResult.price(stateProduct.price);
 
   return (
     <form className={classes.container}>
@@ -22,24 +25,10 @@ export const ProductInfo: React.FC<ProductEditorProps> = ({ stateProduct }) => {
             {stateProduct.measurementUnits}
           </p>
         </div>
-        {stateProduct.measurementUnits === MeasurementUnits.Grams && (
-          <div>
-            <p className={`titleSmall ${classes.title}`}>Цена за кг</p>
-            {stateProduct.price ? <p>{stateProduct.price * 1000}</p> : <p>—</p>}
-          </div>
-        )}
-        {stateProduct.measurementUnits === MeasurementUnits.Milliliters && (
-          <div>
-            <p className={`titleSmall ${classes.title}`}>Цена за литр</p>
-            {stateProduct.price ? <p>{stateProduct.price * 1000}</p> : <p>—</p>}
-          </div>
-        )}
-        {stateProduct.measurementUnits === MeasurementUnits.Pieces && (
-          <div>
-            <p className={`titleSmall ${classes.title}`}>Цена за шт</p>
-            {stateProduct.price ? <p>{stateProduct.price}</p> : <p>—</p>}
-          </div>
-        )}
+        <div>
+          <p className={`titleSmall ${classes.title}`}>Цена за {convertedPriceResult.text}</p>
+          {convertedPrice ? <p>{convertedPrice}</p> : <p>—</p>}
+        </div>
         <div className={classes.thirdElement}>
           <p className={`titleSmall ${classes.title}`}>Примерная цена</p>
           {stateProduct.totalPrice ? <p>{stateProduct.totalPrice}</p> : <p>—</p>}

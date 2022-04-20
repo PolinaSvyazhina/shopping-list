@@ -7,8 +7,9 @@ import { InputData } from '../InputData';
 import { InputBuyWhere } from '../InputBuyWhere';
 import { InputReplacement } from '../InputReplacement';
 import React from 'react';
-import { MeasurementUnits, ProductModel } from '../../models/ProductStore.types';
+import { ProductModel } from '../../models/ProductStore.types';
 import { ProductAction } from './ProductReducer';
+import { priceConverter } from '../../priceConverter';
 
 interface ProductEditorProps {
   stateProduct: ProductModel;
@@ -16,6 +17,8 @@ interface ProductEditorProps {
 }
 
 export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, dispatch }) => {
+  const convertedPriceResult = priceConverter(stateProduct);
+
   return (
     <form className={classes.container}>
       <p className="titleSmall">Название</p>
@@ -37,43 +40,13 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
             }
           />
         </div>
-        {stateProduct.measurementUnits === MeasurementUnits.Grams && (
-          <div>
-            <p className="titleSmall">Цена за кг</p>
-            <InputPrice
-              value={stateProduct.price ? stateProduct.price * 1000 : null}
-              onValueChange={(value) =>
-                dispatch({
-                  type: 'price',
-                  price: value ? value / 1000 : null,
-                })
-              }
-            />
-          </div>
-        )}
-        {stateProduct.measurementUnits === MeasurementUnits.Milliliters && (
-          <div>
-            <p className="titleSmall">Цена за литр</p>
-            <InputPrice
-              value={stateProduct.price ? stateProduct.price * 1000 : null}
-              onValueChange={(value) =>
-                dispatch({
-                  type: 'price',
-                  price: value ? value / 1000 : null,
-                })
-              }
-            />
-          </div>
-        )}
-        {stateProduct.measurementUnits === MeasurementUnits.Pieces && (
-          <div>
-            <p className="titleSmall">Цена за шт</p>
-            <InputPrice
-              value={stateProduct.price}
-              onValueChange={(value) => dispatch({ type: 'price', price: value })}
-            />
-          </div>
-        )}
+        <div>
+          <p className="titleSmall">Цена за {convertedPriceResult.text} </p>
+          <InputPrice
+            value={convertedPriceResult.value}
+            onValueChange={(value) => dispatch({ type: 'price', price: convertedPriceResult.price(value) })}
+          />
+        </div>
         <div>
           <p className="titleSmall">Примерная цена</p>
           <div>{stateProduct.totalPrice}</div>
