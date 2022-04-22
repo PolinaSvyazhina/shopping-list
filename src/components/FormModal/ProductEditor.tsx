@@ -10,6 +10,7 @@ import React from 'react';
 import { ProductModel } from '../../models/ProductStore.types';
 import { ProductAction } from './ProductReducer';
 import { priceConverter } from '../../priceConverter';
+import { InputTotalPrice } from '../InputTotalPrice';
 
 interface ProductEditorProps {
   stateProduct: ProductModel;
@@ -49,7 +50,10 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
         </div>
         <div>
           <p className="titleSmall">Примерная цена</p>
-          {stateProduct.totalPrice}
+          <InputTotalPrice
+            value={stateProduct.totalPrice}
+            onValueChange={(value) => dispatch({ type: 'totalPrice', totalPrice: value })}
+          />
         </div>
         <div>
           <p className="titleSmall">К какому числу</p>

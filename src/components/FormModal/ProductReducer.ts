@@ -21,7 +21,9 @@ export function productReducer(state: ProductModel, action: ProductAction) {
     }
     case 'measurementUnits': {
       const result: ProductModel = { ...state, measurementUnits: action.measurementUnits as MeasurementUnitsType };
-      result.totalPrice = getTotalPrice(result);
+      const [price, totalPrice] = getPriceAndTotalPrice(result);
+      result.totalPrice = totalPrice;
+      result.price = price;
       return result;
     }
     case 'buyWhere':
@@ -35,14 +37,43 @@ export function productReducer(state: ProductModel, action: ProductAction) {
       return { ...state, replacement: action.replacement };
     case 'data':
       return { ...state, date: action.data };
+    case 'totalPrice': {
+      const result = { ...state, totalPrice: action.totalPrice };
+      result.price = getPrice(result);
+      return result;
+    }
     default:
       return state;
   }
 }
 
-export function getTotalPrice(stateProduct: ProductModel) {
-  if (stateProduct.price === null || stateProduct.measurementUnits === null || stateProduct.count === null) return 0;
+function getTotalPrice(stateProduct: ProductModel) {
+  if (stateProduct.price === null || stateProduct.measurementUnits === null || stateProduct.count === null)
+    return stateProduct.totalPrice;
   return stateProduct.measurementUnits === 'Grams' || stateProduct.measurementUnits === 'Milliliters'
     ? (stateProduct.price * stateProduct.count) / 1000
     : stateProduct.price * stateProduct.count;
+}
+
+function getPrice(stateProduct: ProductModel) {
+  if (stateProduct.totalPrice === null || stateProduct.measurementUnits === null || stateProduct.count === null)
+    return stateProduct.price;
+  if (stateProduct.count === 0) return 0;
+  return stateProduct.measurementUnits === 'Grams' || stateProduct.measurementUnits === 'Milliliters'
+    ? (stateProduct.totalPrice / stateProduct.count) * 1000
+    : stateProduct.totalPrice / stateProduct.count;
+}
+
+function getPriceAndTotalPrice(stateProduct: ProductModel) {
+  if (
+    stateProduct.totalPrice === null ||
+    stateProduct.measurementUnits === null ||
+    stateProduct.count === null ||
+    stateProduct.price == null
+  )
+    return [stateProduct.price, stateProduct.totalPrice];
+
+  const price = getPrice(stateProduct);
+  const totalPrice = getTotalPrice({ ...stateProduct, price: price });
+  return [price, totalPrice];
 }
