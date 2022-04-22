@@ -1,31 +1,37 @@
 import { MeasurementUnits, ProductModel } from './models/ProductStore.types';
 
+enum dimensionsProductText {
+  Kilograms = 'кг',
+  Liters = 'литр',
+  Pieces = 'шт',
+}
+
 interface convertedPriceResult {
   value: number;
   price: (value: number) => number;
-  text: string;
+  text: dimensionsProductText;
 }
 
-export function priceConverter(stateProduct: ProductModel) {
-  const result: convertedPriceResult = {
-    value: 0,
-    price: null,
-    text: '',
-  };
-
+export function priceConverter(stateProduct: ProductModel): convertedPriceResult {
   if (stateProduct.measurementUnits === MeasurementUnits.Grams) {
-    result.price = (value) => (value ? value / 1000 : null);
-    result.text = 'кг';
-    result.value = stateProduct.price ? stateProduct.price * 1000 : null;
-  } else if (stateProduct.measurementUnits === MeasurementUnits.Milliliters) {
-    result.price = (value) => (value ? value / 1000 : null);
-    result.text = 'литр';
-    result.value = stateProduct.price ? stateProduct.price * 1000 : null;
-  } else {
-    result.price = (value) => value;
-    result.text = 'шт';
-    result.value = stateProduct.price;
+    return {
+      price: (value) => (value ? value / 1000 : null),
+      text: dimensionsProductText.Kilograms,
+      value: stateProduct.price ? stateProduct.price * 1000 : null,
+    };
   }
-
-  return result;
+  if (stateProduct.measurementUnits === MeasurementUnits.Milliliters) {
+    return {
+      price: (value) => (value ? value / 1000 : null),
+      text: dimensionsProductText.Liters,
+      value: stateProduct.price ? stateProduct.price * 1000 : null,
+    };
+  }
+  if (stateProduct.measurementUnits === MeasurementUnits.Pieces) {
+    return {
+      price: (value) => value,
+      text: dimensionsProductText.Pieces,
+      value: stateProduct.price,
+    };
+  }
 }

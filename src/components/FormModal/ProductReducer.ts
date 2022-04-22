@@ -40,7 +40,7 @@ export function productReducer(state: ProductModel, action: ProductAction) {
   }
 }
 
-function getTotalPrice(stateProduct: ProductModel) {
+export function getTotalPrice(stateProduct: ProductModel) {
   if (stateProduct.price === null || stateProduct.measurementUnits === null || stateProduct.count === null) return 0;
   return stateProduct.measurementUnits === 'Grams' || stateProduct.measurementUnits === 'Milliliters'
     ? (stateProduct.price * stateProduct.count) / 1000

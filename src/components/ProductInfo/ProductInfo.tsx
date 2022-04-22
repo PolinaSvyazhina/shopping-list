@@ -18,7 +18,7 @@ export const ProductInfo: React.FC<ProductEditorProps> = ({ stateProduct }) => {
   return (
     <form className={classes.container}>
       <div className={classes.form}>
-        <div>
+        <div className={classes.fullWidthElement}>
           <p className={`titleSmall ${classes.title}`}>Количество</p>
           <p>
             {stateProduct.count}
@@ -29,19 +29,19 @@ export const ProductInfo: React.FC<ProductEditorProps> = ({ stateProduct }) => {
           <p className={`titleSmall ${classes.title}`}>Цена за {convertedPriceResult.text}</p>
           {convertedPrice ? <p>{convertedPrice}</p> : <p>—</p>}
         </div>
-        <div className={classes.thirdElement}>
+        <div>
           <p className={`titleSmall ${classes.title}`}>Примерная цена</p>
           {stateProduct.totalPrice ? <p>{stateProduct.totalPrice}</p> : <p>—</p>}
         </div>
-        <div className={classes.fourthElement}>
+        <div>
           <p className={`titleSmall ${classes.title}`}>К какому числу</p>
           {stateProduct.date ? <p>{formatDate(stateProduct.date)}</p> : <p>—</p>}
         </div>
-        <div className={classes.fifthElement}>
+        <div className={classes.fullWidthElement}>
           <p className={`titleSmall ${classes.title}`}>Где купить</p>
           {stateProduct.buyWhere ? <p>{stateProduct.buyWhere}</p> : <p>—</p>}
         </div>
-        <div className={classes.lastElement}>
+        <div>
           <p className={`titleSmall ${classes.title}`}>Замены</p>
           {stateProduct.replacement ? <p>{stateProduct.replacement}</p> : <p>—</p>}
         </div>

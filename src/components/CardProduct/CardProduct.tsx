@@ -19,6 +19,8 @@ export interface CardProductProps {
   isMarked: () => boolean;
 }
 
+const ruble = '₽';
+
 export const CardProduct: React.FC<CardProductProps> = observer((props) => {
   const { id, name, count, measurementUnits, totalPrice } = props;
   return (
@@ -38,7 +40,10 @@ export const CardProduct: React.FC<CardProductProps> = observer((props) => {
           {totalPrice ? (
             <div style={{ marginLeft: 40 }}>
               <p className={`titleSmall ${classes.titleSmall}`}>Цена</p>
-              <div>{totalPrice} р.</div>
+              <div>
+                {totalPrice}
+                {ruble}
+              </div>
             </div>
           ) : (
             <></>

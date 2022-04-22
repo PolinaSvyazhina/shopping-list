@@ -49,7 +49,7 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
         </div>
         <div>
           <p className="titleSmall">Примерная цена</p>
-          <div>{stateProduct.totalPrice}</div>
+          {stateProduct.totalPrice}
         </div>
         <div>
           <p className="titleSmall">К какому числу</p>
