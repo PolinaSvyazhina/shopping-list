@@ -1,7 +1,5 @@
 .card {
-  width: 290px;
-  height: 116px;
-  padding: 20px 14px 16px;
+  height: 154px;
   position: relative;
   background-color: #e9edf1;
   border: 1px solid #5d9dff;
@@ -11,6 +9,11 @@
 
 .card:hover {
   background-color: #d2e0f3;
+}
+
+.cardInfo {
+  height: 116px;
+  padding: 20px 14px 16px;
 }
 
 .titleMedium {
