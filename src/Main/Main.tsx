@@ -4,10 +4,10 @@ import { ProductEditorModal } from '../containers/ProductEditorModal';
 import { ProductStoreImpl } from '../models/ProductStore';
 import { Empty } from '../components/Empty';
 import { Button } from '../components/Button';
+import { DownloadButton } from '../components/DownloadButton';
 import { CardProduct } from '../components/CardProduct';
 import { Delete } from '../components/Delete';
 import { FilterByPlace } from '../components/FilterByPlace';
-import DownloadIcon from './icons/Download.svg';
 import classes from './Main.module.css';
 import { ProductModel } from 'src/models/ProductStore.types';
 
@@ -97,16 +97,13 @@ export const Main = observer(() => {
           </div>
         )}
         <div className={classes.bottomMenu}>
-          <div style={{ display: `flex` }}>
+          <div style={{ display: `flex`, alignItems: `flex-end` }}>
             <div style={{ marginRight: 8 }}>
               <div className={classes.line} />
               <p className="titleMedium">Итого</p>
               <h1 className={classes.total}>{ProductStoreImpl.getTotal()}р.</h1>
             </div>
-            <Button className={classes.downloadButton}>
-              <DownloadIcon />
-              Выгрузить список
-            </Button>
+            <DownloadButton />
             <div />
           </div>
           <Delete remove={remove} removeAll={removeAll} style={{ alignSelf: `flex-end` }} />
