@@ -21,9 +21,7 @@ export function productReducer(state: ProductModel, action: ProductAction) {
     }
     case 'measurementUnits': {
       const result: ProductModel = { ...state, measurementUnits: action.measurementUnits as MeasurementUnitsType };
-      const [price, totalPrice] = getPriceAndTotalPrice(result);
-      result.totalPrice = totalPrice;
-      result.price = price;
+      result.totalPrice = getTotalPrice(result);
       return result;
     }
     case 'buyWhere':
@@ -58,22 +56,8 @@ function getTotalPrice(stateProduct: ProductModel) {
 function getPrice(stateProduct: ProductModel) {
   if (stateProduct.totalPrice === null || stateProduct.measurementUnits === null || stateProduct.count === null)
     return stateProduct.price;
-  if (stateProduct.count === 0) return 0;
+  if (stateProduct.count === 0) return stateProduct.price;
   return stateProduct.measurementUnits === 'Grams' || stateProduct.measurementUnits === 'Milliliters'
     ? (stateProduct.totalPrice / stateProduct.count) * 1000
     : stateProduct.totalPrice / stateProduct.count;
-}
-
-function getPriceAndTotalPrice(stateProduct: ProductModel) {
-  if (
-    stateProduct.totalPrice === null ||
-    stateProduct.measurementUnits === null ||
-    stateProduct.count === null ||
-    stateProduct.price == null
-  )
-    return [stateProduct.price, stateProduct.totalPrice];
-
-  const price = getPrice(stateProduct);
-  const totalPrice = getTotalPrice({ ...stateProduct, price: price });
-  return [price, totalPrice];
 }
