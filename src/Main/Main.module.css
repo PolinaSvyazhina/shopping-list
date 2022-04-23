@@ -1,4 +1,5 @@
 .background {
+  width: auto;
   min-width: 760px;
   max-width: 1400px;
   margin: 4vh auto;
@@ -37,9 +38,8 @@
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, 320px);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(auto-fit, 154px);
   grid-gap: 24px 16px;
-  justify-content: space-evenly;
   margin: 28px 36px 36px;
 }
 
@@ -57,17 +57,6 @@
 .total {
   color: #5d9dff;
   text-align: start;
-}
-
-.downloadButton {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-right: 59px;
-  align-self: flex-end;
-  width: 177px;
-  border-radius: 10px;
-  font-size: 16px;
 }
 
 @media (max-width: 1520px) {
