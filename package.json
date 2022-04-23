@@ -1,4 +1,5 @@
 {
+  "homepage": "https://PolinaSvyazhina.github.io/shopping-list",
   "name": "shopping-list",
   "version": "1.0.0",
   "description": "",
@@ -6,7 +7,9 @@
     "start": "cross-env NODE_ENV=development ENV=development webpack serve --mode=development",
     "build": "cross-env NODE_ENV=production ENV=production && npm run prepare:clear && webpack --mode=production",
     "prepare:clear": "rimraf ./dist/*",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -32,6 +35,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "file-loader": "^6.2.0",
+    "gh-pages": "^3.2.3",
     "html-webpack-plugin": "^5.5.0",
     "lint-staged": "^12.3.4",
     "mini-css-extract-plugin": "^2.5.3",
