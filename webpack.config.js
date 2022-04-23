@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 const isDev = process.env.ENV === 'development';
 
@@ -11,7 +10,7 @@ module.exports = {
   output: {
     path: path.resolve('dist'),
     filename: '[name].bundle.[contenthash].js',
-    publicPath: '/',
+    publicPath: '/shopping-list',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', 'jsx'],
@@ -92,9 +91,6 @@ module.exports = {
       : false,
     new HtmlWebpackPlugin({
       template: path.resolve('./src/index.html'),
-    }),
-    new WebpackManifestPlugin({
-      publicPath: 'https://polinasvyazhina.github.io/shopping-list/',
     }),
   ].filter(Boolean),
   stats: 'minimal',
