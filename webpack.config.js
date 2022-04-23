@@ -68,7 +68,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: isDev ? '[name].[ext]' : 'images/[contenthash].[ext]',
+              name: isDev ? '[name].[ext]' : '/images/[contenthash].[ext]',
             },
           },
         ],
