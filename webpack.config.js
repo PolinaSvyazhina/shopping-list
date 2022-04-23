@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 const isDev = process.env.ENV === 'development';
 
@@ -91,6 +92,9 @@ module.exports = {
       : false,
     new HtmlWebpackPlugin({
       template: path.resolve('./src/index.html'),
+    }),
+    new WebpackManifestPlugin({
+      publicPath: 'https://polinasvyazhina.github.io/shopping-list/',
     }),
   ].filter(Boolean),
   stats: 'minimal',
