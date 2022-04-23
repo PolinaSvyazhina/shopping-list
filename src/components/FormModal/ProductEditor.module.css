@@ -1,7 +1,6 @@
 .container {
   display: grid;
   width: 430px;
-  grid-template-rows: 1fr;
   margin-left: 47px;
 }
 
@@ -10,14 +9,4 @@
   grid-template-columns: 1fr 1fr;
   column-gap: 5%;
   row-gap: 20px;
-}
-
-.background {
-  background: #e9edf1;
-  box-shadow: inset 5px 5px 15px #b2c2d2, inset -5px -5px 15px #e9f2fb;
-  border-radius: 10px;
-  height: 40px;
-  width: 234px;
-  top: 35px;
-  border: 0;
 }

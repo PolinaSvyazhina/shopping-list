@@ -1,4 +1,5 @@
 import React from 'react';
+import style from '../InputBaseStyle/input.module.css';
 import classes from './input.module.css';
 
 interface InputBuyWhereProps {
@@ -11,5 +12,12 @@ export const InputBuyWhere: React.FC<InputBuyWhereProps> = ({ value, onValueChan
     onValueChange(e.currentTarget.value);
   };
 
-  return <input className={classes.background} placeholder="Место" value={value} onChange={handleChange} />;
+  return (
+    <input
+      className={classes.background + ' ' + style.input}
+      placeholder="Место"
+      value={value}
+      onChange={handleChange}
+    />
+  );
 };

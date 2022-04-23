@@ -51,7 +51,10 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
         </div>
         <div>
           <p className="titleSmall">К какому числу</p>
-          <InputData value={stateProduct.date} onValueChange={(value) => dispatch({ type: 'data', data: value })} />
+          <InputData
+            value={new Date(stateProduct.date).toISOString().slice(0, 10)}
+            onValueChange={(value) => dispatch({ type: 'data', data: value })}
+          />
         </div>
       </div>
       <p className="titleSmall">Где купить</p>

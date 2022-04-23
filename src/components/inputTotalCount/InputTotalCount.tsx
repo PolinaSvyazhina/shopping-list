@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './input.module.css';
+import style from '../InputBaseStyle/input.module.css';
 
 interface InputTotalCountProps {
   value?: number;
@@ -11,5 +12,5 @@ export const InputTotalCount: React.FC<InputTotalCountProps> = ({ value, onValue
     onValueChange(Number(e.currentTarget.value));
   };
 
-  return <input className={classes.background} readOnly value={value} onChange={handleChange} required />;
+  return <input className={classes.background + ' ' + style.input} readOnly value={value} onChange={handleChange} />;
 };

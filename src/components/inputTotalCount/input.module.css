@@ -1,10 +1,4 @@
 .background {
-  background: #e9edf1;
-  box-shadow: inset 5px 5px 15px #b2c2d2, inset -5px -5px 15px #e9f2fb;
-  border-radius: 10px;
   height: 30px;
   width: 224px;
-  top: 35px;
-  border: 0;
-  padding: 5px;
 }

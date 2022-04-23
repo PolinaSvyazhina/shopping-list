@@ -62,13 +62,12 @@ export const Main = observer(() => {
         <div className={classes.backtack} />
         <div className={classes.backtack} />
       </div>
-      {opened && <ProductEditorModal onClose={close} initValues={initCardValues} onShow={opened} />}
+      {opened && <ProductEditorModal onClose={close} initValues={initCardValues} />}
       <div className={classes.workspace}>
         <h1>Список покупок</h1>
         <div className={classes.menu}>
           <div style={{ display: 'flex' }}>
             <p className={classes.dataText} onClick={sortData}>
-              {' '}
               <DataIcon /> По дате добавления
             </p>
             <SelectFilterMark onChange={onChangeFilter} />

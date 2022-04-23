@@ -13,7 +13,6 @@ import { Modal } from '../../components/Modal';
 interface ProductCreatorModalProps {
   onClose: () => void;
   initValues?: ProductModel;
-  onShow?: boolean;
 }
 
 export const ProductEditorModal = observer((props: ProductCreatorModalProps) => {
@@ -51,7 +50,6 @@ export const ProductEditorModal = observer((props: ProductCreatorModalProps) => 
 
   return (
     <Modal
-      visible={props.onShow}
       onClose={props.onClose}
       title={isEdit ? 'Редактирование' : isCard ? stateProduct.name : 'Добавить позицию'}
       content={
@@ -83,7 +81,9 @@ export const ProductEditorModal = observer((props: ProductCreatorModalProps) => 
             </Button>
           </>
         ) : (
-          <Button onClick={addProduct}>Добавить</Button>
+          <Button className={classes.addProductButton} onClick={addProduct}>
+            Добавить
+          </Button>
         )
       }
     />
