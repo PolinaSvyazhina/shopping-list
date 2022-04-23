@@ -28,7 +28,7 @@ export const Modal = observer((props: ModalProps) => {
       <div className={classes.dialog} onClick={(e) => e.stopPropagation()}>
         <div className={classes.header}>
           <h1 className={classes.title}>{props.title}</h1>
-          <Cross onClick={props.onClose} />
+          <Cross className={classes.close} onClick={props.onClose} />
         </div>
         <div className={classes.body}>
           <div className={classes.content}>{props.content}</div>

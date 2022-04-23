@@ -77,3 +77,6 @@
     transform: translateY(0);
   }
 }
+.close {
+  padding: 10px;
+}
