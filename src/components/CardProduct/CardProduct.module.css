@@ -3,14 +3,14 @@
   height: 116px;
   padding: 20px 14px 16px;
   position: relative;
-  background-color: #e9edf1;
+  background-color: var(--object-color);
   border: 1px solid #5d9dff;
   border-radius: 15px;
   cursor: pointer;
 }
 
 .card:hover {
-  background-color: #d2e0f3;
+  background-color: var(--card-hover-color);
 }
 
 .titleMedium {
@@ -32,13 +32,17 @@
   position: absolute;
   right: 14px;
   bottom: 16px;
-  background-color: #e9edf1;
+  background-color: var(--object-color);
   cursor: pointer;
-  box-shadow: 5px 5px 15px 0 #b2c2d2, -5px -5px 15px 0 #f2f9ff;
+  box-shadow: 5px 5px 15px 0 var(--shadow-black-color), -5px -5px 15px 0 var(--shadow-light-color);
 }
 
 .checkButton:hover {
-  box-shadow: inset -5px -5px 15px #f2f9ff, inset 5px 5px 15px #b2c2d2;
+  box-shadow: inset -5px -5px 15px var(--shadow-inner-light-color), inset 5px 5px 15px var(--shadow-black-color);
+}
+
+.uncheckIcon {
+  color: var(--object-color);
 }
 
 .checkIcon {

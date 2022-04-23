@@ -1,15 +1,16 @@
 .column {
   width: 15px;
   height: 100vh;
-  background: linear-gradient(#e9eef1, #dce0e3);
-  box-shadow: -5px -12px 20px -4px #b2c2d2 inset, 5px 15px 20px 10px #e9f2fb inset;
+  background: linear-gradient(var(--bkg-color), var(--bkg-dark-color));
+  box-shadow: -5px -12px 20px -4px var(--column-shadow-black-color) inset,
+    5px 15px 20px 10px var(--column-shadow-light-color) inset;
 }
 
 .background {
   width: 100vw;
   height: auto;
   position: fixed;
-  background: linear-gradient(#e9eef1, #dce0e3);
+  background: linear-gradient(var(--bkg-color), var(--bkg-dark-color));
   display: flex;
   justify-content: space-evenly;
   left: 0;

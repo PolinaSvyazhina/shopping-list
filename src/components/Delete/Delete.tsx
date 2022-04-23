@@ -11,7 +11,7 @@ interface ButtonProps
 
 export const Delete: React.FC<ButtonProps> = (props) => {
   const [show, setShow] = useState(false);
-  const whiteColor = '#EFF4FA';
+  const whiteColor = 'var(--object-color)';
   const redColor = '#F46770';
 
   return (

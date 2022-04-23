@@ -2,7 +2,7 @@ import { ProductStoreImpl } from '../../models/ProductStore';
 
 export function Options() {
   const options: Array<object> = [];
-  ProductStoreImpl.getProducts.forEach(
+  ProductStoreImpl.getProductsForFilter.forEach(
     (e) =>
       e.buyWhere &&
       !options.some((obj) => {

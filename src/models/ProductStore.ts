@@ -79,6 +79,14 @@ class ProductStore {
     }
     return result;
   }
+
+  get getProductsForFilter() {
+    let result = [...this.products.values()];
+    if (this.isMarkedFilter !== null) {
+      result = result.filter((e) => this.isMarkedFilter === e.marked);
+    }
+    return result;
+  }
 }
 
 export const ProductStoreImpl = new ProductStore();

@@ -1,0 +1,17 @@
+.button {
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 30px;
+  background-color: var(--object-color);
+  box-shadow: 5px 5px 15px 0 var(--shadow-black-color), -5px -5px 15px 0 var(--shadow-light-color);
+  cursor: pointer;
+  position: fixed;
+  bottom: 38px;
+  right: 38px;
+  z-index: 1;
+}
+
+.button:hover {
+  box-shadow: inset -5px -5px 15px var(--shadow-inner-light-color), inset 5px 5px 15px var(--shadow-black-color);
+}
