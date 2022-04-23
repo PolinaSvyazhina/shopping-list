@@ -9,6 +9,8 @@ import { InputReplacement } from '../InputReplacement';
 import React from 'react';
 import { ProductModel } from '../../models/ProductStore.types';
 import { ProductAction } from './ProductReducer';
+import { InputTotalCount } from '../inputTotalCount';
+import { SelectValue } from '../SelectFilterMark/SelectFilterMark';
 
 interface ProductEditorProps {
   stateProduct: ProductModel;
@@ -16,6 +18,13 @@ interface ProductEditorProps {
 }
 
 export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, dispatch }) => {
+  function onChangeSelect(e: SelectValue) {
+    dispatch({
+      type: 'measurementUnits',
+      measurementUnits: e.value,
+    });
+  }
+
   return (
     <form className={classes.container}>
       <p className="titleSmall">Название</p>
@@ -27,15 +36,7 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
         </div>
         <div>
           <p className="titleSmall">Единица измерения</p>
-          <SelectMeasurementUnits
-            value={stateProduct.measurementUnits}
-            onValueChange={(value) =>
-              dispatch({
-                type: 'measurementUnits',
-                measurementUnits: value,
-              })
-            }
-          />
+          <SelectMeasurementUnits onValueChange={onChangeSelect} />
         </div>
         <div>
           <p className="titleSmall">Цена за {stateProduct.measurementUnits}</p>
@@ -43,11 +44,17 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
         </div>
         <div>
           <p className="titleSmall">Примерная цена</p>
-          <input readOnly value={Number(stateProduct.count) * Number(stateProduct.price)} />
+          <InputTotalCount
+            value={stateProduct.price * stateProduct.count}
+            onValueChange={(value) => dispatch({ type: 'totalCount', totalCount: value })}
+          />
         </div>
         <div>
           <p className="titleSmall">К какому числу</p>
-          <InputData value={stateProduct.date} onValueChange={(value) => dispatch({ type: 'data', data: value })} />
+          <InputData
+            value={new Date(stateProduct.date).toISOString().slice(0, 10)}
+            onValueChange={(value) => dispatch({ type: 'data', data: value })}
+          />
         </div>
       </div>
       <p className="titleSmall">Где купить</p>

@@ -10,7 +10,7 @@ module.exports = {
   output: {
     path: path.resolve('dist'),
     filename: '[name].bundle.[contenthash].js',
-    publicPath: '/',
+    publicPath: '/shopping-list',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', 'jsx'],
@@ -68,7 +68,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: isDev ? '[name].[ext]' : 'images/[contenthash].[ext]',
+              name: isDev ? '[name].[ext]' : '/images/[contenthash].[ext]',
             },
           },
         ],

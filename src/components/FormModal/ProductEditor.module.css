@@ -1,6 +1,7 @@
 .container {
   display: grid;
   width: 430px;
+  margin-left: 47px;
 }
 
 .form {

@@ -1,4 +1,6 @@
 import React from 'react';
+import classes from './input.module.css';
+import style from '../InputBaseStyle/input.module.css';
 
 interface InputPriceProps {
   value?: number;
@@ -10,5 +12,13 @@ export const InputPrice: React.FC<InputPriceProps> = ({ value, onValueChange }) 
     onValueChange(Number(e.currentTarget.value));
   };
 
-  return <input type="number" placeholder="цена" value={value} onChange={handleChange} required />;
+  return (
+    <input
+      className={classes.background + ' ' + style.input}
+      type="number"
+      placeholder="Цена"
+      value={value}
+      onChange={handleChange}
+    />
+  );
 };

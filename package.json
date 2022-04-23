@@ -1,4 +1,5 @@
 {
+  "homepage": "https://polinasvyazhina.github.io/shopping-list/",
   "name": "shopping-list",
   "version": "1.0.0",
   "description": "",
@@ -6,7 +7,9 @@
     "start": "cross-env NODE_ENV=development ENV=development webpack serve --mode=development",
     "build": "cross-env NODE_ENV=production ENV=production && npm run prepare:clear && webpack --mode=production",
     "prepare:clear": "rimraf ./dist/*",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -18,6 +21,7 @@
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
     "@types/react": "^17.0.39",
+    "@types/react-csv": "^1.1.2",
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.3",
     "@types/uuid": "^8.3.4",
@@ -32,6 +36,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "file-loader": "^6.2.0",
+    "gh-pages": "^3.2.3",
     "html-webpack-plugin": "^5.5.0",
     "lint-staged": "^12.3.4",
     "mini-css-extract-plugin": "^2.5.3",
@@ -54,6 +59,7 @@
     "mobx": "^6.5.0",
     "mobx-react-lite": "^3.3.0",
     "react": "^17.0.2",
+    "react-csv": "^2.2.2",
     "react-dom": "^17.0.2",
     "react-multi-clamp": "^2.0.4",
     "react-router-dom": "^6.2.1",

@@ -1,0 +1,14 @@
+.link {
+  text-decoration: none;
+}
+
+.downloadButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-right: 59px;
+  align-self: flex-end;
+  width: 177px;
+  border-radius: 10px;
+  font-size: 16px;
+}

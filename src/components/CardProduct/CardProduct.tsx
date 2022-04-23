@@ -24,7 +24,7 @@ export const CardProduct: React.FC<CardProductProps> = observer((props) => {
   const { id, name, count, measurementUnits, price } = props;
   return (
     <div key={id} className={classes.card}>
-      <div onClick={props.onClick}>
+      <div className={classes.cardInfo} onClick={props.onClick}>
         <p className={`titleMedium ${classes.titleMedium}`}>
           <MultiClamp ellipsis="..." clamp={2}>
             {name}

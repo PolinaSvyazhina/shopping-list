@@ -1,5 +1,7 @@
 .background {
-  width: 1400px;
+  width: auto;
+  min-width: 760px;
+  max-width: 1400px;
   margin: 4vh auto;
   height: auto;
   border-radius: 25px;
@@ -35,8 +37,8 @@
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, 320px);
+  grid-template-rows: repeat(auto-fit, 154px);
   grid-gap: 24px 16px;
   margin: 28px 36px 36px;
 }
@@ -59,20 +61,12 @@
   text-align: start;
 }
 
-.downloadButton {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  margin-right: 59px;
-  align-self: flex-end;
-  width: 177px;
-  border-radius: 10px;
-  font-size: 16px;
+@media (max-width: 1520px) {
+  .background {
+    margin: 4vh 50px;
+  }
 }
 
-@media (max-width: 1280px) {
-  .background {
-    margin: 4vh 130px;
-    width: 1000px;
-  }
+.dataText {
+  font-size: 18px;
 }
