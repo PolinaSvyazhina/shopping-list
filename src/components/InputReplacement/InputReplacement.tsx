@@ -1,4 +1,6 @@
 import React from 'react';
+import style from '../InputBaseStyle/input.module.css';
+import classes from './input.module.css';
 
 interface InputReplacementProps {
   value?: string;
@@ -10,5 +12,12 @@ export const InputReplacement: React.FC<InputReplacementProps> = ({ value, onVal
     onValueChange(e.currentTarget.value);
   };
 
-  return <input placeholder="Что-то другое" value={value} onChange={handleChange} required />;
+  return (
+    <input
+      className={classes.background + ' ' + style.input}
+      placeholder="Что-то другое"
+      value={value}
+      onChange={handleChange}
+    />
+  );
 };

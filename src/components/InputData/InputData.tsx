@@ -1,7 +1,9 @@
 import React from 'react';
+import classes from './input.module.css';
+import style from '../InputBaseStyle/input.module.css';
 
 interface InputDataProps {
-  value?: Date;
+  value?: string;
   onValueChange?: (value?: Date) => void;
 }
 
@@ -10,5 +12,7 @@ export const InputData: React.FC<InputDataProps> = ({ value, onValueChange }) =>
     onValueChange(new Date(e.currentTarget.value));
   };
 
-  return <input type={'date'} value={new Date(value).toISOString().slice(0, 10)} onChange={handleChange} />;
+  return (
+    <input className={classes.background + ' ' + style.input} type={'date'} value={value} onChange={handleChange} />
+  );
 };

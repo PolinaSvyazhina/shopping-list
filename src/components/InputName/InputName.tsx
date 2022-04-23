@@ -1,4 +1,6 @@
 import React from 'react';
+import style from '../InputBaseStyle/input.module.css';
+import classes from './input.module.css';
 
 interface InputNameProps {
   value?: string;
@@ -10,5 +12,12 @@ export const InputName: React.FC<InputNameProps> = ({ value, onValueChange }) =>
     onValueChange(e.currentTarget.value);
   };
 
-  return <input placeholder="название" value={value} onChange={handleChange} required />;
+  return (
+    <input
+      className={classes.background + ' ' + style.input}
+      placeholder="Название"
+      value={value}
+      onChange={handleChange}
+    />
+  );
 };
