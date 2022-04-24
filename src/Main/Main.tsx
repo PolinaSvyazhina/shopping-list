@@ -13,7 +13,7 @@ import classes from './Main.module.css';
 import { ProductModel } from 'src/models/ProductStore.types';
 import { SelectFilterMark } from '../components/SelectFilterMark';
 import { SelectValue } from '../components/SelectFilterMark/SelectFilterMark';
-import DataIcon from '../Main/icons/Data.svg';
+import SortIcon from '../Main/icons/Sort.svg';
 
 export const Main = observer(() => {
   const [opened, setOpened] = useState(false);
@@ -69,7 +69,7 @@ export const Main = observer(() => {
         <div className={classes.menu}>
           <div style={{ display: 'flex' }}>
             <p className={classes.dataText} onClick={sortData}>
-              <DataIcon /> По дате добавления
+              <SortIcon /> По дате добавления
             </p>
             <SelectFilterMark onChange={onChangeFilter} />
             <FilterByPlace getPlaces={(value: Array<string>) => setFilterValueByPlace(value)} />

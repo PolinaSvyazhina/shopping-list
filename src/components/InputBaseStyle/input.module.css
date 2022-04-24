@@ -3,10 +3,10 @@
   top: 35px;
   border: 0;
   margin-bottom: 17px;
-  background: #e9edf1;
-  box-shadow: inset 5px 5px 15px #b2c2d2, inset -5px -5px 15px #e9f2fb;
+  background: var(--object-color);
+  box-shadow: inset 5px 5px 15px var(--shadow-black-color), inset -5px -5px 15px var(--shadow-inner-light-color);
   border-radius: 10px;
-  color: #5a6b7f;
+  color: var(--text-color);
   font-size: 16px;
   line-height: 19px;
 }
