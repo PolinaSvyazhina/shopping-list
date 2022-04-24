@@ -67,9 +67,9 @@ export const Main = observer(() => {
         <h1>Список покупок</h1>
         <div className={classes.menu}>
           <div style={{ display: 'flex' }}>
-            <p className={classes.dataText} onClick={sortData}>
+            <div className={classes.dataText} onClick={sortData}>
               <DataIcon /> По дате добавления
-            </p>
+            </div>
             <SelectFilterMark onChange={onChangeFilter} />
             <FilterByPlace getPlaces={(value: Array<string>) => setFilterValueByPlace(value)} />
           </div>

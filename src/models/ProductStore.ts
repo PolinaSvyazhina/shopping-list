@@ -49,6 +49,30 @@ class ProductStore {
     this.direction = -this.direction;
   }
 
+  sortPriceExpensiveProducts() {
+    this.products = new Map<string, ProductModel>(
+      [...this.products.entries()].sort((a, b) => {
+        return b[1].price - a[1].price;
+      })
+    );
+  }
+
+  sortPriceCheapProducts() {
+    this.products = new Map<string, ProductModel>(
+      [...this.products.entries()].sort((a, b) => {
+        return a[1].price - b[1].price;
+      })
+    );
+  }
+
+  sortAlphabeticallyProducts() {
+    this.products = new Map<string, ProductModel>(
+      [...this.products.entries()].sort((a, b) => {
+        return a[1].name.localeCompare(b[1].name, 'ru', { sensitivity: 'base', numeric: true });
+      })
+    );
+  }
+
   markProduct(id: string) {
     const productInfo = this.products.get(id);
     productInfo.marked = !productInfo.marked;
