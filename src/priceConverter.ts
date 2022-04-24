@@ -15,16 +15,16 @@ interface convertedPriceResult {
 export function priceConverter(stateProduct: ProductModel): convertedPriceResult {
   if (stateProduct.measurementUnits === MeasurementUnits.Grams) {
     return {
-      price: (value) => (value ? value / 1000 : null),
+      price: (value) => (value !== null ? value / 1000 : null),
       text: dimensionsProductText.Kilograms,
-      value: stateProduct.price ? stateProduct.price * 1000 : null,
+      value: stateProduct.price !== null ? stateProduct.price * 1000 : null,
     };
   }
   if (stateProduct.measurementUnits === MeasurementUnits.Milliliters) {
     return {
-      price: (value) => (value ? value / 1000 : null),
+      price: (value) => (value !== null ? value / 1000 : null),
       text: dimensionsProductText.Liters,
-      value: stateProduct.price ? stateProduct.price * 1000 : null,
+      value: stateProduct.price !== null ? stateProduct.price * 1000 : null,
     };
   }
   if (stateProduct.measurementUnits === MeasurementUnits.Pieces) {

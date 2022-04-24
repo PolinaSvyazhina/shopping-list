@@ -7,7 +7,7 @@ interface InputTotalPriceProps {
 
 export const InputTotalPrice: React.FC<InputTotalPriceProps> = ({ value, onValueChange }) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    onValueChange(Number(e.currentTarget.value));
+    onValueChange(e.currentTarget.value !== '' ? Number(e.currentTarget.value) : null);
   };
 
   return <input type="number" placeholder="Примерная цена" value={value} onChange={handleChange} />;

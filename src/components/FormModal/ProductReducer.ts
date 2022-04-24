@@ -16,11 +16,16 @@ export function productReducer(state: ProductModel, action: ProductAction) {
       return { ...state, name: action.name };
     case 'count': {
       const result = { ...state, count: action.count };
+      result.price = getPrice(result);
       result.totalPrice = getTotalPrice(result);
       return result;
     }
     case 'measurementUnits': {
-      const result: ProductModel = { ...state, measurementUnits: action.measurementUnits as MeasurementUnitsType };
+      const result: ProductModel = {
+        ...state,
+        measurementUnits: action.measurementUnits as MeasurementUnitsType,
+      };
+      result.price = getPrice(result);
       result.totalPrice = getTotalPrice(result);
       return result;
     }
@@ -54,9 +59,14 @@ function getTotalPrice(stateProduct: ProductModel) {
 }
 
 function getPrice(stateProduct: ProductModel) {
-  if (stateProduct.totalPrice === null || stateProduct.measurementUnits === null || stateProduct.count === null)
+  if (
+    stateProduct.totalPrice === null ||
+    stateProduct.measurementUnits === null ||
+    stateProduct.count === null ||
+    (stateProduct.count === 0 && stateProduct.price === null)
+  )
     return stateProduct.price;
-  if (stateProduct.count === 0) return stateProduct.price;
+  if (stateProduct.count === 0) return 0;
   return stateProduct.measurementUnits === 'Grams' || stateProduct.measurementUnits === 'Milliliters'
     ? (stateProduct.totalPrice / stateProduct.count) * 1000
     : stateProduct.totalPrice / stateProduct.count;
