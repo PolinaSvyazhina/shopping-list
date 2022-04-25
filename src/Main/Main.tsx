@@ -79,20 +79,20 @@ export const Main = observer(() => {
           <Empty />
         ) : (
           <div className={classes.cards}>
-            {ProductStoreImpl.getProducts.map((e: ProductModel) => (
+            {ProductStoreImpl.getProducts.map((product: ProductModel) => (
               <CardProduct
-                onClick={() => openProductEditorModal(e)}
-                key={e.id}
-                id={e.id}
-                name={e.name}
-                count={e.count}
-                measurementUnits={e.measurementUnits}
-                price={e.price}
-                buyWhere={e.buyWhere}
-                replacement={e.replacement}
+                onClick={() => openProductEditorModal(product)}
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                count={product.count}
+                measurementUnits={product.measurementUnits}
+                totalPrice={product.totalPrice}
+                buyWhere={product.buyWhere}
+                replacement={product.replacement}
                 isChecked={false}
-                setMarkedList={() => ProductStoreImpl.markProduct(e.id)}
-                isMarked={() => ProductStoreImpl.isMarked(e.id)}
+                setMarkedList={() => ProductStoreImpl.markProduct(product.id)}
+                isMarked={() => ProductStoreImpl.isMarked(product.id)}
               />
             ))}
           </div>
@@ -102,7 +102,7 @@ export const Main = observer(() => {
             <div style={{ marginRight: 8 }}>
               <div className={classes.line} />
               <p className="titleMedium">Итого</p>
-              <h1 className={classes.total}>{ProductStoreImpl.getTotal()}р.</h1>
+              <h1 className={classes.total}>{ProductStoreImpl.totalAmount}р.</h1>
             </div>
             <DownloadButton />
             <div />

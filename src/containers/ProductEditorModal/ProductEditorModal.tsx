@@ -22,6 +22,7 @@ export const ProductEditorModal = observer((props: ProductCreatorModalProps) => 
     count: null,
     measurementUnits: MeasurementUnits.Grams as MeasurementUnitsType,
     price: null,
+    totalPrice: null,
     buyWhere: '',
     replacement: '',
     date: new Date(Date.now()),

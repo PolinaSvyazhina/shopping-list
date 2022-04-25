@@ -1,6 +1,7 @@
 import classes from './ProductInfo.module.css';
 import React from 'react';
 import { ProductModel } from '../../models/ProductStore.types';
+import { priceConverter } from '../../priceConverter';
 
 interface ProductEditorProps {
   stateProduct: ProductModel;
@@ -9,9 +10,10 @@ interface ProductEditorProps {
 export const ProductInfo: React.FC<ProductEditorProps> = ({ stateProduct }) => {
   function formatDate(thisData: Date) {
     const date: Date = new Date(thisData);
-    const stringDate = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
-    return stringDate;
+    return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   }
+  const convertedPriceResult = priceConverter(stateProduct);
+  const convertedPrice = convertedPriceResult.price(stateProduct.price);
 
   return (
     <form className={classes.container}>
@@ -24,12 +26,12 @@ export const ProductInfo: React.FC<ProductEditorProps> = ({ stateProduct }) => {
           </p>
         </div>
         <div>
-          <p className={`titleSmall ${classes.title}`}>Цена за {stateProduct.measurementUnits}</p>
-          {stateProduct.price ? <p>{stateProduct.price}</p> : <p>—</p>}
+          <p className={`titleSmall ${classes.title}`}>Цена за {convertedPriceResult.text}</p>
+          {convertedPrice ? <p>{convertedPrice}</p> : <p>—</p>}
         </div>
         <div>
           <p className={`titleSmall ${classes.title}`}>Примерная цена</p>
-          {stateProduct.price ? <p>{Number(stateProduct.count) * Number(stateProduct.price)}</p> : <p>—</p>}
+          {stateProduct.totalPrice ? <p>{stateProduct.totalPrice}</p> : <p>—</p>}
         </div>
         <div>
           <p className={`titleSmall ${classes.title}`}>К какому числу</p>

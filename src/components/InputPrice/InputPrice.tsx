@@ -9,7 +9,7 @@ interface InputPriceProps {
 
 export const InputPrice: React.FC<InputPriceProps> = ({ value, onValueChange }) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    onValueChange(Number(e.currentTarget.value));
+    onValueChange(e.currentTarget.value !== '' ? Math.ceil(Number(e.currentTarget.value) * 100) / 100 : null);
   };
 
   return (

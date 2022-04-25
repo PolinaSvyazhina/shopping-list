@@ -2,21 +2,21 @@ import React from 'react';
 import classes from './input.module.css';
 import style from '../InputBaseStyle/input.module.css';
 
-interface InputCountProps {
+interface InputTotalPriceProps {
   value?: number;
   onValueChange?: (value?: number) => void;
 }
 
-export const InputCount: React.FC<InputCountProps> = ({ value, onValueChange }) => {
+export const InputTotalPrice: React.FC<InputTotalPriceProps> = ({ value, onValueChange }) => {
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    onValueChange(e.currentTarget.value !== '' ? Number(e.currentTarget.value) : null);
+    onValueChange(e.currentTarget.value !== '' ? Math.ceil(Number(e.currentTarget.value) * 100) / 100 : null);
   };
 
   return (
     <input
       className={classes.background + ' ' + style.input}
       type="number"
-      placeholder="Количество"
+      placeholder="Примерная цена"
       value={value}
       onChange={handleChange}
     />

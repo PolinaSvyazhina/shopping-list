@@ -9,8 +9,9 @@ import { InputReplacement } from '../InputReplacement';
 import React from 'react';
 import { ProductModel } from '../../models/ProductStore.types';
 import { ProductAction } from './ProductReducer';
-import { InputTotalCount } from '../inputTotalCount';
 import { SelectValue } from '../SelectFilterMark/SelectFilterMark';
+import { priceConverter } from '../../priceConverter';
+import { InputTotalPrice } from '../InputTotalPrice';
 
 interface ProductEditorProps {
   stateProduct: ProductModel;
@@ -24,6 +25,8 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
       measurementUnits: e.value,
     });
   }
+
+  const convertedPriceResult = priceConverter(stateProduct);
 
   return (
     <form className={classes.container}>
@@ -39,14 +42,17 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
           <SelectMeasurementUnits onValueChange={onChangeSelect} />
         </div>
         <div>
-          <p className="titleSmall">Цена за {stateProduct.measurementUnits}</p>
-          <InputPrice value={stateProduct.price} onValueChange={(value) => dispatch({ type: 'price', price: value })} />
+          <p className="titleSmall">Цена за {convertedPriceResult.text} </p>
+          <InputPrice
+            value={convertedPriceResult.value}
+            onValueChange={(value) => dispatch({ type: 'price', price: convertedPriceResult.price(value) })}
+          />
         </div>
         <div>
           <p className="titleSmall">Примерная цена</p>
-          <InputTotalCount
-            value={stateProduct.price * stateProduct.count}
-            onValueChange={(value) => dispatch({ type: 'totalCount', totalCount: value })}
+          <InputTotalPrice
+            value={stateProduct.totalPrice}
+            onValueChange={(value) => dispatch({ type: 'totalPrice', totalPrice: value })}
           />
         </div>
         <div>
