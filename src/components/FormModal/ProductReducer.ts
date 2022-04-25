@@ -52,10 +52,10 @@ export function productReducer(state: ProductModel, action: ProductAction) {
 
 function getTotalPrice(stateProduct: ProductModel) {
   if (stateProduct.price === null || stateProduct.measurementUnits === null || stateProduct.count === null)
-    return stateProduct.totalPrice;
+    return roundPrice(stateProduct.totalPrice);
   return stateProduct.measurementUnits === 'Grams' || stateProduct.measurementUnits === 'Milliliters'
-    ? (stateProduct.price * stateProduct.count) / 1000
-    : stateProduct.price * stateProduct.count;
+    ? roundPrice((stateProduct.price * stateProduct.count) / 1000)
+    : roundPrice(stateProduct.price * stateProduct.count);
 }
 
 function getPrice(stateProduct: ProductModel) {
@@ -65,9 +65,13 @@ function getPrice(stateProduct: ProductModel) {
     stateProduct.count === null ||
     (stateProduct.count === 0 && stateProduct.price === null)
   )
-    return stateProduct.price;
+    return roundPrice(stateProduct.price);
   if (stateProduct.count === 0) return 0;
   return stateProduct.measurementUnits === 'Grams' || stateProduct.measurementUnits === 'Milliliters'
-    ? (stateProduct.totalPrice / stateProduct.count) * 1000
-    : stateProduct.totalPrice / stateProduct.count;
+    ? roundPrice((stateProduct.totalPrice / stateProduct.count) * 1000)
+    : roundPrice(stateProduct.totalPrice / stateProduct.count);
+}
+
+function roundPrice(price: number) {
+  return Math.ceil(price * 100) / 100;
 }
