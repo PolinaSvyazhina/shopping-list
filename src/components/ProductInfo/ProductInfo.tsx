@@ -13,7 +13,7 @@ export const ProductInfo: React.FC<ProductEditorProps> = ({ stateProduct }) => {
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   }
   const convertedPriceResult = priceConverter(stateProduct);
-  const convertedPrice = convertedPriceResult.price(stateProduct.price);
+  const convertedPrice = convertedPriceResult.value;
 
   return (
     <form className={classes.container}>
