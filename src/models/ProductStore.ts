@@ -31,25 +31,19 @@ class ProductStore {
     ProductTransports.clearLocalStorage();
   }
 
-  purchaseProduct(id: string) {
+  switchBoughtProduct(id: string) {
     const productInfo = this.products.get(id);
-    productInfo.purchased = !productInfo.purchased;
+    productInfo.bought = !productInfo.bought;
+    ProductTransports.updateProduct(productInfo);
   }
 
-  isPurchased(id: string) {
+  isBought(id: string) {
     const productInfo = this.products.get(id);
-    return productInfo.purchased;
+    return productInfo.bought;
   }
 
   get getProducts() {
     return [...this.products.values()];
-  }
-
-  get getProductPlaces() {
-    const places = [...this.products.values()]
-      .map((product) => product.buyWhere)
-      .filter((buyWhere) => buyWhere !== null && buyWhere.length !== 0);
-    return [...new Set(places)];
   }
 }
 

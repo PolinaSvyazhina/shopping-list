@@ -4,11 +4,11 @@ export interface IProductFilter {
   isCorrect(product: ProductModel): boolean;
 }
 
-export type IPurchasePlaceProductFilter = IProductFilter;
+export type IBuyingPlaceProductFilter = IProductFilter;
 
-export type IProductPurchaseFilter = IProductFilter;
+export type IProductBuyingFilter = IProductFilter;
 
-export class PurchasePlaceProductFilter implements IProductPurchaseFilter {
+export class BuyingPlaceProductFilter implements IProductBuyingFilter {
   private _places: string[];
 
   public constructor(places: string[]) {
@@ -20,14 +20,14 @@ export class PurchasePlaceProductFilter implements IProductPurchaseFilter {
   }
 }
 
-export class PurchasedProductFilter implements IProductPurchaseFilter {
+export class BoughtProductFilter implements IProductBuyingFilter {
   isCorrect(product: ProductModel): boolean {
-    return product.purchased;
+    return product.bought;
   }
 }
 
-export class NotPurchaseProductFilter implements IProductPurchaseFilter {
+export class NotBoughtProductFilter implements IProductBuyingFilter {
   isCorrect(product: ProductModel): boolean {
-    return !product.purchased;
+    return !product.bought;
   }
 }

@@ -16,8 +16,8 @@ export interface CardProductProps {
   replacement?: string;
   onClick?: () => void;
   isChecked: boolean;
-  setMarkedList: () => void;
-  isMarked: () => boolean;
+  switchBoughtProduct: () => void;
+  isBought: () => boolean;
 }
 
 const ruble = '₽';
@@ -53,11 +53,11 @@ export const CardProduct: React.FC<CardProductProps> = observer((props) => {
       </div>
       <Button
         onClick={() => {
-          props.setMarkedList();
+          props.switchBoughtProduct();
         }}
         className={classes.checkButton}
       >
-        <CheckIcon className={clsx(classes.uncheckIcon, props.isMarked() && classes.checkIcon)} />
+        <CheckIcon className={clsx(classes.uncheckIcon, props.isBought() && classes.checkIcon)} />
       </Button>
     </div>
   );

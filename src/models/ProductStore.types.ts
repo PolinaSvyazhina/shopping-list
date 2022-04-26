@@ -10,7 +10,7 @@ export interface ProductModel {
   totalPrice: number;
   replacement: string;
   measurementUnits?: MeasurementUnitsType;
-  purchased: boolean;
+  bought: boolean;
 }
 
 export const MeasurementUnits: Record<MeasurementUnitsType, string> = {

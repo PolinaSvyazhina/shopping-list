@@ -1,22 +1,22 @@
 import { ProductModel } from './ProductStore.types';
 import { makeAutoObservable } from 'mobx';
 import { IProductsSort } from './Sorts/Sorts';
-import { IProductPurchaseFilter, IPurchasePlaceProductFilter } from './Filters/Filters';
+import { IProductBuyingFilter, IBuyingPlaceProductFilter } from './Filters/Filters';
 
 class ProductsAggregationStore {
-  public PurchasePlaceProductFilter: IPurchasePlaceProductFilter = null;
-  public ProductPurchaseFilter: IProductPurchaseFilter = null;
+  public PurchasePlaceProductFilter: IBuyingPlaceProductFilter = null;
+  public ProductPurchaseFilter: IProductBuyingFilter = null;
   public ProductsSort: IProductsSort = null;
 
   public constructor() {
     makeAutoObservable(this);
   }
 
-  setPurchasePlaceProductFilter(filter: IPurchasePlaceProductFilter) {
+  setPurchasePlaceProductFilter(filter: IBuyingPlaceProductFilter) {
     this.PurchasePlaceProductFilter = filter;
   }
 
-  setProductPurchaseFilter(filter: IProductPurchaseFilter) {
+  setProductPurchaseFilter(filter: IProductBuyingFilter) {
     this.ProductPurchaseFilter = filter;
   }
 

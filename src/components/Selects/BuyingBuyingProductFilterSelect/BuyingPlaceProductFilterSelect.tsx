@@ -1,10 +1,11 @@
 import React from 'react';
 import Select, { components, GroupBase, OptionProps } from 'react-select';
-import './PurchasePlaceProductFilterSelect.css';
-import { PurchasePlaceProductFilterSelectOptions } from './PurchasePlaceProductFilterSelectOptions';
+import './BuyingPlaceProductFilterSelect.css';
+import { SelectValue } from '../SelectValue';
 
 interface PurchasePlaceProductFilterSelectProps {
   getPlaces: (value: Array<string>) => void;
+  placesForOptions: Array<SelectValue>;
 }
 
 const Option = (props: JSX.IntrinsicAttributes & OptionProps<unknown, boolean, GroupBase<unknown>>) => {
@@ -18,7 +19,7 @@ const Option = (props: JSX.IntrinsicAttributes & OptionProps<unknown, boolean, G
   );
 };
 
-export const PurchasePlaceProductFilterSelect: React.FC<PurchasePlaceProductFilterSelectProps> = (props) => {
+export const BuyingPlaceProductFilterSelect: React.FC<PurchasePlaceProductFilterSelectProps> = (props) => {
   const handleChange = (array: { label: string; value: string }[]) => {
     const value: Array<string> = [];
     array.map((e: { label: string; value: string }) => {
@@ -34,7 +35,7 @@ export const PurchasePlaceProductFilterSelect: React.FC<PurchasePlaceProductFilt
         closeMenuOnSelect={false}
         hideSelectedOptions={false}
         isMulti
-        options={PurchasePlaceProductFilterSelectOptions()}
+        options={props.placesForOptions}
         placeholder={'Место покупки'}
         onChange={handleChange}
         className="react-select-container"

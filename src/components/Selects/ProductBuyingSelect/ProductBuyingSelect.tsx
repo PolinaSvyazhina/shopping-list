@@ -1,9 +1,9 @@
 import React from 'react';
-import classes from './ProductPurchaseSelect.module.css';
+import classes from './ProductBuyingSelect.module.css';
 import Select, { ActionMeta } from 'react-select';
 import { SelectValue } from '../SelectValue';
 
-interface ProductPurchaseSelectProps {
+interface ProductBuyingSelectProps {
   onChange?: (newSelections: SelectValue, actionMeta: ActionMeta<SelectValue>) => void;
 }
 
@@ -13,7 +13,7 @@ const option: Array<SelectValue> = [
   { value: 'unpurchased', label: 'Не купленные' },
 ];
 
-export const ProductPurchaseSelect: React.FC<ProductPurchaseSelectProps> = ({ onChange }) => {
+export const ProductBuyingSelect: React.FC<ProductBuyingSelectProps> = ({ onChange }) => {
   return (
     <div className={classes.select}>
       <Select

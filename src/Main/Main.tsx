@@ -8,17 +8,18 @@ import { DownloadButton } from '../components/DownloadButton';
 import { CardProduct } from '../components/CardProduct';
 import { Delete } from '../components/Delete';
 import { DarkModeButton } from '../components/DarkModeButton';
-import { PurchasePlaceProductFilterSelect } from '../components/Selects/PurchasePlaceProductFilterSelect';
+import { BuyingPlaceProductFilterSelect } from '../components/Selects/BuyingBuyingProductFilterSelect';
 import classes from './Main.module.css';
 import { ProductModel } from 'src/models/ProductStore.types';
-import { ProductPurchaseSelect } from '../components/Selects/ProductPurchaseSelect';
+import { ProductBuyingSelect } from '../components/Selects/ProductBuyingSelect';
 import SortIcon from '../Main/icons/Sort.svg';
 import { ProductsAggregationStoreImpl } from '../models/ProductsAggregationStore';
 import { ProductsSortSelect } from '../components/Selects/ProductsSortSelect/ProductsSortSelect';
 import { onChangeProductsSortSelect } from '../components/Selects/ProductsSortSelect/onChangeProductsSortSelect';
-import { PurchasePlaceProductFilter } from '../models/Filters/Filters';
-import { onChangeProductPurchaseSelect } from '../components/Selects/ProductPurchaseSelect/onChangeProductPurchaseSelect';
+import { BuyingPlaceProductFilter } from '../models/Filters/Filters';
+import { onChangeProductBuying } from '../components/Selects/ProductBuyingSelect/onChangeProductBuying';
 import { getProductsTotalAmount } from './getProductsTotalAmount';
+import { getBuyingPlaceProductFilterSelectOptions } from '../components/Selects/BuyingBuyingProductFilterSelect/getBuyingPlaceProductFilterSelectOptions';
 
 export const Main = observer(() => {
   const [opened, setOpened] = useState(false);
@@ -28,9 +29,7 @@ export const Main = observer(() => {
     if (purchaseSelectedPlaces.length === 0) {
       ProductsAggregationStoreImpl.removePurchasePlaceProductFilter();
     } else {
-      ProductsAggregationStoreImpl.setPurchasePlaceProductFilter(
-        new PurchasePlaceProductFilter(purchaseSelectedPlaces)
-      );
+      ProductsAggregationStoreImpl.setPurchasePlaceProductFilter(new BuyingPlaceProductFilter(purchaseSelectedPlaces));
     }
   }, [purchaseSelectedPlaces]);
 
@@ -44,7 +43,7 @@ export const Main = observer(() => {
   }
 
   function remove() {
-    for (const product of ProductStoreImpl.getProducts.filter((product) => product.purchased)) {
+    for (const product of ProductStoreImpl.getProducts.filter((product) => product.bought)) {
       ProductStoreImpl.removeProduct(product.id);
     }
   }
@@ -72,8 +71,11 @@ export const Main = observer(() => {
               <SortIcon />
               <ProductsSortSelect onChange={onChangeProductsSortSelect} />
             </p>
-            <ProductPurchaseSelect onChange={onChangeProductPurchaseSelect} />
-            <PurchasePlaceProductFilterSelect getPlaces={(value: Array<string>) => setPurchaseSelectedPlaces(value)} />
+            <ProductBuyingSelect onChange={onChangeProductBuying} />
+            <BuyingPlaceProductFilterSelect
+              getPlaces={(value: Array<string>) => setPurchaseSelectedPlaces(value)}
+              placesForOptions={getBuyingPlaceProductFilterSelectOptions(products)}
+            />
           </div>
           <Button className={classes.addButton} onClick={() => openProductEditorModal(null)}>
             Добавить
@@ -95,8 +97,8 @@ export const Main = observer(() => {
                 buyWhere={product.buyWhere}
                 replacement={product.replacement}
                 isChecked={false}
-                setMarkedList={() => ProductStoreImpl.purchaseProduct(product.id)}
-                isMarked={() => ProductStoreImpl.isPurchased(product.id)}
+                switchBoughtProduct={() => ProductStoreImpl.switchBoughtProduct(product.id)}
+                isBought={() => ProductStoreImpl.isBought(product.id)}
               />
             ))}
           </div>
