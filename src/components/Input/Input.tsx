@@ -8,7 +8,7 @@ interface InputProps {
   className?: string;
   value?: string | null;
   placeholder?: string;
-  type: 'number' | 'string';
+  type: 'number' | 'string' | 'date';
   width?: React.CSSProperties['width'];
   onValueChange?: (value: string) => void;
 }

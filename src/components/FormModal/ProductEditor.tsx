@@ -5,7 +5,6 @@ import { Input } from '../Input';
 
 import { SelectMeasurementUnits } from '../SelectMeasurementUnits';
 import { InputPrice } from '../InputPrice';
-import { InputData } from '../InputData';
 import { InputBuyWhere } from '../InputBuyWhere';
 import { InputReplacement } from '../InputReplacement';
 import { ProductModel } from '../../models/ProductStore.types';
@@ -96,9 +95,11 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
           </div>
           <div>
             <p className="titleSmall">К какому числу</p>
-            <InputData
-              value={new Date(stateProduct.date).toISOString().slice(0, 10)}
-              onValueChange={(value) => dispatch({ type: 'data', data: value })}
+            <Input
+              width={202}
+              type="date"
+              value={new Date(stateProduct.date.toISOString()).toISOString().slice(0, 10)}
+              onValueChange={(value) => dispatch({ type: 'data', data: value ? new Date() : new Date(value) })}
             />
           </div>
         </div>
