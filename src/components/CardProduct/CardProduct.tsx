@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { Button } from '../Button';
 import classes from './CardProduct.module.css';
 import MultiClamp from 'react-multi-clamp';
@@ -56,7 +57,7 @@ export const CardProduct: React.FC<CardProductProps> = observer((props) => {
         }}
         className={classes.checkButton}
       >
-        <CheckIcon className={props.isMarked() && classes.checkIcon} />
+        <CheckIcon className={clsx(classes.uncheckIcon, props.isMarked() && classes.checkIcon)} />
       </Button>
     </div>
   );

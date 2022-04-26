@@ -11,8 +11,6 @@ interface ButtonProps
 
 export const Delete: React.FC<ButtonProps> = (props) => {
   const [show, setShow] = useState(false);
-  const whiteColor = '#EFF4FA';
-  const redColor = '#F46770';
 
   return (
     <div className={classes.position}>
@@ -23,14 +21,26 @@ export const Delete: React.FC<ButtonProps> = (props) => {
         className={classes.button}
         style={props.style}
       >
-        <DeleteIcon color={show ? redColor : whiteColor} />
+        <DeleteIcon className={show ? classes.redColor : classes.whiteColor} />
       </button>
       {show && (
         <div className={classes.buttons}>
-          <button className={classes.buttonDelete} onClick={props.remove}>
+          <button
+            className={classes.buttonDelete}
+            onClick={() => {
+              props.remove();
+              setShow(!show);
+            }}
+          >
             Удалить отмеченные
           </button>
-          <button className={classes.buttonDelete} onClick={props.removeAll}>
+          <button
+            className={classes.buttonDelete}
+            onClick={() => {
+              props.removeAll();
+              setShow(!show);
+            }}
+          >
             Удалить все
           </button>
         </div>

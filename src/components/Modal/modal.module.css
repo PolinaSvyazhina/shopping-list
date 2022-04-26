@@ -4,7 +4,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,11 +14,12 @@
 }
 
 .dialog {
+  position: relative;
   min-width: 627px;
   width: auto;
   height: auto;
   border-radius: 25px;
-  background: #eff4fa;
+  background: var(--bkg-color);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -31,7 +32,7 @@
 .footer {
   display: flex;
   align-items: center;
-  padding: 16px;
+  padding: 28px;
 }
 
 .header {
@@ -47,8 +48,7 @@
 }
 
 .content {
-  padding: 16px;
-  min-height: 530px;
+  padding: 0 16px;
   min-width: 500px;
 }
 
@@ -78,5 +78,14 @@
   }
 }
 .close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
   padding: 10px;
+  color: var(--bkg-color);
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #f46770;
 }

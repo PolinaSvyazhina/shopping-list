@@ -7,12 +7,13 @@ import { Button } from '../components/Button';
 import { DownloadButton } from '../components/DownloadButton';
 import { CardProduct } from '../components/CardProduct';
 import { Delete } from '../components/Delete';
+import { DarkModeButton } from '../components/DarkModeButton';
 import { FilterByPlace } from '../components/FilterByPlace';
 import classes from './Main.module.css';
 import { ProductModel } from 'src/models/ProductStore.types';
 import { SelectFilterMark } from '../components/SelectFilterMark';
 import { SelectValue } from '../components/SelectFilterMark/SelectFilterMark';
-import DataIcon from '../Main/icons/Data.svg';
+import SortIcon from '../Main/icons/Sort.svg';
 
 export const Main = observer(() => {
   const [opened, setOpened] = useState(false);
@@ -68,12 +69,14 @@ export const Main = observer(() => {
         <div className={classes.menu}>
           <div style={{ display: 'flex' }}>
             <p className={classes.dataText} onClick={sortData}>
-              <DataIcon /> По дате добавления
+              <SortIcon /> По дате добавления
             </p>
             <SelectFilterMark onChange={onChangeFilter} />
             <FilterByPlace getPlaces={(value: Array<string>) => setFilterValueByPlace(value)} />
           </div>
-          <Button onClick={() => openProductEditorModal(null)}>Добавить</Button>
+          <Button className={classes.addButton} onClick={() => openProductEditorModal(null)}>
+            Добавить
+          </Button>
         </div>
         {ProductStoreImpl.getProducts.length === 0 ? (
           <Empty />
@@ -97,7 +100,7 @@ export const Main = observer(() => {
             ))}
           </div>
         )}
-        <div className={classes.bottomMenu}>
+        <footer className={classes.bottomMenu}>
           <div style={{ display: `flex`, alignItems: `flex-end` }}>
             <div style={{ marginRight: 8 }}>
               <div className={classes.line} />
@@ -108,8 +111,9 @@ export const Main = observer(() => {
             <div />
           </div>
           <Delete remove={remove} removeAll={removeAll} style={{ alignSelf: `flex-end` }} />
-        </div>
+        </footer>
       </div>
+      <DarkModeButton />
     </div>
   );
 });

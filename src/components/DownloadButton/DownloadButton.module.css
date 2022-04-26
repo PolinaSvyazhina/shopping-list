@@ -1,5 +1,6 @@
 .link {
   text-decoration: none;
+  width: 177px;
 }
 
 .downloadButton {
@@ -8,7 +9,7 @@
   justify-content: space-around;
   margin-right: 59px;
   align-self: flex-end;
-  width: 177px;
+  width: 100%;
   border-radius: 10px;
   font-size: 16px;
 }

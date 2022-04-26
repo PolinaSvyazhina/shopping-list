@@ -1,12 +1,12 @@
 .background {
   width: auto;
-  min-width: 760px;
+  min-width: 958px;
   max-width: 1400px;
   margin: 4vh auto;
   height: auto;
   border-radius: 25px;
-  background-color: #eff4fa;
-  box-shadow: 10px 10px 20px 0 #b2c2d2;
+  background-color: var(--bkg-color);
+  box-shadow: 10px 10px 20px 0 var(--shadow-black-color);
 }
 
 .backtacks {
@@ -19,14 +19,19 @@
   margin-top: 8px;
   width: 45px;
   height: 45px;
-  background: #eff4fa;
+  background: var(--bkg-color);
   border-radius: 25px;
-  box-shadow: 1px 2px 5px #b2c2d2, inset -2px -3px 14px #b2c2d2;
+  box-shadow: 1px 2px 5px var(--shadow-black-color), inset -2px -3px 14px var(--shadow-black-color);
 }
 
 .workspace {
   position: relative;
   bottom: 29px;
+}
+
+.addButton {
+  margin-left: 42px;
+  min-width: 154px;
 }
 
 .menu {
@@ -51,7 +56,9 @@
 
 .line {
   width: 320px;
-  border: 1px solid #5a6b7f;
+  height: 1px;
+  background-color: #b2c2d2;
+  margin-bottom: 8px;
 }
 
 .total {
