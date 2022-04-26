@@ -18,6 +18,7 @@ import { ProductsSortSelect } from '../components/Selects/ProductsSortSelect/Pro
 import { onChangeProductsSortSelect } from '../components/Selects/ProductsSortSelect/onChangeProductsSortSelect';
 import { PurchasePlaceProductFilter } from '../models/Filters/Filters';
 import { onChangeProductPurchaseSelect } from '../components/Selects/ProductPurchaseSelect/onChangeProductPurchaseSelect';
+import { getProductsTotalAmount } from './getProductsTotalAmount';
 
 export const Main = observer(() => {
   const [opened, setOpened] = useState(false);
@@ -52,6 +53,10 @@ export const Main = observer(() => {
     ProductStoreImpl.removeAllProducts();
   }
 
+  const products = ProductStoreImpl.getProducts;
+  const aggregatedProducts =
+    products.length === 0 ? products : ProductsAggregationStoreImpl.getProductAggregation()(products);
+
   return (
     <div className={classes.background}>
       <div className={classes.backtacks}>
@@ -74,28 +79,26 @@ export const Main = observer(() => {
             Добавить
           </Button>
         </div>
-        {ProductStoreImpl.getProducts.length === 0 ? (
+        {aggregatedProducts.length === 0 ? (
           <Empty />
         ) : (
           <div className={classes.cards}>
-            {ProductsAggregationStoreImpl.getProductAggregation()(ProductStoreImpl.getProducts).map(
-              (product: ProductModel) => (
-                <CardProduct
-                  onClick={() => openProductEditorModal(product)}
-                  key={product.id}
-                  id={product.id}
-                  name={product.name}
-                  count={product.count}
-                  measurementUnits={product.measurementUnits}
-                  totalPrice={product.totalPrice}
-                  buyWhere={product.buyWhere}
-                  replacement={product.replacement}
-                  isChecked={false}
-                  setMarkedList={() => ProductStoreImpl.purchaseProduct(product.id)}
-                  isMarked={() => ProductStoreImpl.isPurchased(product.id)}
-                />
-              )
-            )}
+            {aggregatedProducts.map((product: ProductModel) => (
+              <CardProduct
+                onClick={() => openProductEditorModal(product)}
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                count={product.count}
+                measurementUnits={product.measurementUnits}
+                totalPrice={product.totalPrice}
+                buyWhere={product.buyWhere}
+                replacement={product.replacement}
+                isChecked={false}
+                setMarkedList={() => ProductStoreImpl.purchaseProduct(product.id)}
+                isMarked={() => ProductStoreImpl.isPurchased(product.id)}
+              />
+            ))}
           </div>
         )}
         <footer className={classes.bottomMenu}>
@@ -103,7 +106,7 @@ export const Main = observer(() => {
             <div style={{ marginRight: 8 }}>
               <div className={classes.line} />
               <p className="titleMedium">Итого</p>
-              <h1 className={classes.total}>{ProductStoreImpl.totalAmount}р.</h1>
+              <h1 className={classes.total}>{getProductsTotalAmount(aggregatedProducts)}р.</h1>
             </div>
             <DownloadButton />
             <div />

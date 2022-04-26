@@ -26,10 +26,6 @@ class ProductStore {
     ProductTransports.updateProduct(product);
   }
 
-  get totalAmount() {
-    return ProductStoreImpl.getProducts.reduce((res, e) => res + e.totalPrice, 0);
-  }
-
   removeAllProducts() {
     this.products.clear();
     ProductTransports.clearLocalStorage();
