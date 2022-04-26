@@ -1,5 +1,5 @@
 import React from 'react';
-import Select, { components } from 'react-select';
+import Select, { components, GroupBase, OptionProps } from 'react-select';
 import './FilterByPlace.css';
 import { Options } from './FilterOptions';
 
@@ -7,7 +7,7 @@ interface FilterProps {
   getPlaces: (value: Array<string>) => void;
 }
 
-const Option = (props: any) => {
+const Option = (props: JSX.IntrinsicAttributes & OptionProps<unknown, boolean, GroupBase<unknown>>) => {
   return (
     <div>
       <components.Option {...props}>
@@ -19,7 +19,7 @@ const Option = (props: any) => {
 };
 
 export const FilterByPlace: React.FC<FilterProps> = (props) => {
-  const handleChange = (array: any) => {
+  const handleChange = (array: { label: string; value: string }[]) => {
     const value: Array<string> = [];
     array.map((e: { label: string; value: string }) => {
       value.push(e.value);
