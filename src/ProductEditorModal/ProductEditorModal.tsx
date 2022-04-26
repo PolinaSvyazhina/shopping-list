@@ -1,14 +1,14 @@
 import React, { useReducer, useState } from 'react';
 import classes from './ProductEditorModal.module.css';
-import { Button } from '../../components/Button';
-import { MeasurementUnits, MeasurementUnitsType, ProductModel } from '../../models/ProductStore.types';
-import { ProductStoreImpl } from '../../models/ProductStore';
+import { Button } from '../components/Button';
+import { MeasurementUnits, MeasurementUnitsType, ProductModel } from '../models/ProductStore.types';
+import { ProductStoreImpl } from '../models/ProductStore';
 import { observer } from 'mobx-react-lite';
 import { v4 as uuidv4 } from 'uuid';
-import { productReducer } from '../../components/FormModal/ProductReducer';
-import { ProductEditor } from '../../components/FormModal';
-import { ProductInfo } from '../../components/ProductInfo';
-import { Modal } from '../../components/Modal';
+import { productReducer } from '../components/FormModal/ProductReducer';
+import { ProductEditor } from '../components/FormModal';
+import { ProductInfo } from '../components/ProductInfo';
+import { Modal } from '../components/Modal';
 
 interface ProductCreatorModalProps {
   onClose: () => void;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { ProductEditorModal } from '../containers/ProductEditorModal';
+import { ProductEditorModal } from '../ProductEditorModal';
 import { ProductStoreImpl } from '../models/ProductStore';
 import { Empty } from '../components/Empty';
 import { Button } from '../components/Button';

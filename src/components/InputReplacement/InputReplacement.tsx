@@ -1,5 +1,5 @@
 import React from 'react';
-import style from '../InputBaseStyle/input.module.css';
+import style from '../Input/Input.module.css';
 import classes from './input.module.css';
 
 interface InputReplacementProps {

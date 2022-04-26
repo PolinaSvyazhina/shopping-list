@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './input.module.css';
-import style from '../InputBaseStyle/input.module.css';
+import style from '../Input/Input.module.css';
 
 interface InputPriceProps {
   value?: number;
