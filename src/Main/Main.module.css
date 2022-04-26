@@ -1,6 +1,6 @@
 .background {
   width: auto;
-  min-width: 760px;
+  min-width: 958px;
   max-width: 1400px;
   margin: 4vh auto;
   height: auto;
@@ -27,6 +27,11 @@
 .workspace {
   position: relative;
   bottom: 29px;
+}
+
+.addButton {
+  margin-left: 42px;
+  min-width: 154px;
 }
 
 .menu {

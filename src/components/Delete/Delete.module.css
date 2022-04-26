@@ -51,6 +51,10 @@
   color: var(--bkg-color);
 }
 
-.deleteIcon {
+.redColor {
   color: #f46770;
+}
+
+.whiteColor {
+  color: var(--object-color);
 }

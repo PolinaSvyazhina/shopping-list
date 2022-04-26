@@ -74,7 +74,9 @@ export const Main = observer(() => {
             <SelectFilterMark onChange={onChangeFilter} />
             <FilterByPlace getPlaces={(value: Array<string>) => setFilterValueByPlace(value)} />
           </div>
-          <Button onClick={() => openProductEditorModal(null)}>Добавить</Button>
+          <Button className={classes.addButton} onClick={() => openProductEditorModal(null)}>
+            Добавить
+          </Button>
         </div>
         {ProductStoreImpl.getProducts.length === 0 ? (
           <Empty />
