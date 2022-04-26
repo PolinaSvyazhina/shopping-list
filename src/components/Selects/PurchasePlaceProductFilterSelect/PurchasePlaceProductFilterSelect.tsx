@@ -1,9 +1,9 @@
 import React from 'react';
 import Select, { components, GroupBase, OptionProps } from 'react-select';
-import './FilterByPlace.css';
-import { Options } from './FilterOptions';
+import './PurchasePlaceProductFilterSelect.css';
+import { PurchasePlaceProductFilterSelectOptions } from './PurchasePlaceProductFilterSelectOptions';
 
-interface FilterProps {
+interface PurchasePlaceProductFilterSelectProps {
   getPlaces: (value: Array<string>) => void;
 }
 
@@ -18,7 +18,7 @@ const Option = (props: JSX.IntrinsicAttributes & OptionProps<unknown, boolean, G
   );
 };
 
-export const FilterByPlace: React.FC<FilterProps> = (props) => {
+export const PurchasePlaceProductFilterSelect: React.FC<PurchasePlaceProductFilterSelectProps> = (props) => {
   const handleChange = (array: { label: string; value: string }[]) => {
     const value: Array<string> = [];
     array.map((e: { label: string; value: string }) => {
@@ -34,7 +34,7 @@ export const FilterByPlace: React.FC<FilterProps> = (props) => {
         closeMenuOnSelect={false}
         hideSelectedOptions={false}
         isMulti
-        options={Options()}
+        options={PurchasePlaceProductFilterSelectOptions()}
         placeholder={'Место покупки'}
         onChange={handleChange}
         className="react-select-container"

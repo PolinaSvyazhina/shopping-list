@@ -1,15 +1,11 @@
 import React from 'react';
-import classes from './selectFilterMark.module.css';
+import classes from './ProductPurchaseSelect.module.css';
 import Select, { ActionMeta } from 'react-select';
+import { SelectValue } from '../SelectValue';
 
-interface SelectFilterMarkProps {
+interface ProductPurchaseSelectProps {
   onChange?: (newSelections: SelectValue, actionMeta: ActionMeta<SelectValue>) => void;
 }
-
-export type SelectValue = {
-  label: string;
-  value: string;
-};
 
 const option: Array<SelectValue> = [
   { value: 'showAll', label: 'Показывать всё' },
@@ -17,7 +13,7 @@ const option: Array<SelectValue> = [
   { value: 'unpurchased', label: 'Не купленные' },
 ];
 
-export const SelectFilterMark: React.FC<SelectFilterMarkProps> = ({ onChange }) => {
+export const ProductPurchaseSelect: React.FC<ProductPurchaseSelectProps> = ({ onChange }) => {
   return (
     <div className={classes.select}>
       <Select

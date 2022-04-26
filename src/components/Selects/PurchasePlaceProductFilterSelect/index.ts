@@ -1,0 +1,1 @@
+export { PurchasePlaceProductFilterSelect } from './PurchasePlaceProductFilterSelect';
