@@ -22,6 +22,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <input
         ref={ref}
+        min={type === 'number' ? '0' : ''}
         type={type}
         value={value}
         onChange={handleChange}
