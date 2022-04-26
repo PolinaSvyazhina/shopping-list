@@ -73,5 +73,7 @@
 }
 
 .dataText {
-  font-size: 18px;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }

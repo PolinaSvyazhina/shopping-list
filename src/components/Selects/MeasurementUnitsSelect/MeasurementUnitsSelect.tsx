@@ -1,15 +1,11 @@
 import React from 'react';
-import { MeasurementUnits } from '../../models/ProductStore.types';
+import { MeasurementUnits } from '../../../models/ProductStore.types';
 import Select, { ActionMeta } from 'react-select';
+import { SelectValue } from '../SelectValue';
 
-interface SelectMeasurementUnitsProps {
+interface MeasurementUnitsSelectProps {
   onValueChange?: (newSelections: SelectValue, actionMeta: ActionMeta<SelectValue>) => void;
 }
-
-export type SelectValue = {
-  value: string;
-  label: string;
-};
 
 const option: Array<SelectValue> = [
   { value: MeasurementUnits.Grams, label: MeasurementUnits.Grams },
@@ -17,7 +13,7 @@ const option: Array<SelectValue> = [
   { value: MeasurementUnits.Milliliters, label: MeasurementUnits.Milliliters },
 ];
 
-export const SelectMeasurementUnits: React.FC<SelectMeasurementUnitsProps> = ({ onValueChange }) => {
+export const MeasurementUnitsSelect: React.FC<MeasurementUnitsSelectProps> = ({ onValueChange }) => {
   return (
     <Select
       options={option}

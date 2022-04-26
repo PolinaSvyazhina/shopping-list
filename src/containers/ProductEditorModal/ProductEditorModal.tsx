@@ -26,7 +26,7 @@ export const ProductEditorModal = observer((props: ProductCreatorModalProps) => 
     buyWhere: '',
     replacement: '',
     date: new Date(Date.now()),
-    marked: false,
+    purchased: false,
   };
 
   const [stateProduct, dispatch] = useReducer(productReducer, state);

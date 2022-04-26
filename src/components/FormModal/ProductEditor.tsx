@@ -1,7 +1,7 @@
 import classes from './ProductEditor.module.css';
 import { InputName } from '../InputName';
 import { InputCount } from '../InputCount';
-import { SelectMeasurementUnits } from '../SelectMeasurementUnits';
+import { MeasurementUnitsSelect } from '../Selects/MeasurementUnitsSelect';
 import { InputPrice } from '../InputPrice';
 import { InputData } from '../InputData';
 import { InputBuyWhere } from '../InputBuyWhere';
@@ -9,9 +9,9 @@ import { InputReplacement } from '../InputReplacement';
 import React from 'react';
 import { ProductModel } from '../../models/ProductStore.types';
 import { ProductAction } from './ProductReducer';
-import { SelectValue } from '../SelectFilterMark/SelectFilterMark';
 import { priceConverter } from '../../priceConverter';
 import { InputTotalPrice } from '../InputTotalPrice';
+import { SelectValue } from '../Selects/SelectValue';
 
 interface ProductEditorProps {
   stateProduct: ProductModel;
@@ -39,7 +39,7 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
         </div>
         <div>
           <p className="titleSmall">Единица измерения</p>
-          <SelectMeasurementUnits onValueChange={onChangeSelect} />
+          <MeasurementUnitsSelect onValueChange={onChangeSelect} />
         </div>
         <div>
           <p className="titleSmall">Цена за {convertedPriceResult.text} </p>

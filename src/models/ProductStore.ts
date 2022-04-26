@@ -4,9 +4,6 @@ import { ProductTransports } from '../Transports/ProductTransports';
 
 class ProductStore {
   public products: Map<string, ProductModel> = new Map<string, ProductModel>();
-  public direction = 1;
-  public isMarkedFilter: boolean = null;
-  public places: Array<string> = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -38,52 +35,25 @@ class ProductStore {
     ProductTransports.clearLocalStorage();
   }
 
-  sortDataProducts() {
-    this.products = new Map<string, ProductModel>(
-      [...this.products.entries()].sort((a, b) => {
-        return (+new Date(a[1].date) - +new Date(b[1].date)) * +this.direction;
-      })
-    );
-    this.direction = -this.direction;
-  }
-
-  markProduct(id: string) {
+  purchaseProduct(id: string) {
     const productInfo = this.products.get(id);
-    productInfo.marked = !productInfo.marked;
+    productInfo.purchased = !productInfo.purchased;
   }
 
-  setFilter(isMarkedFilter: boolean) {
-    this.isMarkedFilter = isMarkedFilter;
-  }
-
-  isMarked(id: string) {
+  isPurchased(id: string) {
     const productInfo = this.products.get(id);
-    return productInfo.marked;
-  }
-
-  setPlaces(places: Array<string>) {
-    this.places = places;
+    return productInfo.purchased;
   }
 
   get getProducts() {
-    let result = [...this.products.values()];
-    if (this.places.length !== 0) {
-      result = result.filter((element) => {
-        return this.places.some((e) => e === element.buyWhere);
-      });
-    }
-    if (this.isMarkedFilter !== null) {
-      result = result.filter((e) => this.isMarkedFilter === e.marked);
-    }
-    return result;
+    return [...this.products.values()];
   }
 
-  get getProductsForFilter() {
-    let result = [...this.products.values()];
-    if (this.isMarkedFilter !== null) {
-      result = result.filter((e) => this.isMarkedFilter === e.marked);
-    }
-    return result;
+  get getProductPlaces() {
+    const places = [...this.products.values()]
+      .map((product) => product.buyWhere)
+      .filter((buyWhere) => buyWhere !== null && buyWhere.length !== 0);
+    return [...new Set(places)];
   }
 }
 

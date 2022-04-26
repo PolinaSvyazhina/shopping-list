@@ -8,18 +8,30 @@ import { DownloadButton } from '../components/DownloadButton';
 import { CardProduct } from '../components/CardProduct';
 import { Delete } from '../components/Delete';
 import { DarkModeButton } from '../components/DarkModeButton';
-import { FilterByPlace } from '../components/FilterByPlace';
+import { PurchasePlaceProductFilterSelect } from '../components/Selects/PurchasePlaceProductFilterSelect';
 import classes from './Main.module.css';
 import { ProductModel } from 'src/models/ProductStore.types';
-import { SelectFilterMark } from '../components/SelectFilterMark';
-import { SelectValue } from '../components/SelectFilterMark/SelectFilterMark';
+import { ProductPurchaseSelect } from '../components/Selects/ProductPurchaseSelect';
 import SortIcon from '../Main/icons/Sort.svg';
+import { ProductsAggregationStoreImpl } from '../models/ProductsAggregationStore';
+import { ProductsSortSelect } from '../components/Selects/ProductsSortSelect/ProductsSortSelect';
+import { onChangeProductsSortSelect } from '../components/Selects/ProductsSortSelect/onChangeProductsSortSelect';
+import { PurchasePlaceProductFilter } from '../models/Filters/Filters';
+import { onChangeProductPurchaseSelect } from '../components/Selects/ProductPurchaseSelect/onChangeProductPurchaseSelect';
 
 export const Main = observer(() => {
   const [opened, setOpened] = useState(false);
   const [initCardValues, setInitCardValue] = useState(null);
-  const [filterValueByPlace, setFilterValueByPlace] = useState([]);
-  useEffect(() => ProductStoreImpl.setPlaces(filterValueByPlace), [filterValueByPlace]);
+  const [purchaseSelectedPlaces, setPurchaseSelectedPlaces] = useState<string[]>([]);
+  useEffect(() => {
+    if (purchaseSelectedPlaces.length === 0) {
+      ProductsAggregationStoreImpl.removePurchasePlaceProductFilter();
+    } else {
+      ProductsAggregationStoreImpl.setPurchasePlaceProductFilter(
+        new PurchasePlaceProductFilter(purchaseSelectedPlaces)
+      );
+    }
+  }, [purchaseSelectedPlaces]);
 
   function openProductEditorModal(elem: ProductModel) {
     setInitCardValue(elem);
@@ -31,30 +43,13 @@ export const Main = observer(() => {
   }
 
   function remove() {
-    const oldFilter = ProductStoreImpl.isMarkedFilter;
-    ProductStoreImpl.setFilter(true);
-    for (const i of ProductStoreImpl.getProducts) {
-      ProductStoreImpl.removeProduct(i.id);
+    for (const product of ProductStoreImpl.getProducts.filter((product) => product.purchased)) {
+      ProductStoreImpl.removeProduct(product.id);
     }
-    ProductStoreImpl.setFilter(oldFilter);
   }
 
   function removeAll() {
     ProductStoreImpl.removeAllProducts();
-  }
-
-  function sortData() {
-    ProductStoreImpl.sortDataProducts();
-  }
-
-  function onChangeFilter(e: SelectValue) {
-    if (e.value === 'showAll') {
-      ProductStoreImpl.setFilter(null);
-    } else if (e.value === 'purchased') {
-      ProductStoreImpl.setFilter(true);
-    } else {
-      ProductStoreImpl.setFilter(false);
-    }
   }
 
   return (
@@ -67,12 +62,13 @@ export const Main = observer(() => {
       <div className={classes.workspace}>
         <h1>Список покупок</h1>
         <div className={classes.menu}>
-          <div style={{ display: 'flex' }}>
-            <p className={classes.dataText} onClick={sortData}>
-              <SortIcon /> По дате добавления
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <p className={classes.dataText}>
+              <SortIcon />
+              <ProductsSortSelect onChange={onChangeProductsSortSelect} />
             </p>
-            <SelectFilterMark onChange={onChangeFilter} />
-            <FilterByPlace getPlaces={(value: Array<string>) => setFilterValueByPlace(value)} />
+            <ProductPurchaseSelect onChange={onChangeProductPurchaseSelect} />
+            <PurchasePlaceProductFilterSelect getPlaces={(value: Array<string>) => setPurchaseSelectedPlaces(value)} />
           </div>
           <Button className={classes.addButton} onClick={() => openProductEditorModal(null)}>
             Добавить
@@ -82,22 +78,24 @@ export const Main = observer(() => {
           <Empty />
         ) : (
           <div className={classes.cards}>
-            {ProductStoreImpl.getProducts.map((product: ProductModel) => (
-              <CardProduct
-                onClick={() => openProductEditorModal(product)}
-                key={product.id}
-                id={product.id}
-                name={product.name}
-                count={product.count}
-                measurementUnits={product.measurementUnits}
-                totalPrice={product.totalPrice}
-                buyWhere={product.buyWhere}
-                replacement={product.replacement}
-                isChecked={false}
-                setMarkedList={() => ProductStoreImpl.markProduct(product.id)}
-                isMarked={() => ProductStoreImpl.isMarked(product.id)}
-              />
-            ))}
+            {ProductsAggregationStoreImpl.getProductAggregation()(ProductStoreImpl.getProducts).map(
+              (product: ProductModel) => (
+                <CardProduct
+                  onClick={() => openProductEditorModal(product)}
+                  key={product.id}
+                  id={product.id}
+                  name={product.name}
+                  count={product.count}
+                  measurementUnits={product.measurementUnits}
+                  totalPrice={product.totalPrice}
+                  buyWhere={product.buyWhere}
+                  replacement={product.replacement}
+                  isChecked={false}
+                  setMarkedList={() => ProductStoreImpl.purchaseProduct(product.id)}
+                  isMarked={() => ProductStoreImpl.isPurchased(product.id)}
+                />
+              )
+            )}
           </div>
         )}
         <footer className={classes.bottomMenu}>
