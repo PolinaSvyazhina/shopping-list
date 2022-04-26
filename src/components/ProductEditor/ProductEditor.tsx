@@ -1,17 +1,16 @@
-import React, { useRef } from 'react';
 import classes from './ProductEditor.module.css';
 import { Input } from '../Input';
 import { SelectMeasurementUnits } from '../SelectMeasurementUnits';
-import { InputData } from '../InputData';
 import { ProductModel } from '../../models/ProductStore.types';
 import { ProductAction } from './ProductReducer';
 import { SelectValue } from '../SelectFilterMark/SelectFilterMark';
 import { priceConverter } from '../../priceConverter';
-
+import clsx from 'clsx';
 import { ValidationContainer, ValidationWrapper } from '@skbkontur/react-ui-validations';
 import { validateCount, validateName, validatePrice, validateTotalPrice } from './validateFunction ';
 import { Button } from '../Button';
 import { ProductStoreImpl } from '../../models/ProductStore';
+import React, { useRef } from 'react';
 
 interface ProductEditorProps {
   stateProduct: ProductModel;
@@ -120,9 +119,11 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
         </div>
         <div className={classes.date}>
           <p className="titleSmall">К какому числу</p>
-          <InputData
+          <Input
+            type={'date'}
+            width={202}
             value={new Date(stateProduct.date).toISOString().slice(0, 10)}
-            onValueChange={(value) => dispatch({ type: 'data', data: value })}
+            onValueChange={(value) => dispatch({ type: 'data', data: new Date(value) })}
           />
         </div>
         <div className={classes.buy}>
@@ -147,13 +148,15 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
         </div>
         {isEdit ? (
           <>
-            <Button className={classes.redButton} onClick={() => SetIsEdit(false)}>
+            <Button className={clsx(classes.redButton, classes.coordinatesButton)} onClick={() => SetIsEdit(false)}>
               Отмена
             </Button>
-            <Button onClick={updateProduct}>Сохранить</Button>
+            <Button className={clsx(classes.coordinatesButton, classes.end)} onClick={updateProduct}>
+              Сохранить
+            </Button>
           </>
         ) : (
-          <Button className={classes.addProductButton} onClick={addProduct}>
+          <Button className={clsx(classes.addProductButton, classes.coordinatesAddingButton)} onClick={addProduct}>
             Добавить
           </Button>
         )}

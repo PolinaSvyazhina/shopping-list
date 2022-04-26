@@ -3,6 +3,7 @@ import React from 'react';
 import { ProductModel } from '../../models/ProductStore.types';
 import { priceConverter } from '../../priceConverter';
 import { Button } from '../Button';
+import clsx from 'clsx';
 
 interface ProductEditorProps {
   stateProduct: ProductModel;
@@ -49,12 +50,11 @@ export const ProductInfo: React.FC<ProductEditorProps> = ({ stateProduct, remove
           <p className={`titleSmall ${classes.title}`}>Замены</p>
           {stateProduct.replacement ? <p>{stateProduct.replacement}</p> : <p>—</p>}
         </div>
+        <Button className={clsx(classes.redButton, classes.button)} onClick={removeProduct}>
+          Удалить
+        </Button>
+        <Button onClick={() => SetIsEdit(true)}>Изменить</Button>
       </div>
-
-      <Button className={classes.redButton} onClick={removeProduct}>
-        Удалить
-      </Button>
-      <Button onClick={() => SetIsEdit(true)}>Изменить</Button>
     </form>
   );
 };

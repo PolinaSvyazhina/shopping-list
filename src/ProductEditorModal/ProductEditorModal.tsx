@@ -1,5 +1,4 @@
 import React, { useReducer, useState } from 'react';
-import classes from './ProductEditorModal.module.css';
 import { MeasurementUnits, MeasurementUnitsType, ProductModel } from '../models/ProductStore.types';
 import { ProductStoreImpl } from '../models/ProductStore';
 import { observer } from 'mobx-react-lite';
