@@ -1,4 +1,5 @@
 import { ProductModel } from '../../models/ProductStore.types';
+import { roundPrice } from '../../roundPrice';
 
 export function getTotalPrice(stateProduct: ProductModel) {
   if (stateProduct.price === null || stateProduct.measurementUnits === null || stateProduct.count === null)
@@ -20,8 +21,4 @@ export function getPrice(stateProduct: ProductModel) {
   return stateProduct.measurementUnits === 'Grams' || stateProduct.measurementUnits === 'Milliliters'
     ? roundPrice((stateProduct.totalPrice / stateProduct.count) * 1000)
     : roundPrice(stateProduct.totalPrice / stateProduct.count);
-}
-
-export function roundPrice(price: number) {
-  return Math.ceil(price * 100) / 100;
 }

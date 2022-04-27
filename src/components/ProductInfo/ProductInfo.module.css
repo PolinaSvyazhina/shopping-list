@@ -23,7 +23,8 @@
   background-color: #f46770 !important;
 }
 .buttons {
-  margin-top: 100px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
 }
