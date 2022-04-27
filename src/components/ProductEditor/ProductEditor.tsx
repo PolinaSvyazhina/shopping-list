@@ -7,7 +7,7 @@ import { SelectValue } from '../SelectFilterMark/SelectFilterMark';
 import { priceConverter } from '../../priceConverter';
 import clsx from 'clsx';
 import { ValidationContainer, ValidationWrapper } from '@skbkontur/react-ui-validations';
-import { validateCount, validateName, validatePrice, validateTotalPrice } from './validateFunction ';
+import { validateCount, validateName, validatePrice, validateTotalPrice } from './ProductEditorValidation';
 import { Button } from '../Button';
 import { ProductStoreImpl } from '../../models/ProductStore';
 import React, { useRef } from 'react';
@@ -22,6 +22,8 @@ interface ProductEditorProps {
 }
 
 export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, dispatch, onClose, SetIsEdit, isEdit }) => {
+  const refValidationContainer = useRef<ValidationContainer>(null);
+
   async function addProduct(e: any) {
     e.preventDefault();
     const isValid = await refValidationContainer.current.validate();
@@ -42,8 +44,6 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
     onClose();
   }
 
-  const refValidationContainer = useRef<ValidationContainer>(null);
-
   function onChangeSelect(e: SelectValue) {
     dispatch({
       type: 'measurementUnits',
@@ -52,6 +52,15 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
   }
 
   const convertedPriceResult = priceConverter(stateProduct);
+
+  const handleTotalPriceChange = (value: string) => {
+    dispatch({
+      type: 'totalPrice',
+      totalPrice: Number(value) || null,
+    });
+
+    refValidationContainer.current.validate();
+  };
 
   return (
     <ValidationContainer ref={refValidationContainer}>
@@ -86,11 +95,11 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
         </div>
         <div className={classes.price}>
           <p className="titleSmall">Цена за {convertedPriceResult.text} </p>
-          <ValidationWrapper validationInfo={validateTotalPrice(stateProduct.price)}>
+          <ValidationWrapper validationInfo={validatePrice(stateProduct.price)}>
             <Input
               width={202}
               type="number"
-              placeholder={'Цена'}
+              placeholder="Цена"
               value={stateProduct.price === null ? '' : convertedPriceResult.value.toString()}
               onValueChange={(value) =>
                 dispatch({
@@ -103,17 +112,12 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
         </div>
         <div className={classes.total}>
           <p className="titleSmall">Примерная цена</p>
-          <ValidationWrapper validationInfo={validatePrice(stateProduct.totalPrice)}>
+          <ValidationWrapper validationInfo={validateTotalPrice(stateProduct.totalPrice)}>
             <Input
               width={202}
               type="number"
-              value={stateProduct.totalPrice === null ? '' : stateProduct.totalPrice.toString()}
-              onValueChange={(value) =>
-                dispatch({
-                  type: 'totalPrice',
-                  totalPrice: Number(value) || null,
-                })
-              }
+              value={`${stateProduct.totalPrice ?? ''}`}
+              onValueChange={handleTotalPriceChange}
             />
           </ValidationWrapper>
         </div>
