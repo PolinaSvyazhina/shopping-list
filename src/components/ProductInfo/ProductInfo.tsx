@@ -55,9 +55,7 @@ export const ProductInfo: React.FC<ProductEditorProps> = ({ stateProduct, remove
         <Button className={clsx(classes.redButton, classes.changeButton)} onClick={removeProduct}>
           Удалить
         </Button>
-        <Button className={classes.deleteButton} onClick={() => SetIsEdit(true)}>
-          Изменить
-        </Button>
+        <Button onClick={() => SetIsEdit(true)}>Изменить</Button>
       </div>
     </form>
   );
