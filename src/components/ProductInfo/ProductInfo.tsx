@@ -50,9 +50,13 @@ export const ProductInfo: React.FC<ProductEditorProps> = ({ stateProduct, remove
           <p className={`titleSmall ${classes.title}`}>Замены</p>
           {stateProduct.replacement ? <p>{stateProduct.replacement}</p> : <p>—</p>}
         </div>
-        <Button onClick={() => SetIsEdit(true)}>Изменить</Button>
-        <Button className={clsx(classes.redButton, classes.button)} onClick={removeProduct}>
+      </div>
+      <div className={classes.buttons}>
+        <Button className={clsx(classes.redButton, classes.changeButton)} onClick={removeProduct}>
           Удалить
+        </Button>
+        <Button className={classes.deleteButton} onClick={() => SetIsEdit(true)}>
+          Изменить
         </Button>
       </div>
     </form>
