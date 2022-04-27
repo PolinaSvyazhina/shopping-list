@@ -71,9 +71,3 @@
     margin: 4vh 50px;
   }
 }
-
-.dataText {
-  display: flex;
-  align-items: center;
-  column-gap: 10px;
-}
