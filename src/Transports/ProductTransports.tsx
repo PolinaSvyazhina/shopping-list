@@ -2,28 +2,29 @@ import { ProductModel } from '../models/ProductStore.types';
 
 export class ProductTransports {
   static getProducts(): ProductModel[] {
-    const e = localStorage.getItem('products');
-    if (!e) {
+    const products = localStorage.getItem('products');
+    if (!products) {
       return [];
     }
-    return JSON.parse(e);
+    return JSON.parse(products);
   }
 
   static addProduct(product: ProductModel) {
-    const e = this.getProducts();
-    e.push(product);
-    localStorage.setItem('products', JSON.stringify(e));
+    const products = this.getProducts();
+    products.push(product);
+    localStorage.setItem('products', JSON.stringify(products));
   }
 
   static removeProduct(id: string) {
-    const e = this.getProducts().filter((e) => e.id !== id);
-    localStorage.setItem('products', JSON.stringify(e));
+    const products = this.getProducts().filter((e) => e.id !== id);
+    localStorage.setItem('products', JSON.stringify(products));
   }
 
   static updateProduct(product: ProductModel) {
-    const e = this.getProducts();
-    e.filter((e) => e.id === product.id)[0] = product;
-    localStorage.setItem('products', JSON.stringify(e));
+    const products = this.getProducts();
+    const index = products.findIndex((e) => e.id === product.id);
+    products[index] = product;
+    localStorage.setItem('products', JSON.stringify(products));
   }
 
   static clearLocalStorage() {

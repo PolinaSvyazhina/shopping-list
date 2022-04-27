@@ -22,8 +22,8 @@ class ProductStore {
 
   updateProduct(product: ProductModel) {
     const index = product.id;
-    this.products.set(index, product);
     ProductTransports.updateProduct(product);
+    this.products.set(index, product);
   }
 
   removeAllProducts() {
