@@ -3,5 +3,5 @@ import React from 'react';
 import classes from './Button.module.css';
 
 export const Button: React.FC<React.HTMLAttributes<HTMLButtonElement>> = ({ className, ...props }) => {
-  return <button type={'submit'} className={clsx(classes.button, className)} {...props} />;
+  return <button className={clsx(classes.button, className)} {...props} />;
 };
