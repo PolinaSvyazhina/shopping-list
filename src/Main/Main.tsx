@@ -12,7 +12,6 @@ import { BuyingPlaceProductFilterSelect } from '../components/Selects/BuyingBuyi
 import classes from './Main.module.css';
 import { ProductModel } from 'src/models/ProductStore.types';
 import { ProductBuyingSelect } from '../components/Selects/ProductBuyingSelect';
-import SortIcon from '../Main/icons/Sort.svg';
 import { ProductsAggregationStoreImpl } from '../models/ProductsAggregationStore';
 import { ProductsSortSelect } from '../components/Selects/ProductsSortSelect/ProductsSortSelect';
 import { onChangeProductsSortSelect } from '../components/Selects/ProductsSortSelect/onChangeProductsSortSelect';
@@ -67,10 +66,7 @@ export const Main = observer(() => {
         <h1>Список покупок</h1>
         <div className={classes.menu}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <p className={classes.dataText}>
-              <SortIcon />
-              <ProductsSortSelect onChange={onChangeProductsSortSelect} />
-            </p>
+            <ProductsSortSelect onChange={onChangeProductsSortSelect} />
             <ProductBuyingSelect onChange={onChangeProductBuying} />
             <BuyingPlaceProductFilterSelect
               getPlaces={(value: Array<string>) => setPurchaseSelectedPlaces(value)}

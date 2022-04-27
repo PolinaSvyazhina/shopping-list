@@ -1,30 +1,38 @@
-import { ProductSortSelectValue } from './ProductsSortSelect';
 import { ProductsAggregationStoreImpl } from '../../../models/ProductsAggregationStore';
-import { ProductAlphabetSort, ProductDateSort, ProductPriceSort, SortDirection } from '../../../models/Sorts/Sorts';
-import { SelectValue } from '../SelectValue';
+import {
+  ProductAlphabetSort,
+  ProductDateSort,
+  ProductDateCreateSort,
+  ProductPriceSort,
+  SortDirection,
+} from '../../../models/Sorts/Sorts';
+import { SelectValueSort } from '../SelectValue';
 
-export function onChangeProductsSortSelect(e: SelectValue) {
-  switch (e.value) {
-    case ProductSortSelectValue.None:
-      ProductsAggregationStoreImpl.removeProductsSort();
+export function onChangeProductsSortSelect(e: SelectValueSort) {
+  switch (e.name) {
+    case 'Новее':
+      ProductsAggregationStoreImpl.setProductsSort(new ProductDateCreateSort(SortDirection.Ascending));
       break;
-    case ProductSortSelectValue.AddedEarlier:
-      ProductsAggregationStoreImpl.setProductsSort(new ProductDateSort(SortDirection.Ascending));
+    case 'Старее':
+      ProductsAggregationStoreImpl.setProductsSort(new ProductDateCreateSort(SortDirection.Descending));
       break;
-    case ProductSortSelectValue.AddedLater:
-      ProductsAggregationStoreImpl.setProductsSort(new ProductDateSort(SortDirection.Descending));
-      break;
-    case ProductSortSelectValue.Expensive:
+    case 'Дороже':
       ProductsAggregationStoreImpl.setProductsSort(new ProductPriceSort(SortDirection.Ascending));
       break;
-    case ProductSortSelectValue.Cheaper:
+    case 'Дешевле':
       ProductsAggregationStoreImpl.setProductsSort(new ProductPriceSort(SortDirection.Descending));
       break;
-    case ProductSortSelectValue.Alphabetically:
+    case 'А - Я':
       ProductsAggregationStoreImpl.setProductsSort(new ProductAlphabetSort(SortDirection.Ascending));
       break;
-    case ProductSortSelectValue.ReverseAlphabetically:
+    case 'Я - А':
       ProductsAggregationStoreImpl.setProductsSort(new ProductAlphabetSort(SortDirection.Descending));
+      break;
+    case 'Скоро':
+      ProductsAggregationStoreImpl.setProductsSort(new ProductDateSort(SortDirection.Ascending));
+      break;
+    case 'Позже':
+      ProductsAggregationStoreImpl.setProductsSort(new ProductDateSort(SortDirection.Descending));
       break;
   }
 }

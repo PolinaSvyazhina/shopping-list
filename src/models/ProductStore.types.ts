@@ -6,6 +6,7 @@ export interface ProductModel {
   count: number;
   price: number;
   buyWhere: string;
+  dateCreate: Date;
   date: Date;
   totalPrice: number;
   replacement: string;

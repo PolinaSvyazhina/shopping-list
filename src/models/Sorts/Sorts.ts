@@ -23,6 +23,20 @@ export class ProductDateSort implements IProductsSort {
   }
 }
 
+export class ProductDateCreateSort implements IProductsSort {
+  public direction: SortDirection;
+
+  public constructor(direction: SortDirection) {
+    this.direction = direction;
+  }
+
+  sort(products: ProductModel[]): ProductModel[] {
+    return [...products].sort((first, second) => {
+      return (+new Date(first.dateCreate) - +new Date(second.dateCreate)) * this.direction;
+    });
+  }
+}
+
 export class ProductPriceSort implements IProductsSort {
   public direction: SortDirection;
 

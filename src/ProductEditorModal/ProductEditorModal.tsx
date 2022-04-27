@@ -23,6 +23,7 @@ export const ProductEditorModal = observer((props: ProductCreatorModalProps) => 
     totalPrice: null,
     buyWhere: '',
     replacement: '',
+    dateCreate: new Date(Date.now()),
     date: new Date(Date.now()),
     bought: false,
   };
