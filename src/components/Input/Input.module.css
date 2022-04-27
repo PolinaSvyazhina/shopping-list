@@ -1,6 +1,5 @@
 .input {
-  padding: 5px;
-  top: 35px;
+  padding: 11px 16px 10px 16px;
   border: 0;
   margin-bottom: 17px;
   background: var(--object-color);
@@ -9,4 +8,13 @@
   color: var(--text-color);
   font-size: 16px;
   line-height: 19px;
+  outline: none;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.error {
+  border: 2px solid #ff0000;
 }

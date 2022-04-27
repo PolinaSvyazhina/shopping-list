@@ -1,1 +1,0 @@
-export { InputName } from './InputName';

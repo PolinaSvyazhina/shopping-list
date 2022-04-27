@@ -1,1 +1,0 @@
-export { InputReplacement } from './InputReplacement';

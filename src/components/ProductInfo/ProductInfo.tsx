@@ -2,16 +2,21 @@ import classes from './ProductInfo.module.css';
 import React from 'react';
 import { ProductModel } from '../../models/ProductStore.types';
 import { priceConverter } from '../../priceConverter';
+import { Button } from '../Button';
+import clsx from 'clsx';
 
 interface ProductEditorProps {
   stateProduct: ProductModel;
+  removeProduct: () => void;
+  SetIsEdit: (value: boolean) => void;
 }
 
-export const ProductInfo: React.FC<ProductEditorProps> = ({ stateProduct }) => {
+export const ProductInfo: React.FC<ProductEditorProps> = ({ stateProduct, removeProduct, SetIsEdit }) => {
   function formatDate(thisData: Date) {
     const date: Date = new Date(thisData);
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
   }
+
   const convertedPriceResult = priceConverter(stateProduct);
   const convertedPrice = convertedPriceResult.value;
 
@@ -45,6 +50,12 @@ export const ProductInfo: React.FC<ProductEditorProps> = ({ stateProduct }) => {
           <p className={`titleSmall ${classes.title}`}>Замены</p>
           {stateProduct.replacement ? <p>{stateProduct.replacement}</p> : <p>—</p>}
         </div>
+      </div>
+      <div className={classes.buttons}>
+        <Button className={clsx(classes.redButton, classes.changeButton)} onClick={removeProduct}>
+          Удалить
+        </Button>
+        <Button onClick={() => SetIsEdit(true)}>Изменить</Button>
       </div>
     </form>
   );
