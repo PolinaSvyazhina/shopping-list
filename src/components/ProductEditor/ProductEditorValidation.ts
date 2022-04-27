@@ -37,5 +37,6 @@ export const validateTotalPrice = (value: number): ValidationInfo => {
       type: 'submit',
     };
   }
+
   return null;
 };
