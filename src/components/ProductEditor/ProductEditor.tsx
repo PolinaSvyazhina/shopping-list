@@ -24,7 +24,7 @@ interface ProductEditorProps {
 export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, dispatch, onClose, SetIsEdit, isEdit }) => {
   const refValidationContainer = useRef<ValidationContainer>(null);
 
-  async function addProduct(e: any) {
+  async function addProduct(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
     const isValid = await refValidationContainer.current.validate();
     if (!isValid) {
@@ -34,8 +34,8 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
     onClose();
   }
 
-  async function updateProduct(e: any) {
-    e.preventDefault;
+  async function updateProduct(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault();
     const isValid = await refValidationContainer.current.validate();
     if (!isValid) {
       return;
@@ -59,7 +59,7 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
       totalPrice: Number(value) || null,
     });
 
-    refValidationContainer.current.validate();
+    refValidationContainer.current?.validate();
   };
 
   const handlePriceChange = (value: string) => {
@@ -67,7 +67,7 @@ export const ProductEditor: React.FC<ProductEditorProps> = ({ stateProduct, disp
       type: 'price',
       price: convertedPriceResult.price(Number(value) || null),
     });
-    refValidationContainer.current.validate();
+    refValidationContainer.current?.validate();
   };
 
   return (
