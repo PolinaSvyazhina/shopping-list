@@ -4,8 +4,8 @@ import { IProductsSort } from './Sorts/Sorts';
 import { IProductBuyingFilter, IBuyingPlaceProductFilter } from './Filters/Filters';
 
 class ProductsAggregationStore {
-  public PurchasePlaceProductFilter: IBuyingPlaceProductFilter = null;
-  public ProductPurchaseFilter: IProductBuyingFilter = null;
+  public BuyingPlaceProductFilter: IBuyingPlaceProductFilter = null;
+  public ProductBuyingFilter: IProductBuyingFilter = null;
   public ProductsSort: IProductsSort = null;
 
   public constructor() {
@@ -13,11 +13,11 @@ class ProductsAggregationStore {
   }
 
   setPurchasePlaceProductFilter(filter: IBuyingPlaceProductFilter) {
-    this.PurchasePlaceProductFilter = filter;
+    this.BuyingPlaceProductFilter = filter;
   }
 
   setProductPurchaseFilter(filter: IProductBuyingFilter) {
-    this.ProductPurchaseFilter = filter;
+    this.ProductBuyingFilter = filter;
   }
 
   setProductsSort(sort: IProductsSort) {
@@ -25,11 +25,11 @@ class ProductsAggregationStore {
   }
 
   removePurchasePlaceProductFilter() {
-    this.PurchasePlaceProductFilter = null;
+    this.BuyingPlaceProductFilter = null;
   }
 
   removeProductPurchaseFilter() {
-    this.ProductPurchaseFilter = null;
+    this.ProductBuyingFilter = null;
   }
 
   removeProductsSort() {
@@ -37,10 +37,10 @@ class ProductsAggregationStore {
   }
 
   get filters() {
-    if (this.PurchasePlaceProductFilter === null && this.ProductPurchaseFilter === null) return [];
-    if (this.PurchasePlaceProductFilter === null) return [this.ProductPurchaseFilter];
-    if (this.ProductPurchaseFilter === null) return [this.PurchasePlaceProductFilter];
-    return [this.PurchasePlaceProductFilter, this.ProductPurchaseFilter];
+    if (this.BuyingPlaceProductFilter === null && this.ProductBuyingFilter === null) return [];
+    if (this.BuyingPlaceProductFilter === null) return [this.ProductBuyingFilter];
+    if (this.ProductBuyingFilter === null) return [this.BuyingPlaceProductFilter];
+    return [this.BuyingPlaceProductFilter, this.ProductBuyingFilter];
   }
 
   getProductAggregation() {

@@ -106,7 +106,7 @@ export const Main = observer(() => {
               <p className="titleMedium">Итого</p>
               <h1 className={classes.total}>{getProductsTotalAmount(aggregatedProducts)}р.</h1>
             </div>
-            <DownloadButton />
+            <DownloadButton products={aggregatedProducts} />
             <div />
           </div>
           <Delete remove={remove} removeAll={removeAll} style={{ alignSelf: `flex-end` }} />

@@ -6,11 +6,12 @@ export function getBuyingPlaceProductFilterSelectOptions(products: Array<Product
     ...new Set(
       products
         .filter((product) =>
-          ProductsAggregationStoreImpl.ProductPurchaseFilter !== null
-            ? ProductsAggregationStoreImpl.ProductPurchaseFilter.isCorrect(product)
+          ProductsAggregationStoreImpl.ProductBuyingFilter !== null
+            ? ProductsAggregationStoreImpl.ProductBuyingFilter.isCorrect(product)
             : true
         )
         .map((product) => product.buyWhere)
+        .filter((buyWhere) => buyWhere !== null && buyWhere !== '')
     ),
   ].map((place) => ({
     label: place,
