@@ -10,8 +10,8 @@ export function getBuyingPlaceProductFilterSelectOptions(products: Array<Product
             ? ProductsAggregationStoreImpl.ProductBuyingFilter.isCorrect(product)
             : true
         )
+        .filter((product) => product.buyWhere !== null && product.buyWhere.replace(/\s/g, '').length > 0)
         .map((product) => product.buyWhere)
-        .filter((buyWhere) => buyWhere !== null && buyWhere !== '')
     ),
   ].map((place) => ({
     label: place,
